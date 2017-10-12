@@ -1,0 +1,43 @@
+
+ <nav class="white">
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input id="searchInventario" type="search" [(ngModel)]="search" name="search" class="black-text">
+          <label class="label-icon" for="search"><i class="material-icons grey-text" >search</i></label>
+          <i class="material-icons grey-text" (click)="cleanSearch()" 
+             *ngIf="search != ''">close</i>
+        </div>
+      </form>
+    </div>
+  </nav>
+
+
+<table class="responsive-table striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Inventario</th>
+            <th>Reorden</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+        </tr>    
+    </thead>
+    <tbody>
+        <tr *ngFor="let producto of productos | inventarioFilter:search">
+            <th>{{ producto.producto }}</th>
+            <th>{{ producto.precio }}</th>
+            <th>{{ producto.inventario }}</th>
+            <th>{{ producto.reorden }}</th>
+            
+            <th><button class="btn blue" (click)="producto.editable = !producto.editable">Modificar</button></th>
+            <th><button class="btn red" (click)="destroy(producto)">Eliminar</button></th>
+            
+            <app-edit-inventario [producto]="producto" 
+                *ngIf="producto.editable"
+                (updateProductoEvent)="update($event)"></app-edit-inventario>
+            
+        </tr>
+    </tbody>
+</table>

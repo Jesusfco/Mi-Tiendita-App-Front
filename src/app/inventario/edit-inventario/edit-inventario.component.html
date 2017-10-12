@@ -1,0 +1,36 @@
+<div class="editProductoContent" >
+    <div class="editProductCancel" (click)="producto.editable = !producto.editable"></div>
+    <div class="editProductoForm">
+        <button class="cancelarNuevoProducto btn red " 
+                (click)="producto.editable = !producto.editable"
+                >Cancelar
+        </button>
+        
+        <h3>{{ productoEdit.producto }}</h3>
+        <form (submit)="update()">
+            
+            <span>Nombre del Producto:</span><br>
+                <input type="text" name="producto" [(ngModel)]="productoEdit.producto">
+                <br> 
+
+                <span>Precio:</span><br>
+                <input type="number" name="precio" [(ngModel)]="productoEdit.precio">
+                <br>
+
+                <span>Inventario:</span><br>
+                <input type="number" name="inventario" [(ngModel)]="productoEdit.inventario">
+                <br>
+
+                <span>Reorden:</span><br>
+                <input type="number" name="reorden" [(ngModel)]="productoEdit.reorden">
+                <br>
+
+                <span>Codigo De barras:</span><br>
+                <input type="text" name="codigo" [(ngModel)]="productoEdit.codigo">
+                <br><br>
+            <button class="btn blue">Modificar</button>
+        </form>    
+        
+    </div>
+    
+</div>

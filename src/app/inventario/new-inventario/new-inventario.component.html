@@ -1,0 +1,43 @@
+﻿<a class="btn btn-floating btn-large orange" id='createBtn' (click)="showNewProduct()">
+    <i class="material-icons">add</i>
+</a>
+
+
+
+<div class="newProductoContent" *ngIf="ventanaP">
+    <div class="cancelarDiv" (click)="hideNewProduct()">
+    </div>
+
+    <div class="newProductFormDiv">
+        <button class="btn red cancelarNuevoProducto" (click)="hideNewProduct()">Cancelar
+        </button>
+
+        <h3>Agrega un nuevo Producto</h3>
+        <form [formGroup]="rForm" (submit)="create()">
+
+            <span>Nombre del Producto:</span>
+            <input type="text" name="producto" [(ngModel)]="newProduct.producto">
+            <br>
+
+            <span>Precio:</span>
+            <input type="number" name="precio" [(ngModel)]="newProduct.precio">
+            <br>
+
+            <span>Inventario:</span>
+            <input type="number" name="inventario" [(ngModel)]="newProduct.inventario">
+            <br>
+
+            <span>Reorden:</span>
+            <input type="number" name="reorden" [(ngModel)]="newProduct.reorden">
+            <br>
+
+            <span>Codigo De barras:</span>
+            <input type="text" name="codigo" [(ngModel)]="newProduct.codigo">
+
+            <input type="submit" [disabled]="!rForm.valid" class="btn green">
+            <!--<i class="material-icons left">note_add</i>Agregar-->
+        </form>
+
+    </div>
+
+</div>

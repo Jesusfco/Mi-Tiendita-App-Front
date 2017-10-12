@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\caja",
+    "\\app\\inventario",
+    "\\app\\sale-point",
+    "\\app\\sale-point\\sale-list"
+  ],
+  "SelectedNode": "\\app\\caja\\caja.service.ts",
+  "PreviewInSolutionExplorer": false
+}

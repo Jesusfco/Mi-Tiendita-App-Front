@@ -1,0 +1,68 @@
+/*table {
+    margin: 0 auto;
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead {
+    background: #0096ed; color: white;
+    
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    transition: background-color 0.3s ease;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+    
+}
+
+th {
+    font-weight: 300;
+}
+
+table.striped>tbody>tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+tr:hover span,h3 {
+    color: black;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}*/
+
+
+.btnTable {
+    text-align: center;
+}
+
+.btnEdit {
+    background: #13c600;
+}
+
+.btnDelete {
+    background: #ff2d2d;
+}
+
+/*.tableDiv {
+    width: 100%;
+    overflow-x: scroll;
+}*/
+
+

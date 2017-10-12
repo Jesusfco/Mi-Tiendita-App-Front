@@ -1,0 +1,157 @@
+﻿.content {
+    display: flex;        
+    flex-flow: flex-direction flex-wrap;
+    margin-top: 60px;
+    
+}
+.navegation-bar {
+    background: #fafafa;
+    display: block;
+    width: 225px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    padding-top: 55px;
+    z-index: 1;
+}
+
+.preAppContainer {    
+    width: 100%;
+    padding: 25px 0px;
+    padding-left: 220px;
+}
+
+.appContainer {
+    background: white;
+    width: 92%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: block;
+    padding: 10px;
+    position: relative;
+}
+
+
+ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+.navegation-bar li {
+    padding: 12px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #dbdbdb;   
+    color: darkblue;
+    transition: background-color 0.3s ease;
+}
+li:hover {
+    background: #eaeaea;
+}
+hr {
+    margin: 0;
+}
+
+.icon {
+    margin-right: 10px;
+    margin-top: -10px;
+    position: relative;
+    top: 6px;
+    
+}
+
+@media screen and (max-width: 850px){
+    .navegation-bar {
+        display: none;
+    }
+    
+    .preAppContainer {
+        padding: 0px
+    }
+    
+    .appContainer {
+        position: inherit;
+    }
+}
+
+
+
+/*header nav */
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  background-color: #3b5998;
+}
+
+.side-nav {
+  z-index: 100 !important;
+}
+
+#numberNotificaciones {
+  position: absolute;
+  color: red;
+  top: 0;
+  padding: 0;
+  z-index: 11;
+  margin-left: 37px;
+  padding-top: 10px;
+}
+
+@media screen and (max-width: 850px) {
+}
+
+
+
+
+/*Notificaciones PopOut*/
+
+.notificacionIcon {
+  font-size: 50px;
+}
+
+.notificacionesPop {
+  position: fixed;
+  background: white;
+  color: black;
+  top: 65px;
+  margin-left: -320px;
+  width: 400px;
+  border: 1px solid #dbdbdb;
+}
+
+.miniNot {
+  width: 100%;
+  padding: 14px 10px;
+  cursor: pointer;
+  transition: .2s;
+  line-height: 100%;
+}
+
+  .miniNot:hover {
+    background-color: #f7f7f7;
+  }
+
+
+.side-nav[_ngcontent-c1] {
+  z-index: 999999999999 !important;
+}
+
+@media screen and (max-width: 600px){
+    .notificacionIcon{
+      font-size: 30px;
+    }
+    .notificacionesPop {
+      width: 100%;
+      right: 0;
+      margin: 0;
+      top: 50px;
+    }
+}
