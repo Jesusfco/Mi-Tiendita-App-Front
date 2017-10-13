@@ -28,6 +28,8 @@ import { SugerenciasPipe } from './sale-point/sale-create/sugerencias.pipe';
 import { CajaComponent } from './caja/caja.component';
 import { LessProductComponent } from './less-product/less-product.component';
 import { AgregarInventarioComponent } from './inventario/agregar-inventario/agregar-inventario.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { AgregarInventarioComponent } from './inventario/agregar-inventario/agre
     CajaComponent,
     LessProductComponent,
     AgregarInventarioComponent,
+    RegisterComponent,
+    LoginComponent,
     
   ],
   imports: [
