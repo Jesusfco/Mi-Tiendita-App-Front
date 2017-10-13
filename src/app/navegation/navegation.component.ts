@@ -17,6 +17,7 @@ export class NavegationComponent implements OnInit {
     cajaShow: boolean = false;
     lessProductoShow: boolean = false;  
     showNotificaciones: boolean = false;
+    registerShow: boolean = false;
 
     sale: Sale = new Sale();
     sales: Array<Sale> = [];
@@ -73,6 +74,14 @@ export class NavegationComponent implements OnInit {
         this.inventarioShow = false;
         this.cajaShow = false;
         this.lessProductoShow = true;
+    }
+
+    showRegister(){
+        this.salePointShow = false;
+        this.inventarioShow = false;
+        this.cajaShow = false;
+        this.lessProductoShow = false; 
+        this.registerShow = true;
     }
     
     venta(sale: Sale) {

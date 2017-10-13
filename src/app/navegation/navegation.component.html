@@ -42,12 +42,15 @@
             <a (click)="showInventario()"><li><i class="material-icons left">list</i>Inventario</li></a>
             
             <a (click)="showCaja()"><li><i class="material-icons left">business</i>Caja</li></a>
+
+            <a (click)="showRegister()"><li>Registrate</li></a>
             
         </ul>
     </div>
     
     <div class="preAppContainer">
-        <div class="appContainer">            
+        <div class="appContainer">  
+            <app-register *ngIf="register"></app-register>          
             <app-inventario [productos]="productos"                 
                 *ngIf="inventarioShow" 
                 (newProductoEmitter)="pushNewProducto($event)"></app-inventario>
