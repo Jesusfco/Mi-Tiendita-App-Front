@@ -1,8 +1,49 @@
 <div>
 
-  <form>
-    
-    <button type="submit">
+  <form (submit)="shopForm()" *ngIf="form.shopForm">
+
+    <label>Nombre de la tienda</label>
+    <input [(ngModel)]="shop.name" name="name" type="text">
+
+    <h5>Direccion</h5>
+    <label>Calle:</label>
+    <input [(ngModel)]="shop.street" name="street" type="text">
+
+    <label>Colonia:</label>
+    <input [(ngModel)]="shop.colony" name="colony" type="text">
+
+    <label>Numero:</label>
+    <input [(ngModel)]="shop.number" name="number" type="number">
+
+    <label>Codigo Postal:</label>
+    <input [(ngModel)]="shop.postalCode" name="postalCode" type="text">
+
+    <label>Ciudad</label>
+    <input [(ngModel)]="shop.city" name="city" type="text">
+
+    <label>Ciudad</label>
+    <input [(ngModel)]="shop.city" name="city" type="text">
+
+    <button type="submit">Aceptar</button>
+  </form>
+
+  <form (submit)="userForm()" *ngIf="form.userForm">
+    <h4>Crea tu Usuario principal</h4>
+
+    <label>Nombre Completo</label>
+    <input [(ngModel)]="user.name" name="name" type="text">
+
+    <label>Correo:</label>
+    <input [(ngModel)]="user.email" name="email" type="email">
+
+    <label>Numero Celular:</label>
+    <input [(ngModel)]="user.phone" name="phone" type="tel">        
+
+    <label>Contraseña:</label>
+    <input [(ngModel)]="user.password" name="password" type="password">   
+
+    <button type="submit">Aceptar</button>
+
   </form>
 
 </div>

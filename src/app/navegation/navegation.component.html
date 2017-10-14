@@ -50,7 +50,7 @@
     
     <div class="preAppContainer">
         <div class="appContainer">  
-            <app-register *ngIf="register"></app-register>          
+            <app-register *ngIf="registerShow"></app-register>          
             <app-inventario [productos]="productos"                 
                 *ngIf="inventarioShow" 
                 (newProductoEmitter)="pushNewProducto($event)"></app-inventario>

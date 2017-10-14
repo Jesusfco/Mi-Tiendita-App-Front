@@ -29,7 +29,9 @@ import { CajaComponent } from './caja/caja.component';
 import { LessProductComponent } from './less-product/less-product.component';
 import { AgregarInventarioComponent } from './inventario/agregar-inventario/agregar-inventario.component';
 import { RegisterComponent } from './register/register.component';
+import { RegisterService } from './register/register.service';
 import { LoginComponent } from './login/login.component';
+import { LoginService }  from './login/login.service';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,7 @@ import { LoginComponent } from './login/login.component';
 //    ]),
     BrowserAnimationsModule,    
   ],
-  providers: [InventarioService, VentasService, CajaService],
+  providers: [InventarioService, VentasService, CajaService, RegisterService , LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

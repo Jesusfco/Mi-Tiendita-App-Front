@@ -55,7 +55,7 @@ export class InventarioService {
 //        return Observable.
 //    }
     errorArranque(error: any) {
-        alert('No se establecio conexion con el servidor');
+        //alert('No se establecio conexion con el servidor');
         console.log(error);
     }
 }
