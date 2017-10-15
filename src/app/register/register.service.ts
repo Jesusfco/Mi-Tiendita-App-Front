@@ -13,7 +13,7 @@ export class RegisterService {
   constructor(private _http: Http) { }
 
   postNewShop(post){  
-      return this._http.post(this.link.url + 'register', post )
+      return this._http.post(this.link.url + 'register', post)
         .map( data => data.json())
         .toPromise();        
   
