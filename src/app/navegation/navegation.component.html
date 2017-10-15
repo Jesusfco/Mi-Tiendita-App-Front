@@ -1,83 +1,41 @@
-﻿<nav class="z-depth-1" role="navigation">
-  <div class="nav-wrapper container">
-    <a class=""><img src="http://tiendita.com.ar/img/logo.png"  width="100px"/></a>
+﻿<nav>
+    <button md-button color="" (click)='sideNav()'><md-icon>menu</md-icon> Menu</button>
 
-    <ul class="right">
-
-
-      <li *ngIf="notificaciones == 0">
-        <a><i class="material-icons">new_releases</i> {{ notificaciones }}</a>          
-      </li>
-
-      <li *ngIf="notificaciones > 0" (click)="showNotificaciones = !showNotificaciones">
-        <a>
-          <i class="material-icons white-text notificacionIcon">email</i>          
-        </a>
-      </li>
-      <div id="numberNotificaciones">{{notificaciones}}</div>
-
-      <div *ngIf="showNotificaciones" class="notificacionesPop">
-        <div class="miniNot" (click)="showLessProducts()">
-          Tiene {{ notificaciones }} productos con proxima expiracion
-        </div>                
-      </div>
-
-      
+    <div id="userName">
 
 
-      <li class="hide-on-large-only">
-        <a href="#" data-activates="slide-out" class="button-collapse "><i class="material-icons white-text">menu</i></a>
-      </li>
+    </div>
+</nav>
+
+<div class="sideNav" [@menu]='stateMenu'>
+    <div style="background-image: url(http://planoinformativo.com/stock12/image/2015/Agosto/25/tiendas.jpg)" id="userInfSection">
+        <div>
+            <img src="https://www.w3schools.com/w3css/img_avatar3.png">
+            <!-- <p>{{userData.userName | lowercase}}</p>
+            <p id="emailInf">{{userData.userEmail | lowercase}}</p>
+            <p *ngIf="userData.userType == 1" id="userTypeInf">Empleado</p>
+            <p *ngIf="userData.userType == 9" id="userTypeInf">Administrador</p>
+            <p *ngIf="userData.userType == 10" id="userTypeInf">Super Administrador</p> -->
+        </div>
+    </div>
+
+
+    <h5>USUARIO</h5>
+    <ul>
+        <li><button md-button (click)="cerrarSesion()">Cerrar Sesión</button></li>
+        <!-- <li><button md-button>Perfil</button></li> -->
     </ul>
 
 
-  </div>
-</nav>
-
-<div class="content">
-    <div class="navegation-bar">
-        <ul>
-            <a (click)="showSalePoint()"><li><i class="material-icons left">shopping_cart</i>Punto De Venta</li></a>
-            
-            <a (click)="showInventario()"><li><i class="material-icons left">list</i>Inventario</li></a>
-            
-            <a (click)="showCaja()"><li><i class="material-icons left">business</i>Caja</li></a>
-
-            <a (click)="showRegister()"><li>Registrate</li></a>
-            
-        </ul>
-    </div>
-    
-    <div class="preAppContainer">
-        <div class="appContainer">  
-            <app-register *ngIf="registerShow"></app-register>          
-            <app-inventario [productos]="productos"                 
-                *ngIf="inventarioShow" 
-                (newProductoEmitter)="pushNewProducto($event)"></app-inventario>
-            <app-sale-point [productos]="productos"
-                            [sale]="sale" [sales]="sales"
-                (ventaEvent)="venta($event)"
-                *ngIf="salePointShow"></app-sale-point>
-          <app-caja [caja]="caja" *ngIf="cajaShow"></app-caja>
-          <app-less-product *ngIf="lessProductoShow"
-                            [productos]="productos"></app-less-product>
-          
-        </div>
-    </div>     
-    
 </div>
 
+<div class="principal" [@space]="statePanel">
+    <div class="principalCard">
+        <!-- <app-user *ngIf="view.user"></app-user>
+        <app-task *ngIf="view.task"></app-task>
+        <app-assignment *ngIf="view.assignament"></app-assignment> -->
 
-<ul id="slide-out" class="side-nav">
-    <li><div class="userView">
-      <div class="background">
-        <img src="http://thepatternlibrary.com/img/ao.gif">
-      </div>
-      <a href="#!user"><img class="circle" src="https://cdn0.iconfinder.com/data/icons/ie_Financial_set/256/09.png"></a>
-      <a href="#!name"><span class="white-text name">Tiendita Herradura</span></a>
-      <a href="#!email"><span class="white-text email">tienda@gmail.com</span></a>
-    </div></li>
-    <li><a (click)="showSalePoint()"><i class="material-icons">shopping_cart</i>Punto De Venta</a></li>
-    <li><a (click)="showInventario()"><i class="material-icons">list</i>Inventario</a></li>
-    <li><a (click)="showCaja()"><i class="material-icons">business</i>Caja</a></li>
-</ul>
+
+    </div>
+
+</div>
