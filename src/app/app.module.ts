@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 // import { CajaService } from './caja/caja.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule } from '@angular/material';
+//import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule } from '@angular/material';
 //import { MaterializeModule } from 'materialize-css';
 
 import { NavegationComponent } from './navegation/navegation.component';
@@ -32,6 +32,24 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterService } from './register/register.service';
 import { LoginComponent } from './login/login.component';
 import { LoginService }  from './login/login.service';
+
+
+
+import { 
+  MatAutocompleteModule, 
+  MatButtonModule, 
+  MatButtonToggleModule, 
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatNativeDateModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -60,14 +78,29 @@ import { LoginService }  from './login/login.service';
     FormsModule,    
     HttpModule,
     JsonpModule,
-    //MaterializeModule,
+    // MaterializeModule,
 //    RouterModule.forRoot([
 //        {
 //            path: 'inventario',
 //            component: InventarioComponent
 //        }        
 //    ]),
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,  
+    
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+
   ],
   providers: [ RegisterService , LoginService],
   bootstrap: [AppComponent]

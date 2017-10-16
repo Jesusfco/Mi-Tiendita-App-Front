@@ -1,157 +1,129 @@
-﻿.content {
-    display: flex;        
-    flex-flow: flex-direction flex-wrap;
-    margin-top: 60px;
-    
-}
-.navegation-bar {
-    background: #fafafa;
-    display: block;
-    width: 225px;
-    height: 100%;
+﻿nav {
     position: fixed;
-    top: 0;
-    padding-top: 55px;
-    z-index: 1;
-}
-
-.preAppContainer {    
+    height: 48px;
     width: 100%;
-    padding: 25px 0px;
-    padding-left: 220px;
+    background: #3f51b5;
+    z-index: 4;
+    color: white;
+    padding: 5px 20px;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
 }
 
-.appContainer {
-    background: white;
-    width: 92%;
-    max-width: 1200px;
-    margin: 0 auto;
+nav button {
+    z-index: 4;
     display: block;
-    padding: 10px;
-    position: relative;
 }
 
+#userName {
+    position: fixed;
+    top: 3px;
+    right: 15px;
+    text-align: right;
+}
 
-ul {
-    padding-left: 0;
-    list-style-type: none;
+#userName img {
+    height: 30px;
+    display: inline-block;
+    margin: 5px;
 }
-.navegation-bar li {
-    padding: 12px 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #dbdbdb;   
-    color: darkblue;
-    transition: background-color 0.3s ease;
-}
-li:hover {
-    background: #eaeaea;
-}
-hr {
+
+#userName p {
+    display: inline-block;
+    padding-left: 20px;
     margin: 0;
 }
 
-.icon {
-    margin-right: 10px;
-    margin-top: -10px;
+
+/* Todo lo que tenga que ver con el menu Alado */
+
+.sideNav {
+    position: fixed;
+    height: 100vh;
+    width: 250px;
+    top: 0;
+    padding: 48px 0px;
+    background: white;
+    z-index: 3;
+    /* outline: 1px solid #333;
+    overflow-y: scroll; */
+}
+
+.sideNav h5 {
+    padding: 6px 10px;
+    color: #333333;
+    margin: 0;
+    font-size: 11px;
+    border-bottom: 1px solid #DDDDDD
+}
+
+.sideNav ul {
+    list-style-type: none;
+    margin: 0px 0px 0px 20px;
+    padding: 0;
+}
+
+.sideNav button {
+    text-align: left;
+    width: 100%;
+}
+
+
+/* ZONA DE INFORMACION DEL USUARIO */
+
+#userInfSection {
+    height: 135px;
+    width: 100%;
     position: relative;
-    top: 6px;
-    
+    background-size: 100%;
 }
 
-@media screen and (max-width: 850px){
-    .navegation-bar {
-        display: none;
-    }
-    
-    .preAppContainer {
-        padding: 0px
-    }
-    
-    .appContainer {
-        position: inherit;
-    }
+#userInfSection div {
+    padding: 15px;
 }
 
-
-
-/*header nav */
-
-.example-icon {
-  padding: 0 14px;
+#userInfSection img {
+    width: 60px;
+    border-radius: 50%;
 }
 
-.example-spacer {
-  flex: 1 1 auto;
+#userInfSection p {
+    color: white !important;
+    margin: 10px 0 0 0;
+    font-size: 12px;
+    text-transform: capitalize;
 }
 
-nav {
-  position: fixed;
-  top: 0;
-  z-index: 2;
-  background-color: #3b5998;
+#userInfSection #emailInf {
+    color: #CECECE;
+    font-size: 11px;
+    margin-top: 5px;
+    text-transform: lowercase;
 }
 
-.side-nav {
-  z-index: 100 !important;
-}
-
-#numberNotificaciones {
-  position: absolute;
-  color: red;
-  top: 0;
-  padding: 0;
-  z-index: 11;
-  margin-left: 37px;
-  padding-top: 10px;
-}
-
-@media screen and (max-width: 850px) {
+#userInfSection #userTypeInf {
+    font-size: 10px;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    margin: 0;
 }
 
 
+/* Area de Aplicacion principal */
 
-
-/*Notificaciones PopOut*/
-
-.notificacionIcon {
-  font-size: 50px;
+.principalCard {
+    width: 95%;
+    margin: 0 auto;
+    max-width: 1600px;
+    background: white;
+    display: block;
+    margin-bottom: 15%;
+    min-height: 85vh;
+    font-weight: 300px;
 }
 
-.notificacionesPop {
-  position: fixed;
-  background: white;
-  color: black;
-  top: 65px;
-  margin-left: -320px;
-  width: 400px;
-  border: 1px solid #dbdbdb;
-}
-
-.miniNot {
-  width: 100%;
-  padding: 14px 10px;
-  cursor: pointer;
-  transition: .2s;
-  line-height: 100%;
-}
-
-  .miniNot:hover {
-    background-color: #f7f7f7;
-  }
-
-
-.side-nav[_ngcontent-c1] {
-  z-index: 999999999999 !important;
-}
-
-@media screen and (max-width: 600px){
-    .notificacionIcon{
-      font-size: 30px;
-    }
-    .notificacionesPop {
-      width: 100%;
-      right: 0;
-      margin: 0;
-      top: 50px;
+@media screen and (max-width: 750px) {
+    .principalCard {
+        width: 100%;
     }
 }

@@ -1,14 +1,14 @@
-import { TiendaAppPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('tienda-app App', () => {
-  let page: TiendaAppPage;
+describe('mi-tiendita App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new TiendaAppPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
