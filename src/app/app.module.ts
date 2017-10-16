@@ -53,25 +53,10 @@ import {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    // InventarioComponent,    
+    AppComponent,    
     NavegationComponent,
-    // InventarioDatailsComponent,
-    // InventarioListComponent,
-    // NewInventarioComponent,
-    // EditInventarioComponent,
-    // SalePointComponent,
-    // SaleListComponent,
-    // SaleEditComponent,
-    // SaleCreateComponent,
-    // InventarioFilterPipe,
-    // SugerenciasPipe,
-    // CajaComponent,
-    // LessProductComponent,
-    // AgregarInventarioComponent,
     RegisterComponent,
     LoginComponent,
-    
   ],
   imports: [
     BrowserModule,
