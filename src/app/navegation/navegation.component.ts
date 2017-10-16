@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
+import { Storage } from '../storage';
 
 @Component({
   selector: 'app-navegation',
@@ -36,8 +37,17 @@ import { trigger, state, style, transition, animate, keyframes} from '@angular/a
 export class NavegationComponent implements OnInit {
     
     @Output() closeSession= new EventEmitter();
+
     stateMenu: string;
     statePanel: string;
+
+    userData: Storage = new Storage();
+
+    view: any = {
+      inventario: true,
+      caja: false,
+      puntoVenta: false,
+    }
 
     
 
@@ -81,5 +91,9 @@ export class NavegationComponent implements OnInit {
             // this.statePanel = (this.statePanel === 'initial' ? 'final' : 'initial');
 
         } 
+    }
+
+    inventarioView(){
+
     }
 }

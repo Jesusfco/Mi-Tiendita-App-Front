@@ -11,15 +11,19 @@
     <div style="background-image: url(http://planoinformativo.com/stock12/image/2015/Agosto/25/tiendas.jpg)" id="userInfSection">
         <div>
             <img src="https://www.w3schools.com/w3css/img_avatar3.png">
-            <!-- <p>{{userData.userName | lowercase}}</p>
+            <p>{{userData.userName | lowercase}}</p>
             <p id="emailInf">{{userData.userEmail | lowercase}}</p>
-            <p *ngIf="userData.userType == 1" id="userTypeInf">Empleado</p>
-            <p *ngIf="userData.userType == 9" id="userTypeInf">Administrador</p>
-            <p *ngIf="userData.userType == 10" id="userTypeInf">Super Administrador</p> -->
+            <p *ngIf="userData.userType == 1" id="userTypeInf">Caja</p>
+            <p *ngIf="userData.userType == 2" id="userTypeInf">Administrador</p>
+            <p *ngIf="userData.userType == 3" id="userTypeInf">Super Administrador</p>
         </div>
     </div>
 
+    <h5>APLICACIÓN</h5>
+    <ul>
+        <li><button mat-button (click)="inventarioView()">Inventario</button></li>
 
+    </ul>
     <h5>USUARIO</h5>
     <ul>
         <li><button mat-button (click)="cerrarSesion()">Cerrar Sesión</button></li>
@@ -31,9 +35,7 @@
 
 <div class="principal" [@space]="statePanel">
     <div class="principalCard">
-        <!-- <app-user *ngIf="view.user"></app-user>
-        <app-task *ngIf="view.task"></app-task>
-        <app-assignment *ngIf="view.assignament"></app-assignment> -->
+        <!-- <app-inventario></app-inventario> -->
 
 
     </div>

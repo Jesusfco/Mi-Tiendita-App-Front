@@ -1,6 +1,8 @@
 ﻿<app-navegation *ngIf="userSignin" (closeSession)="appView()"></app-navegation>
 <app-login *ngIf="!userSignin" (login)="appView()"></app-login>
 
-<div class="loader">
+<div class="loader" [@loader]="stateLoader">
     <img [@loaderImg]="stateLoaderImg" src="https://static.mercadoshops.com/static2/p/288818/v/1/public/assets/logo.png?r=10&env=&v=master-20171005_141900">
+    <!-- <button #btnAnimation (click)="loaderAnimation()" style="position: absolute; top: 0">CHANGE</button>
+    <button #btnAnimation (click)="test()" style="position: absolute; top: 20px">2323</button> -->
 </div>
