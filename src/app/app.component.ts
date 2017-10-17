@@ -109,7 +109,11 @@ export class AppComponent {
             },
             error =>  {
               console.log(error);
-              this.userSignin = false;
+              setTimeout(() => {
+                this.userSignin = false;
+                this.loaderAnimation();        
+              }, 1000);
+              
             }
           );
     

@@ -1,6 +1,8 @@
 ﻿import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
 import { Storage } from '../storage';
+import { Product } from '../product';
+import { InventoryService } from '../inventory/inventory.service';
 
 @Component({
   selector: 'app-navegation',
@@ -49,9 +51,11 @@ export class NavegationComponent implements OnInit {
       puntoVenta: false,
     }
 
+    products: Array<Product> = [];
+
     
 
-    constructor() { }            
+    constructor(private _http: InventoryService) { }            
 
     sideNav(){
         if(window.screen.width < 750){
@@ -74,7 +78,11 @@ export class NavegationComponent implements OnInit {
         this.stateMenu = "initial";
         this.statePanel = 'initial';
       }
-  
+      
+      this._http.getProducts().then(
+        data => this.products =  data,
+        error => console.log(error)
+      )
       
     }
       
