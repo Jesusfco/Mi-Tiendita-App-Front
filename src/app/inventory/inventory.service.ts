@@ -20,4 +20,22 @@ export class InventoryService {
     .toPromise();
   }
 
+  create(producto) { 
+    return this._http.post(this.link.url + 'inventory/create' + this.token.tokenRequest, producto)
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  update(producto) { 
+    return this._http.post(this.link.url + 'inventory/update' + this.token.tokenRequest, producto)
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  delete(producto) { 
+    return this._http.delete(this.link.url + 'inventory/delete/'+producto.id + this.token.tokenRequest)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }

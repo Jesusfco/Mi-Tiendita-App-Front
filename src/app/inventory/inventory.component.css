@@ -1,0 +1,16 @@
+.createBtn {
+    border: none;
+    padding: 10px;
+    background: #00A800;
+    color: white;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 3px;
+}
+
+#createBtn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}

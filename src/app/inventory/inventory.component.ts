@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { InventoryService } from './inventory.service';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-inventory',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventoryComponent implements OnInit {
 
-  constructor() { }
+  @Input() products;
+  createPro:boolean =  false;
+
+  constructor(private _http: InventoryService) { }
 
   ngOnInit() {
+  }
+
+  newProduct(data){
+    alert('si llego aqui');
+      this.products.push(data);
   }
 
 }
