@@ -40,6 +40,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { NewProductComponent } from './inventory/new-product/new-product.component';
 import { EditProductComponent } from './inventory/edit-product/edit-product.component';
 import { InventoryService } from './inventory/inventory.service';
+import { SalePointComponent } from './sale-point/sale-point.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { InventoryService } from './inventory/inventory.service';
     InventoryComponent,
     NewProductComponent,
     EditProductComponent,
+    SalePointComponent,
   ],
   imports: [
     BrowserModule,

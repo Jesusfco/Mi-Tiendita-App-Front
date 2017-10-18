@@ -147,6 +147,6 @@ export class NewProductComponent implements OnInit {
       this.form.validate = false;
     } 
     else { this.form.price = -1 }
-  }
+  }//Validacion del Precio requerido
 
 }

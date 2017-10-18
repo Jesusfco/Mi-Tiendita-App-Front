@@ -74,9 +74,12 @@ export class EditProductComponent implements OnInit {
 
     if(this.form.validate !== true) return;
 
-    this._http.update(this.product).then(
+    this._http.update(this.productEditable).then(
       data => {
-        this.editEvent.emit({original: this.product, edited: data });
+        setTimeout(() => {
+          this.editEvent.emit({original: this.product, edited: this.productEditable });  
+        }, 400);
+        
         this.closePop();
       }, 
       error => {
@@ -98,30 +101,36 @@ export class EditProductComponent implements OnInit {
   validateName(){
 
     this.form.name = 0;
-    if(this.product.name == null || this.product.name == '')
+    if(this.productEditable.name == null || this.product.name == '')
       this.form.name = 1;
 
     else {
 
       for(let x of this.products){
 
-        if(this.product.name == x.name){
+        if(this.productEditable.name == x.name){
 
-          this.form.name = 2;
-          this.form.validate = false;
-          return;
+          if(this.productEditable.name !== this.product.name){
+
+            this.form.name = 2;
+            this.form.validate = false;
+            return;
+            
+          }        
 
         }
 
-        this.form.name = -1;
+        
       }
+
+      this.form.name = -1;
 
     }
 
   }//Fin de validateName public function()
 
   validateCode(){
-    if(this.product.code == null){
+    if(this.productEditable.code == null){
 
       this.form.code = 0;
 
@@ -129,22 +138,27 @@ export class EditProductComponent implements OnInit {
       
       for(let x of this.products){
         
-        if(this.product.code == x.code){
+        if(this.productEditable.code == x.code){
 
-          this.form.code = 2;
-          this.form.validate = false;
-          return;
+          if(this.productEditable.code !== x.code){
+            this.form.code = 2;
+            this.form.validate = false;
+            return;
+          }          
 
         }
 
-        this.form.code = -1;
+        
       }
+
+      this.form.code = -1;
+
     }
 
   }//Function that validate Product => Code unique but enable to works if is it null
 
   validatePrice(){
-    if(this.product.price == null){
+    if(this.productEditable.price == null){
       this.form.price = 1;
       this.form.validate = false;
     } 

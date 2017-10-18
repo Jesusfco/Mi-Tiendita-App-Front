@@ -23,7 +23,9 @@ export class InventoryComponent implements OnInit {
   }
 
   update(data){
-    
+    const i = this.products.indexOf(data.original);
+    this.products[i] = data.edited;
+    this.products[i].edit =  false;
   }
 
 }
