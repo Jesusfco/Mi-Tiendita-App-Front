@@ -22,4 +22,8 @@ export class InventoryComponent implements OnInit {
       this.products.push(data);
   }
 
+  update(data){
+    
+  }
+
 }

@@ -41,6 +41,7 @@ import { trigger, state, style, transition, animate, keyframes} from '@angular/a
 })
 export class NewProductComponent implements OnInit {
 
+  @Input() products: Array<Product>;
   @Output() createEvent:EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> =  new EventEmitter();
 
@@ -64,6 +65,12 @@ export class NewProductComponent implements OnInit {
   }
 
   formSubmit(){
+    this.form.validate = true;
+    this.validateName();
+    this.validateCode();
+    this.validatePrice();
+
+    if(this.form.validate !== true) return;
 
     this._http.create(this.product).then(
       data => {
@@ -85,4 +92,61 @@ export class NewProductComponent implements OnInit {
     this.state.card = 'initial';
     
   }
+
+  validateName(){
+
+    this.form.name = 0;
+    if(this.product.name == null || this.product.name == '')
+      this.form.name = 1;
+
+    else {
+
+      for(let x of this.products){
+
+        if(this.product.name == x.name){
+
+          this.form.name = 2;
+          this.form.validate = false;
+          return;
+
+        }
+
+        this.form.name = -1;
+      }
+
+    }
+
+  }//Fin de validateName public function()
+
+  validateCode(){
+    if(this.product.code == null){
+
+      this.form.code = 0;
+
+    } else { 
+      
+      for(let x of this.products){
+        
+        if(this.product.code == x.code){
+
+          this.form.code = 2;
+          this.form.validate = false;
+          return;
+
+        }
+
+        this.form.code = -1;
+      }
+    }
+
+  }//Function that validate Product => Code unique but enable to works if is it null
+
+  validatePrice(){
+    if(this.product.price == null){
+      this.form.price = 1;
+      this.form.validate = false;
+    } 
+    else { this.form.price = -1 }
+  }
+
 }

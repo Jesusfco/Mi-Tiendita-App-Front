@@ -20,7 +20,13 @@
             <td>{{ product.price }}</td>
             <td>{{ product.stock }}</td>
             <td>{{ product.reorder }}</td>
-            <td></td>
+            <td>
+                <mat-icon>add_shopping_cart</mat-icon>
+                <mat-icon (click)="product.edit = !product.edit">edit</mat-icon>
+                <mat-icon>delete</mat-icon>
+            </td>
+
+            <app-edit-product [product]="product" [products]="products" *ngIf="product.edit" (editEvent)="update($event)" (editCloseEvent)="product.edit = false"></app-edit-product>
         </tr>
 
     </tbody>
@@ -30,4 +36,4 @@
     <mat-icon >add_shopping_cart</mat-icon>
 </button>
 
-<app-new-product *ngIf="createPro" (closeEvent)="createPro = false" (createEvent)="newProduct($event)"></app-new-product>
+<app-new-product *ngIf="createPro" [products]="products" (closeEvent)="createPro = false" (createEvent)="newProduct($event)"></app-new-product>

@@ -12,7 +12,7 @@
             <p *ngIf="form.name == 1">* Nombre Requerido</p>
             <p *ngIf="form.name == 2">* Nombre ya asignado</p>
             <p *ngIf="form.code == 2">* Codigo de barras ya asignado</p>
-            <p *ngIf="form.price == 2">* Precio requerido</p>
+            <p *ngIf="form.price == 1">* Precio requerido</p>
 
             <label>Nombre</label><br>
             <input [(ngModel)]="product.name" name="name" type="text"><br>
