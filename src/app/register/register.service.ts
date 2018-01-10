@@ -30,4 +30,10 @@ export class RegisterService {
         .map( data => data.json())
         .toPromise();        
   }
+
+  getToken(inf){
+    return this._http.post(this.link.url + 'login', inf)
+    .map(data => data.json())
+    .toPromise();
+  }
 }

@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
+import { Router } from '@angular/router';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { RegisterService } from './register.service';
 import { User } from '../user';
 import { Shop } from '../shop';
+import { Storage } from '../storage';
 import { ScaleDownUpAnimation } from '../animations';
+// import { setTimeout } from 'timers';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,8 +16,8 @@ import { ScaleDownUpAnimation } from '../animations';
 })
 export class RegisterComponent implements OnInit {
 
-  public user: User =  new User();
-  public shop: Shop =  new Shop();
+  public user: User = new User();
+  public shop: Shop = new Shop();
 
   scaleStateForm1 = '2';
   scaleStateForm2 = '1';
@@ -37,96 +41,202 @@ export class RegisterComponent implements OnInit {
     password: 0,
   }
 
-  constructor(private _http: RegisterService) { }
-
-  ngOnInit() {
-
-   
-
+  timer = {
+    email: 0,
+    phone: 0,
   }
 
-  shopForm(){
+  public storage: Storage =  new Storage();
+
+  sendingData: boolean = false;
+
+  constructor(private _http: RegisterService, private router: Router) { }
+
+  ngOnInit() {
+    if(localStorage.getItem('token') !== null || localStorage.getItem('token') == ''){ 
+      this.router.navigate(['/inventory']);
+    }
+  }
+
+  shopForm() {
+    
+    this.restoreValidationShop();
+    this.validateNameShop();
+    if (this.validateShop.validate == false) return;
+
     this.scaleStateForm1 = '1';
 
     setTimeout(() => {
       this.form.shopForm = false;
-      this.form.userForm = true;      
+      this.form.userForm = true;
 
-      setTimeout(() => {        
+      setTimeout(() => {
         this.scaleStateForm2 = '2';
       }, 10);
 
     }, 300);
-   
-  }
-  userForm(){
-    this._http.postNewShop({shop: this.shop, user: this.user}).then(
-      data => console.log(data),
-      error => console.log(error)
-    )
 
   }
+
+  userForm() {
+    this.sendingData = true;
+    this.restoreValidationUser();
+
+    this.validateNameUser();
+    this.validateEmailUser();
+    this.validatePhoneUser();
+    this.validatePasswordUser();
+
+    if (this.validateUser.email !== 1 && this.validateUser.phone !== 1)
+      this.validateUniqueEmailUser(0);
+    else {
+      this.sendingData = false;
+    }
+  }
+
+  sendDataRegister() {
+    if (this.validateUser.validate == false){
+      this.sendingData = false;
+      return;
+    } 
+    
+    this._http.postNewShop({ shop: this.shop, user: this.user }).then(
+      data => {
+          this.getToken();
+        console.log(data);
+        
+      }, 
+      error => {
+        console.log(error);
+        this.sendingData = false;
+      }  
+    );
+  }
+
+  getToken(){
+    this._http.getToken({email: this.user.email, password: this.user.password}).then(
+      data => {
+        this.storage.storageToken(data.token);
+        this.storage.storageUserData(data.user);
+        this.sendingData = false;
+        location.reload();
+      },
+      error => {
+        console.log(error);
+        this.sendingData = false;
+      }
+    );
+  }
+
+  keydownCheckUniqueEmail() {
+    this.timer.email++;
+
+    setTimeout(() => {
+      this.timer.email--;
+    }, 1000);
+
+    setTimeout(() => {
+
+      if (this.timer.email == 0) {
+
+        if (this.user.email != null || this.user.email != '')
+          this.validateUniqueEmailUser(1);
+      }
+
+    }, 1050);
+  }
+
+  keydownCheckUniquePhone(){
+    this.timer.phone++;
+
+    setTimeout(() => {
+      this.timer.phone--;
+    }, 1000);
+
+    setTimeout(() => {
+
+      if (this.timer.phone === 0) {
+
+        if (this.user.phone !== null || this.user.phone !== '')
+          this.validateUniquePhoneUser(1);
+      }
+
+    }, 1050);
+  }
+
   // VALIDACIONES DE TIENDA
-  validateNameShop(){
-    if(this.shop.name == null || this.shop.name == ''){
-      this.validateShop.name = 1 ;
+  validateNameShop() {
+    if (this.shop.name == null || this.shop.name == '') {
+      this.validateShop.name = 1;
       this.validateShop.validate = false;
     }
   }
 
   // VALIDACIONES de USUARIO
 
-  validateNameUser(){
-    if(this.user.name == null || this.user.name == ''){
+  validateNameUser() {
+    if (this.user.name == null || this.user.name == '') {
       this.validateUser.validate = false;
       this.validateUser.name = 1;
     }
   }
 
-  validateEmailUser(){
-    if(this.user.email == null || this.user.email == ''){
+  validateEmailUser() {
+    if (this.user.email == null || this.user.email == '') {
       this.validateUser.validate = false;
       this.validateUser.email = 1;
-    }  
+    }
   }
 
-  validatePhoneUser(){
-    if(this.user.phone == null || this.user.phone == ''){
+  validatePhoneUser() {
+    if (this.user.phone == null || this.user.phone == '') {
       this.validateUser.validate = false;
       this.validateUser.phone = 1;
     }
   }
 
-  validatePasswordUser(){
-    if(this.user.password == null || this.user.password == ''){
+  validatePasswordUser() {
+    if (this.user.password == null || this.user.password == '') {
       this.validateUser.validate = false;
       this.validateUser.password = 1;
     }
   }
 
-  validateUniqueEmailUser(){
-    this._http.uniqueEmail({email: this.user.email}).then(
-      data => this.validateUser.email = -1,
-      error => {
-        this.validateUser.email = 2;
-        this.validateUser.validate = false;
-      }
-    )
+  validateUniqueEmailUser(x) {
+    this._http.uniqueEmail({ email: this.user.email }).then(
+      data => {
+        if(data == true){
+          this.validateUser.email = -1;
+        } else {
+          this.validateUser.email = 2;
+          this.validateUser.validate = false;
+        }
+                
+        if(x == 0) this.validateUniquePhoneUser(0);
+
+      },
+      error => console.log(error)
+    );
   }
 
-  validateUniquePhoneUser(){
-    this._http.uniquePhone({phone: this.user.phone}).then(
-      data => this.validateUser.phone = -1,
-      error => {
-        this.validateUser.phone = 2;
-        this.validateUser.validate = false;
-      }
-    )
+  validateUniquePhoneUser(x) {
+    this._http.uniquePhone({ phone: this.user.phone }).then(
+      data => {
+        if(data == true)
+          this.validateUser.phone = -1;
+        else {
+          this.validateUser.phone = 2;
+          this.validateUser.validate = false;
+        }        
+        if(x == 0) this.sendDataRegister();
+      },
+      error => console.log(error)
+    );
   }
 
   // RESTAURACION DE VALIDACIONES
 
-  restoreValidationUser(){
+  restoreValidationUser() {
     this.validateUser = {
       validate: true,
       name: 0,
@@ -136,7 +246,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  restoreValidationShop(){
+  restoreValidationShop() {
     this.validateShop = {
       validate: true,
       name: 0,

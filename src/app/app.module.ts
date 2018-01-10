@@ -29,6 +29,8 @@ import {
   MatSelectModule,
   MatSliderModule,
   MatSlideToggleModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { NavegationComponent } from './navegation/navegation.component';
@@ -78,6 +80,8 @@ import { routes } from './app.route';
     MatSelectModule,
     MatSliderModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
 
   ],
   providers: [RegisterService , LoginService, InventoryService],

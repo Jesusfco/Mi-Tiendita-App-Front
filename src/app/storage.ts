@@ -1,18 +1,26 @@
 export class Storage {
-    token:string = localStorage.getItem('token');
-    tokenRequest:string;
-    userName: string = localStorage.getItem('userName');
-    userEmail: string =  localStorage.getItem('userEmail');
-    userId: string = localStorage.getItem('userId');
+    token: string;
+    tokenRequest: string;
+    userName: string;
+    userEmail: string;
+    userId: string;
     userType: number;
-    userActive: string = localStorage.getItem('userActive');
-    userPhone: string = localStorage.getItem('userPhone');
-    userEnterprise: string = localStorage.getItem('userEnterprise');
-
+    userPhone: string;
 
     constructor(){
-        
-        this.tokenRequest = "?token=" + this.token;
-        this.userType =  parseInt(localStorage.getItem('userType'));
+        // this.tokenRequest = "?token=" + this.token;
+        // this.userType =  parseInt(localStorage.getItem('userType'));
+    }
+
+    storageToken(token){
+        localStorage.setItem('token', token);
+    }
+
+    storageUserData(data){
+        localStorage.setItem('userName', data.name);
+        localStorage.setItem('userEmail', data.email);
+        localStorage.setItem('userId', data.id);
+        localStorage.setItem('userPhone', data.phone);
+        localStorage.setItem('userType', data.userTypeId);
     }
 }

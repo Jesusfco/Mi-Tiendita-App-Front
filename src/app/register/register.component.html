@@ -1,13 +1,18 @@
+<mat-progress-bar mode="indeterminate" *ngIf="sendingData" class="barLoader"></mat-progress-bar>
 <div class="cardSpace">
 
     <div class="registerCard">
         <h1>Registrate</h1>
 
+        <mat-spinner *ngIf="sendingData"></mat-spinner>
+
+
         <form (submit)="shopForm()" *ngIf="form.shopForm" [@ScaleDown]="scaleStateForm1">
 
             <div>
                 <label>Nombre de la tienda</label><br>
-                <input [(ngModel)]="shop.name" name="name" type="text">
+                <input [(ngModel)]="shop.name" name="name" type="text" [ngClass]="{ 'inputError': validateShop.name >= 1 }">
+                <small class="smallError" *ngIf="validateShop.name == 1">Requerido</small>
             </div>
 
             <h2>Dirección</h2>
@@ -45,27 +50,33 @@
             <button type="submit" class="btn btnAccept">Aceptar</button>
         </form>
 
-        <form (submit)="userForm()" *ngIf="form.userForm" [@ScaleDown]="scaleStateForm2">
+        <form (submit)="userForm()" *ngIf="form.userForm" [@ScaleDown]="scaleStateForm2" [ngClass]="{ 'loadingForm': sendingData == true}">
             <h4>Crea tu Usuario</h4>
 
             <div>
                 <label>Nombre Completo</label><br>
-                <input [(ngModel)]="user.name" name="name" type="text">
+                <input [(ngModel)]="user.name" name="name" type="text" [ngClass]="{ 'inputError': validateUser.name >= 1 }">
+                <small class="smallError" *ngIf="validateUser.name == 1">Requerido</small>
             </div>
 
             <div>
                 <label>Correo:</label><br>
-                <input [(ngModel)]="user.email" name="email" type="email">
+                <input [(ngModel)]="user.email" [ngClass]="{ 'inputError': validateUser.email >= 1, 'inputVerified': validateUser.email == -1 }" name="email" type="email" (keydown)="keydownCheckUniqueEmail()">
+                <small class="smallError" *ngIf="validateUser.email == 1">Requerido</small>
+                <small class="smallError" *ngIf="validateUser.email == 2">Email ya registrado</small>
             </div>
 
             <div>
                 <label>Numero Celular:</label><br>
-                <input [(ngModel)]="user.phone" name="phone" type="tel">
+                <input [(ngModel)]="user.phone" [ngClass]="{ 'inputError': validateUser.phone >= 1, 'inputVerified': validateUser.phone == -1 }" name="phone" type="tel" (keydown)="keydownCheckUniquePhone()">
+                <small class="smallError" *ngIf="validateUser.phone == 1">Requerido</small>
+                <small class="smallError" *ngIf="validateUser.phone == 2">Tel ya registrado</small>
             </div>
 
             <div>
                 <label>Contraseña:</label>
-                <input [(ngModel)]="user.password" name="password" type="password">
+                <input [(ngModel)]="user.password" name="password" type="password" [ngClass]="{ 'inputError': validateUser.password >= 1 }">
+                <small class="smallError" *ngIf="validateUser.password == 1">Requerido</small>
             </div>
 
             <button type="submit" class="btn btnAccept">Registrarse</button>
