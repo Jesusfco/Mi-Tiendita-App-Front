@@ -18,10 +18,16 @@ export class RegisterService {
         .toPromise();        
   
   }
+  
+  uniqueEmail(email){
+    return this._http.post(this.link.url + 'uniqueEmail', email)
+        .map( data => data.json())
+        .toPromise();        
+  }
 
-  test(){
-    return this._http.get(this.link.url + 'test')
-    .map( data => data.json())
-    .toPromise();        
+  uniquePhone(phone){
+    return this._http.post(this.link.url + 'uniquePhone', phone)
+        .map( data => data.json())
+        .toPromise();        
   }
 }

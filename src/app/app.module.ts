@@ -11,12 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule } from '@angular/material';
 //import { MaterializeModule } from 'materialize-css';
 
-import { NavegationComponent } from './navegation/navegation.component';
 
-import { RegisterComponent } from './register/register.component';
-import { RegisterService } from './register/register.service';
-import { LoginComponent } from './login/login.component';
-import { LoginService }  from './login/login.service';
 
 
 
@@ -36,11 +31,18 @@ import {
   MatSlideToggleModule,
 } from '@angular/material';
 
+import { NavegationComponent } from './navegation/navegation.component';
+import { RegisterComponent } from './register/register.component';
+import { RegisterService } from './register/register.service';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
 import { InventoryComponent } from './inventory/inventory.component';
 import { NewProductComponent } from './inventory/new-product/new-product.component';
 import { EditProductComponent } from './inventory/edit-product/edit-product.component';
 import { InventoryService } from './inventory/inventory.service';
 import { SalePointComponent } from './sale-point/sale-point.component';
+
+import { routes } from './app.route';
 
 @NgModule({
   declarations: [
@@ -58,13 +60,8 @@ import { SalePointComponent } from './sale-point/sale-point.component';
     FormsModule,    
     HttpModule,
     JsonpModule,
-    // MaterializeModule,
-   /*RouterModule.forRoot([
-       {
-           path: 'inventario',
-           component: InventarioComponent
-       }        
-   ]),*/
+    RouterModule.forRoot(routes),
+    // MaterializeModule,   
     BrowserAnimationsModule,  
     
     

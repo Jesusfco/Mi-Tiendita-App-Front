@@ -1,49 +1,79 @@
-<div>
+<div class="cardSpace">
 
-  <form (submit)="shopForm()" *ngIf="form.shopForm">
+    <div class="registerCard">
+        <h1>Registrate</h1>
 
-    <label>Nombre de la tienda</label>
-    <input [(ngModel)]="shop.name" name="name" type="text">
+        <form (submit)="shopForm()" *ngIf="form.shopForm" [@ScaleDown]="scaleStateForm1">
 
-    <h5>Direccion</h5>
-    <label>Calle:</label>
-    <input [(ngModel)]="shop.street" name="street" type="text">
+            <div>
+                <label>Nombre de la tienda</label><br>
+                <input [(ngModel)]="shop.name" name="name" type="text">
+            </div>
 
-    <label>Colonia:</label>
-    <input [(ngModel)]="shop.colony" name="colony" type="text">
+            <h2>Dirección</h2>
 
-    <label>Numero:</label>
-    <input [(ngModel)]="shop.number" name="number" type="number">
+            <div>
+                <label>Calle:</label><br>
+                <input [(ngModel)]="shop.street" name="street" type="text">
+            </div>
 
-    <label>Codigo Postal:</label>
-    <input [(ngModel)]="shop.postalCode" name="postalCode" type="text">
+            <div>
+                <label>Colonia:</label><br>
+                <input [(ngModel)]="shop.colony" name="colony" type="text">
+            </div>
 
-    <label>Ciudad:</label>
-    <input [(ngModel)]="shop.city" name="city" type="text">
+            <div>
+                <label>Numero:</label><br>
+                <input [(ngModel)]="shop.number" name="number" type="number">
+            </div>
 
-    <label>Estado:</label>
-    <input [(ngModel)]="shop.state" name="state" type="text">
+            <div>
+                <label>Codigo Postal:</label><br>
+                <input [(ngModel)]="shop.postalCode" name="postalCode" type="number">
+            </div>
 
-    <button type="submit">Aceptar</button>
-  </form>
+            <div>
+                <label>Ciudad:</label><br>
+                <input [(ngModel)]="shop.city" name="city" type="text">
+            </div>
 
-  <form (submit)="userForm()" *ngIf="form.userForm">
-    <h4>Crea tu Usuario principal</h4>
+            <div>
+                <label>Estado:</label><br>
+                <input [(ngModel)]="shop.state" name="state" type="text">
+            </div>
 
-    <label>Nombre Completo</label>
-    <input [(ngModel)]="user.name" name="name" type="text">
+            <button type="submit" class="btn btnAccept">Aceptar</button>
+        </form>
 
-    <label>Correo:</label>
-    <input [(ngModel)]="user.email" name="email" type="email">
+        <form (submit)="userForm()" *ngIf="form.userForm" [@ScaleDown]="scaleStateForm2">
+            <h4>Crea tu Usuario</h4>
 
-    <label>Numero Celular:</label>
-    <input [(ngModel)]="user.phone" name="phone" type="tel">        
+            <div>
+                <label>Nombre Completo</label><br>
+                <input [(ngModel)]="user.name" name="name" type="text">
+            </div>
 
-    <label>Contraseña:</label>
-    <input [(ngModel)]="user.password" name="password" type="password">   
+            <div>
+                <label>Correo:</label><br>
+                <input [(ngModel)]="user.email" name="email" type="email">
+            </div>
 
-    <button type="submit">Aceptar</button>
+            <div>
+                <label>Numero Celular:</label><br>
+                <input [(ngModel)]="user.phone" name="phone" type="tel">
+            </div>
 
-  </form>
+            <div>
+                <label>Contraseña:</label>
+                <input [(ngModel)]="user.password" name="password" type="password">
+            </div>
+
+            <button type="submit" class="btn btnAccept">Registrarse</button>
+
+        </form>
+        <div class="loginLink">
+            <p>¿Ya eres miembro? <a [routerLink]="['/login']">Iniciar sesión</a></p>
+        </div>
+    </div>
 
 </div>

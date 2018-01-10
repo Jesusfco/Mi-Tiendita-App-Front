@@ -19,6 +19,8 @@ h3,
 h4,
 h5 {
     font-family: 'Oswald', sans-serif;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 table {
@@ -93,13 +95,31 @@ th {
     position: relative;
 }
 
-.cardModule input {
-    width: 100%;
+
+/* formularios inputs and buttons */
+
+input,
+select {
     border: none;
     background: #ECECEC;
-    padding: 10px;
+    padding: 8px;
     border-radius: 3px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    color: white;
+    transition: .45s;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btnAccept {
+    background: lightseagreen;
 }
 
 @media screen and (max-width: 750px) {

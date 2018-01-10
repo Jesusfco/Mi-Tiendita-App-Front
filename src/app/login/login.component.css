@@ -85,7 +85,7 @@ input {
     margin-right: 4px;
 }
 
-.registrateSection button {
+.registrateSection a button {
     float: right;
     opacity: 1;
     border: none;
