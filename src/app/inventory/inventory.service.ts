@@ -10,30 +10,30 @@ import { Storage } from '../storage';
 export class InventoryService {
   
   public link: Url = new Url();
-  public token: Storage = new Storage();
+  public storage: Storage = new Storage();
   
   constructor(private _http: Http) { }
 
   getProducts() { 
-    return this._http.get(this.link.url + 'inventory/getProducts' + this.token.tokenRequest)
+    return this._http.get(this.link.url + 'inventory/getProducts' + this.storage.tokenUrl)
     .map(data => data.json())
     .toPromise();
   }
 
   create(producto) { 
-    return this._http.post(this.link.url + 'inventory/create' + this.token.tokenRequest, producto)
+    return this._http.post(this.link.url + 'inventory/create' + this.storage.tokenUrl, producto)
     .map(data => data.json())
     .toPromise();
   }
 
   update(producto) { 
-    return this._http.post(this.link.url + 'inventory/update' + this.token.tokenRequest, producto)
+    return this._http.post(this.link.url + 'inventory/update' + this.storage.tokenUrl, producto)
     .map(data => data.json())
     .toPromise();
   }
 
   delete(producto) { 
-    return this._http.delete(this.link.url + 'inventory/delete/'+producto.id + this.token.tokenRequest)
+    return this._http.delete(this.link.url + 'inventory/delete/' + producto.id + this.storage.tokenUrl)
     .map(data => data.json())
     .toPromise();
   }

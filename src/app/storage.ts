@@ -1,15 +1,21 @@
 export class Storage {
     token: string;
-    tokenRequest: string;
+    tokenUrl: string;
     userName: string;
     userEmail: string;
-    userId: string;
+    userId: number;
     userType: number;
     userPhone: string;
 
-    constructor(){
-        // this.tokenRequest = "?token=" + this.token;
-        // this.userType =  parseInt(localStorage.getItem('userType'));
+    constructor(){        
+
+        this.token = localStorage.getItem('token');
+        this.tokenUrl = '?token=' + this.token;
+        this.userName = localStorage.getItem('userName');
+        this.userEmail = localStorage.getItem('userEmail');
+        this.userId = parseInt(localStorage.getItem('userId'));
+        this.userType = parseInt(localStorage.getItem('userType'));
+        this.userPhone = localStorage.getItem('userPhone');
     }
 
     storageToken(token){

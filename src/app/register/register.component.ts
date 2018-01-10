@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   form = {
     userForm: false,
     shopForm: true,
-  }
+  };
 
   validateShop = {
     validate: true,
@@ -39,30 +39,33 @@ export class RegisterComponent implements OnInit {
     email: 0,
     phone: 0,
     password: 0,
-  }
+  };
 
   timer = {
     email: 0,
     phone: 0,
-  }
+  };
 
-  public storage: Storage =  new Storage();
+  storage: Storage =  new Storage();
 
   sendingData: boolean = false;
 
   constructor(private _http: RegisterService, private router: Router) { }
 
   ngOnInit() {
-    if(localStorage.getItem('token') !== null || localStorage.getItem('token') == ''){ 
-      this.router.navigate(['/inventory']);
+
+    if(this.storage.token == null || this.storage.token == ''){       
+      
+    } else {      
+      this.router.navigate(['/inventory']);      
     }
+
   }
 
   shopForm() {
-    
     this.restoreValidationShop();
     this.validateNameShop();
-    if (this.validateShop.validate == false) return;
+    if (this.validateShop.validate === false) return;
 
     this.scaleStateForm1 = '1';
 

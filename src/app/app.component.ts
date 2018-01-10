@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
 import { LoginService } from './login/login.service';
 import { Storage } from './storage';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -48,24 +49,26 @@ export class AppComponent {
   stateLoaderImg: string = "initial";
   stateLoader: string = "initial";
 
-  localData: Storage = new Storage();
-  userSignin:boolean;
+  storage: Storage = new Storage();  
 
-  appView(){
-    this.userSignin = true;
-  }
+  constructor(private _http: LoginService, private router: Router){}
 
-  constructor(private _http: LoginService){
-    
-  }
   ngOnInit(){
 
+    
     setTimeout(() => {
-      this.loaderAnimationImg();
-      this.checkLogin();
-    }, 500);
-      
-  
+      this.loaderAnimationImg();      
+    }, 100);
+
+    if(this.storage.token == null || this.storage.token == ''){  
+      this.router.navigate(['/login']);
+      setTimeout(() => {
+        this.loaderAnimation();
+      }, 800);
+      return;
+    }
+    
+    this.checkLogin();
   }
 
   // test(){
@@ -79,44 +82,27 @@ export class AppComponent {
     this.stateLoader = (this.stateLoader === 'initial' ? 'final' : 'initial');
   }
 
-  checkLogin(){
-    if(this.localData.token == null || this.localData.token == ''){ 
-      this.userSignin = false;
-      setTimeout(() => {
-        this.loaderAnimation();        
-      }, 1000);
-    }
-    
-        else {
-          
-          this._http.checkAuth().then(
-            data => {          
-              
-              localStorage.setItem('userName', data.user.name);
-              localStorage.setItem('userId', data.user.id);
-              localStorage.setItem('userEmail', data.user.email);
-              localStorage.setItem('userPhone', data.user.phone);
-              localStorage.setItem('userShopId', data.user.shop_id);
-              localStorage.setItem('userType', data.user.user_type);
-              localStorage.setItem('userActive', data.user.active);
+  checkLogin(){            
+    this._http.checkAuth().then(
+      data => {
+        this.storage.storageUserData(data.user);
+        setTimeout(() => {
 
-              setTimeout(() => {
-                this.userSignin = true;
-                this.loaderAnimation();        
-              }, 1000);
-              
-              
-            },
-            error =>  {
-              console.log(error);
-              setTimeout(() => {
-                this.userSignin = false;
-                this.loaderAnimation();        
-              }, 1000);
-              
-            }
-          );
-    
-        }
+          this.loaderAnimation();
+
+        }, 1000);
+      },
+      error =>  {
+        console.log(error);
+        setTimeout(() => {
+
+          this.loaderAnimation();
+
+        }, 1000);
+
+      }
+    );
+
   }
+  
 }
