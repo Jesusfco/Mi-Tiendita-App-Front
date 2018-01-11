@@ -15,5 +15,7 @@ export class Product {
         this.edit = false;
         this.delete = false;
         this.add = false;
+        this.reorder = 0;
+        this.stock = 0;
     }
 }

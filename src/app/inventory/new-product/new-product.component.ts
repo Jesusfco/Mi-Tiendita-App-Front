@@ -3,6 +3,7 @@ import { Product } from '../../product';
 import { InventoryService } from '../inventory.service';
 import { Storage } from '../../storage';
 import { Router } from '@angular/router';
+import { cardPop, backgroundOpacity} from '../../animations';
 
 import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
 
@@ -10,42 +11,11 @@ import { trigger, state, style, transition, animate, keyframes} from '@angular/a
   selector: 'app-new-product',
   templateUrl: './new-product.component.html',
   styleUrls: ['./new-product.component.css'],
-  animations: [
-    trigger('card', [
-      
-      state('initial', style({
-        transform: 'translate3d(0,50%,0) scale(.7)',                
-      })),
-
-      state('final' ,style({
-        transform: 'translate3d(0,0,0) scale(1)',       
-        
-      })),      
-
-      transition('initial <=> final' , animate('350ms ease-out')),
-    ]),
-
-    trigger('background', [
-      
-      state('initial', style({        
-        opacity: 0
-      })),
-
-      state('final' ,style({
-              
-        opacity: 1
-      })),      
-
-      transition('initial <=> final' , animate('250ms ease-out')),
-    ])
-
-  ]
+  animations: [cardPop, backgroundOpacity],
 })
 export class NewProductComponent implements OnInit {
 
-  @Input() products: Array<Product>;
-  @Output() createEvent:EventEmitter<any> = new EventEmitter();
-  @Output() closeEvent: EventEmitter<any> =  new EventEmitter();
+  products = [];
 
   state = {
     background: 'initial',
@@ -61,7 +31,9 @@ export class NewProductComponent implements OnInit {
     price: 0
   };
 
-  constructor(private _http: InventoryService) { }
+  storage: Storage = new Storage();
+
+  constructor(private _http: InventoryService, private router: Router) { }
 
   ngOnInit() {
 
@@ -69,33 +41,37 @@ export class NewProductComponent implements OnInit {
       this.state.background = 'final';
       this.state.card = 'final';
     }, 100);
+
+    this.products = this.storage.getInventory();
+
   }
 
   formSubmit(){
     this.form.validate = true;
-    this.validateName();
-    this.validateUniqueCode();
+    if(this.validateName())
+      this.validateUniqueName();
+    if(this.product.code !== null || this.product.code !== '')
+      this.validateUniqueCode();
     this.validatePrice();
 
-    // if(this.form.validate !== true) return;
+    if(this.form.validate !== true) return;
 
-    console.log(this.product);
+    this._http.create(this.product).then(
+      data => {
+        this.storage.pushProduct(data);        
+        this.closePop();
+      },
 
-    // this._http.create(this.product).then(
-    //   data => {
-    //     this.createEvent.emit(data);
-    //     this.closePop();
-    //   },
-    //   error => {
+      error => {
 
-    //   }
-    // );
+      }
+    );
 
   }
 
   closePop(){    
     setTimeout(() => {
-      this.closeEvent.emit();
+      this.router.navigate(['/inventory']);
     }, 450);
     this.state.background = 'initial';
     this.state.card = 'initial';
@@ -104,45 +80,45 @@ export class NewProductComponent implements OnInit {
 
   validateName(){
 
-    
     if(this.product.name == null || this.product.name == ''){
       this.form.validate = false;
       this.form.name = 1;
+      return false;
     } else {
-      if(Object.keys(this.products).length !== 0){
-        for(let x of this.products){
-
-          if(this.product.name == x.name){
-  
-            this.form.name = 2;
-            this.form.validate = false;
-            break;
-
-          }
-
-        }//Fin del FOR
-        this.form.name = -1;
-      }
-
+      return true;
     }
 
   }//Fin de validateName public function()
 
-  validateUniqueCode(){
-    if(Object.keys(this.product.code).length > 0){
+  validateUniqueName(){    
+    this.form.name = -1;
+    for(let x of this.products){
 
-      for(let x of this.products){
-        
-        if(this.product.code == x.code){
+      if(this.product.name == x.name){
 
-          this.form.code = 2;
-          this.form.validate = false;
-          break;
+        this.form.name = 2;
+        this.form.validate = false;
+        break;
 
-        }
-
-        this.form.code = -1;
       }
+
+    }//Fin del FOR
+
+  }
+
+  validateUniqueCode(){
+  
+    for(let x of this.products){
+      
+      if(this.product.code == x.code){
+
+        this.form.code = 2;
+        this.form.validate = false;
+        break;
+
+      }
+
+      this.form.code = -1;
     }
 
   }//Function that validate Product => Code unique but enable to works if is it null

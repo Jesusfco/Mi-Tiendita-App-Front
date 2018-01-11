@@ -7,7 +7,7 @@ export class Storage {
     userType: number;
     userPhone: string;
 
-    constructor(){        
+    constructor(){
 
         this.token = localStorage.getItem('token');
         this.tokenUrl = '?token=' + this.token;
@@ -28,5 +28,19 @@ export class Storage {
         localStorage.setItem('userId', data.id);
         localStorage.setItem('userPhone', data.phone);
         localStorage.setItem('userType', data.user_type_id);
+    }
+
+    storageInventory(data){
+        localStorage.setItem('inventory', JSON.stringify(data));
+    }
+
+    getInventory(){
+        return JSON.parse(localStorage.getItem('inventory'));
+    }
+
+    pushProduct(data){
+        let products = this.getInventory();
+        products.push(data);
+        this.storageInventory(products);
     }
 }

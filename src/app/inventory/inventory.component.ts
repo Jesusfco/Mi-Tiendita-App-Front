@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InventoryService } from './inventory.service';
 import { Product } from '../product';
+import { Storage } from '../storage';
+// import { setInterval } from 'timers';
 
 @Component({
   selector: 'app-inventory',
@@ -9,16 +11,21 @@ import { Product } from '../product';
 })
 export class InventoryComponent implements OnInit {
 
-  @Input() products;
+  products = [];
   createPro:boolean =  false;
+  storage: Storage = new Storage();
+
+  bucle: boolean = true;
 
   constructor(private _http: InventoryService) { }
 
   ngOnInit() {
+    this.products = this.storage.getInventory();
+    setInterval(() => this.refreshInventoryFromlocalStore(), 1500);
   }
 
   newProduct(data){
-    alert('si llego aqui');
+    
       this.products.push(data);
   }
 
@@ -26,6 +33,11 @@ export class InventoryComponent implements OnInit {
     const i = this.products.indexOf(data.original);
     this.products[i] = data.edited;
     this.products[i].edit =  false;
+  }
+
+  refreshInventoryFromlocalStore(){
+    if(this.bucle == true)
+      this.products = this.storage.getInventory();
   }
 
 }

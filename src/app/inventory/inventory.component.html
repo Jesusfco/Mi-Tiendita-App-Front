@@ -32,9 +32,11 @@
 
     </tbody>
 </table>
+<a [routerLink]="['/inventory/create']">
+    <button mat-fab id="createBtn" (click)="createPro = !createPro">
+        <mat-icon >add_shopping_cart</mat-icon>
+    </button>
+</a>
 
-<button mat-fab id="createBtn" (click)="createPro = !createPro">
-    <mat-icon >add_shopping_cart</mat-icon>
-</button>
-
-<app-new-product *ngIf="createPro" [products]="products" (closeEvent)="createPro = false" (createEvent)="newProduct($event)"></app-new-product>
+<!-- <app-new-product *ngIf="createPro" (closeEvent)="createPro = false" (createEvent)="newProduct($event)"></app-new-product> -->
+<router-outlet></router-outlet>

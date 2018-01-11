@@ -15,8 +15,19 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent
-    },{
+    },
+    {
         path: 'inventory',
-        component: InventoryComponent
+        component: InventoryComponent,
+        children : [
+            {
+                path: 'create',
+                component: NewProductComponent
+            },
+            {
+                path: 'edit/:id',
+                component: EditProductComponent
+            }
+        ]
     }
 ];

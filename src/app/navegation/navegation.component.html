@@ -22,7 +22,9 @@
     <h5>APLICACIÓN</h5>
     <ul>
         <li><button mat-button>Punto de Venta</button></li>
-        <li><button mat-button>Inventario</button></li>
+        <a [routerLink]="['/inventory']">
+            <li><button mat-button>Inventario</button></li>
+        </a>
         <li><button mat-button>Ventas</button></li>
 
     </ul>
@@ -39,9 +41,6 @@
 <div class="principal" [@space]="statePanel">
     <div class="principalCard">
         <router-outlet></router-outlet>
-        <!-- <app-sale-point></app-sale-point>
-        <app-inventory [products]="products"></app-inventory> -->
-
 
     </div>
 

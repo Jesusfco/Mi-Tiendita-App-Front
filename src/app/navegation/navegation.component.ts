@@ -37,7 +37,7 @@ import { InventoryService } from '../inventory/inventory.service';
   ]
 })
 export class NavegationComponent implements OnInit {
-    
+
     @Output() closeSession= new EventEmitter();
 
     stateMenu: string;
@@ -50,10 +50,6 @@ export class NavegationComponent implements OnInit {
       caja: false,
       puntoVenta: false,
     }
-
-    products: Array<Product> = [];
-
-    
 
     constructor(private _http: InventoryService) { }            
 
@@ -78,14 +74,8 @@ export class NavegationComponent implements OnInit {
         this.stateMenu = "initial";
         this.statePanel = 'initial';
       }
-      
-      this._http.getProducts().then(
-        data => this.products =  data,
-        error => console.log(error)
-      )
-      
+
     }
-      
 
     cerrarSesion(){
         localStorage.clear();

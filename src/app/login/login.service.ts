@@ -26,4 +26,10 @@ export class LoginService {
     .toPromise();
   }
 
+  getProducts() { 
+    return this._http.get(this.link.url + 'inventory/getProducts' + this.token.tokenUrl)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }

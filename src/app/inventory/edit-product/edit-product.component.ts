@@ -1,47 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../product';
 import { InventoryService } from '../inventory.service';
-
+import { cardPop, backgroundOpacity } from '../../animations';
 import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
 
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.css'],
-  animations: [
-    trigger('card', [
-      
-      state('initial', style({
-        transform: 'translate3d(0,50%,0) scale(.7)',                
-      })),
-
-      state('final' ,style({
-        transform: 'translate3d(0,0,0) scale(1)',       
-        
-      })),      
-
-      transition('initial <=> final' , animate('350ms ease-out')),
-    ]),
-
-    trigger('background', [
-      
-      state('initial', style({        
-        opacity: 0
-      })),
-
-      state('final' ,style({
-              
-        opacity: 1
-      })),      
-
-      transition('initial <=> final' , animate('250ms ease-out')),
-    ])
-
-  ]
+  animations: [cardPop, backgroundOpacity]
 })
 export class EditProductComponent implements OnInit {
-  @Output() editEvent: EventEmitter<any> =  new EventEmitter();
-  @Output() editCloseEvent: EventEmitter<any> =  new EventEmitter();
+  
   @Input() product: Product;
   @Input() products: Array<Product>;
   productEditable: Product = new Product();
@@ -50,8 +20,6 @@ export class EditProductComponent implements OnInit {
     background: 'initial',
     card: 'initial',
   }
-
-  
 
   form = {validate: false, name: 0, code: 0, price: 0}; 
 
