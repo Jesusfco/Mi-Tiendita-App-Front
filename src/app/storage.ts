@@ -27,6 +27,6 @@ export class Storage {
         localStorage.setItem('userEmail', data.email);
         localStorage.setItem('userId', data.id);
         localStorage.setItem('userPhone', data.phone);
-        localStorage.setItem('userType', data.userTypeId);
+        localStorage.setItem('userType', data.user_type_id);
     }
 }

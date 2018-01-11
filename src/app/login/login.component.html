@@ -1,3 +1,4 @@
+<mat-progress-bar mode="indeterminate" *ngIf="sendingData" class="barLoader"></mat-progress-bar>
 <div class="cardSpace">
 
 
@@ -5,6 +6,8 @@
     <div class="loginCardModule">
         <img id="logo" src="https://static.mercadoshops.com/static2/p/288818/v/1/public/assets/logo.png?r=10&env=&v=master-20171005_141900">
         <h2 id="bienvenida">Inicia sesión para ver más</h2>
+
+        <mat-spinner *ngIf="sendingData"></mat-spinner>
 
         <div id="formSpace">
             <form (submit)="accesar()">

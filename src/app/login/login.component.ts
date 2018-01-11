@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { Storage } from '../storage';
 
 import { LoginService } from './login.service';
 
@@ -28,12 +29,19 @@ export class LoginComponent implements OnInit {
     form: 0,
   };
 
-  constructor(private _http:  LoginService) { }
+  sendingData: boolean = false;
+
+  storage: Storage =  new Storage();
+
+  constructor(private _http:  LoginService, private router: Router) { }
 
   ngOnInit() {
     this.ngAfterViewInit();
   }
   accesar() {
+
+    this.sendingData = true;
+
     this.form.form == 0;
     this.validateMail();
     this.validatePassword();
@@ -42,18 +50,14 @@ export class LoginComponent implements OnInit {
 
     this._http.login(this.data).then(
       data => {
-        // localStorage.setItem('token', data.token);
-        // localStorage.setItem('userName', data.user.name);
-        // localStorage.setItem('userId', data.user.id);
-        // localStorage.setItem('userEmail', data.user.email);
-        // localStorage.setItem('userPhone', data.user.phone);
-        // localStorage.setItem('userEnterprise', data.user.enterprise);
-        // localStorage.setItem('userType', data.user.type);
-        // localStorage.setItem('userActive', data.user.active);
-        console.log(data);
-        // this.login.emit();
+        this.storage.storageToken(data.token);
+        this.storage.storageUserData(data.user);
+        this.router.navigate(['/inventory']);
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        this.sendingData = true;
+      }
     );
   }
   

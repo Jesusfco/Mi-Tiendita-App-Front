@@ -57,18 +57,27 @@ export class AppComponent {
 
     
     setTimeout(() => {
+      
       this.loaderAnimationImg();      
+      
+      if(this.storage.token == null || this.storage.token == ''){  
+      
+        if(this.router.url !== '/register')
+          this.router.navigate(['/login']);
+
+        setTimeout(() => {
+          this.loaderAnimation();
+        }, 800);
+        return;
+      }
+  
+      this.checkLogin();
+
     }, 100);
 
-    if(this.storage.token == null || this.storage.token == ''){  
-      this.router.navigate(['/login']);
-      setTimeout(() => {
-        this.loaderAnimation();
-      }, 800);
-      return;
-    }
     
-    this.checkLogin();
+
+    
   }
 
   // test(){
@@ -82,7 +91,8 @@ export class AppComponent {
     this.stateLoader = (this.stateLoader === 'initial' ? 'final' : 'initial');
   }
 
-  checkLogin(){            
+  checkLogin(){    
+
     this._http.checkAuth().then(
       data => {
         this.storage.storageUserData(data.user);
@@ -90,15 +100,17 @@ export class AppComponent {
 
           this.loaderAnimation();
 
-        }, 1000);
+        }, 800);
       },
       error =>  {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
         console.log(error);
         setTimeout(() => {
-
+          
           this.loaderAnimation();
 
-        }, 1000);
+        }, 800);
 
       }
     );

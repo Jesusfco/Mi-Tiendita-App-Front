@@ -21,7 +21,7 @@ export class LoginService {
   }
 
   checkAuth() { 
-    return this._http.get(this.link.url + 'checkAuth' + this.token.tokenRequest)
+    return this._http.get(this.link.url + 'checkAuth' + this.token.tokenUrl)
     .map(data => data.json())
     .toPromise();
   }
