@@ -9,27 +9,38 @@
     <div class="cardModule" [@card]="state.card">
         <h2>Nuevo Producto</h2>
         <form (submit)="formSubmit()">
-            <p *ngIf="form.name == 1">* Nombre Requerido</p>
-            <p *ngIf="form.name == 2">* Nombre ya asignado</p>
-            <p *ngIf="form.code == 2">* Codigo de barras ya asignado</p>
-            <p *ngIf="form.price == 1">* Precio requerido</p>
 
-            <label>Nombre</label><br>
-            <input [(ngModel)]="product.name" name="name" type="text"><br>
 
-            <label>Codigo de barras</label><br>
-            <input [(ngModel)]="product.code" name="code" type="text"><br>
+            <div>
+                <label>Nombre</label><br>
+                <input [(ngModel)]="product.name" name="name" type="text" [ngClass]="{ 'inputError': form.name >= 1, 'inputVerified': form.name == -1 }"><br>
+                <small class="smallError" *ngIf="form.name == 1">Requerido</small>
+                <small class="smallError" *ngIf="form.name == 2">Nombre ya asignado</small>
+            </div>
 
-            <label>Precio</label><br>
-            <input [(ngModel)]="product.price" name="price" type="number"><br>
+            <div>
+                <label>Codigo de barras</label><br>
+                <input [(ngModel)]="product.code" name="code" type="text" [ngClass]="{ 'inputError': form.code >= 1, 'inputVerified': form.code == -1 }"><br>
+                <small class="smallError" *ngIf="form.code == 2">Codigo ya asignado</small>
+            </div>
 
-            <label>Cantidad</label><br>
-            <input [(ngModel)]="product.stock" name="stock" type="number"><br>
+            <div>
+                <label>Precio</label><br>
+                <input [(ngModel)]="product.price" name="price" type="number"><br>
+                <small class="smallError" *ngIf="form.price == 1">Requerido</small>
+            </div>
 
-            <label>Reorden</label><br>
-            <input [(ngModel)]="product.reorder" name="reorder" type="number"><br>
+            <div>
+                <label>Cantidad</label><br>
+                <input [(ngModel)]="product.stock" name="stock" type="number"><br>
+            </div>
 
-            <button mat-raised-button color="primary">Crear</button>
+            <div>
+                <label>Reorden</label><br>
+                <input [(ngModel)]="product.reorder" name="reorder" type="number"><br>
+            </div>
+
+            <button type="submit" class="btn btnAccept">Crear Producto</button>
 
         </form>
 

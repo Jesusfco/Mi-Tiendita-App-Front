@@ -52,11 +52,11 @@ export class LoginComponent implements OnInit {
       data => {
         this.storage.storageToken(data.token);
         this.storage.storageUserData(data.user);
-        this.router.navigate(['/inventory']);
+        location.reload();
       },
       error => {
         console.log(error);
-        this.sendingData = true;
+        this.sendingData = false;
       }
     );
   }

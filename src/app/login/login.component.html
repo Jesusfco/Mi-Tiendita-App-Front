@@ -10,7 +10,7 @@
         <mat-spinner *ngIf="sendingData"></mat-spinner>
 
         <div id="formSpace">
-            <form (submit)="accesar()">
+            <form (submit)="accesar()" [ngClass]="{ 'loadingForm': sendingData == true}">
                 <p *ngIf="form.email == 1">* Correo/Tel Requerido </p>
                 <p *ngIf="form.password == 1">* Contraseña Requerida</p>
 

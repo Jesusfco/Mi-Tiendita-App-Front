@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Product } from '../../product';
 import { InventoryService } from '../inventory.service';
+import { Storage } from '../../storage';
+import { Router } from '@angular/router';
 
 import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
 
@@ -52,7 +54,12 @@ export class NewProductComponent implements OnInit {
 
   public product = new Product();
 
-  form = {validate: false, name: 0, code: 0, price: 0}; 
+  form = {
+    validate: false,
+    name: 0,
+    code: 0,
+    price: 0
+  };
 
   constructor(private _http: InventoryService) { }
 
@@ -67,20 +74,22 @@ export class NewProductComponent implements OnInit {
   formSubmit(){
     this.form.validate = true;
     this.validateName();
-    this.validateCode();
+    this.validateUniqueCode();
     this.validatePrice();
 
-    if(this.form.validate !== true) return;
+    // if(this.form.validate !== true) return;
 
-    this._http.create(this.product).then(
-      data => {
-        this.createEvent.emit(data);
-        this.closePop();
-      }, 
-      error => {
+    console.log(this.product);
 
-      }
-    )
+    // this._http.create(this.product).then(
+    //   data => {
+    //     this.createEvent.emit(data);
+    //     this.closePop();
+    //   },
+    //   error => {
+
+    //   }
+    // );
 
   }
 
@@ -95,22 +104,23 @@ export class NewProductComponent implements OnInit {
 
   validateName(){
 
-    this.form.name = 0;
-    if(this.product.name == null || this.product.name == '')
+    
+    if(this.product.name == null || this.product.name == ''){
+      this.form.validate = false;
       this.form.name = 1;
+    } else {
+      if(Object.keys(this.products).length !== 0){
+        for(let x of this.products){
 
-    else {
+          if(this.product.name == x.name){
+  
+            this.form.name = 2;
+            this.form.validate = false;
+            break;
 
-      for(let x of this.products){
+          }
 
-        if(this.product.name == x.name){
-
-          this.form.name = 2;
-          this.form.validate = false;
-          return;
-
-        }
-
+        }//Fin del FOR
         this.form.name = -1;
       }
 
@@ -118,20 +128,16 @@ export class NewProductComponent implements OnInit {
 
   }//Fin de validateName public function()
 
-  validateCode(){
-    if(this.product.code == null){
+  validateUniqueCode(){
+    if(Object.keys(this.product.code).length > 0){
 
-      this.form.code = 0;
-
-    } else { 
-      
       for(let x of this.products){
         
         if(this.product.code == x.code){
 
           this.form.code = 2;
           this.form.validate = false;
-          return;
+          break;
 
         }
 
