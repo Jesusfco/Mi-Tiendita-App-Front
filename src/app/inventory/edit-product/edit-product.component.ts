@@ -1,8 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
+import { cardPop, backgroundOpacity } from '../../animations';
 import { Product } from '../../product';
 import { InventoryService } from '../inventory.service';
-import { cardPop, backgroundOpacity } from '../../animations';
-import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
+import { Storage } from '../../storage';
+import { Router, ActivatedRoute } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-edit-product',
@@ -12,21 +16,43 @@ import { trigger, state, style, transition, animate, keyframes} from '@angular/a
 })
 export class EditProductComponent implements OnInit {
   
-  @Input() product: Product;
-  @Input() products: Array<Product>;
+  product: Product = new Product();
+  products = [];
   productEditable: Product = new Product();
+
+  observerRef: any;
+
+  store: Storage = new Storage();
 
   state = {
     background: 'initial',
     card: 'initial',
   }
 
-  form = {validate: false, name: 0, code: 0, price: 0}; 
+  sendingData: boolean = false;
 
-  constructor(private _http: InventoryService) { }
+  form = {validate: true, name: 0, code: 0, price: 0}; 
+
+  constructor(private _http: InventoryService,
+              private router: Router,
+              private actRou: ActivatedRoute) {
+
+                this.observerRef = actRou.params.subscribe(params => {
+                  this.product = this.store.showProductById(params['id']);
+                  Object.assign(this.productEditable, this.product);
+                });
+
+              }
+
+  ngOnDestroy(){
+    this.observerRef.unsubscribe();
+    this.state.background = 'initial';
+      this.state.card = 'initial';
+  }
 
   ngOnInit() {
-    Object.assign(this.productEditable, this.product);   
+    this.products = this.store.getInventory();
+    
 
     setTimeout(() => {
       this.state.background = 'final';
@@ -35,95 +61,94 @@ export class EditProductComponent implements OnInit {
   }
 
   formSubmit(){
-    this.form.validate = true;
-    this.validateName();
-    this.validateCode();
+
+    this.sendingData = true;
+
+    this.restoreValidation();
+    if(this.validateName())
+      this.validateUniqueName();
+    if(this.validateCode())
+      this.validateUniqueCode();
     this.validatePrice();
 
-    if(this.form.validate !== true) return;
+    if(this.form.validate == false){
+      this.sendingData = false;
+      return;
+    } 
+
+    console.log(this.form);
 
     this._http.update(this.productEditable).then(
       data => {
-        setTimeout(() => {
-          this.editEvent.emit({original: this.product, edited: this.productEditable });  
-        }, 400);
-        
+        this.sendingData = false;
+        this.store.updateProduct(this.productEditable);
         this.closePop();
-      }, 
+      },
       error => {
-
+        this.sendingData = false;
+        console.log(error);
       }
-    )
+    );
 
   }
 
   closePop(){    
     setTimeout(() => {
-      this.editCloseEvent.emit();
+      this.router.navigate(['/inventory']);
     }, 450);
     this.state.background = 'initial';
     this.state.card = 'initial';
     
   }
 
-  validateName(){
-
-    this.form.name = 0;
-    if(this.productEditable.name == null || this.product.name == '')
+  validateName(){    
+    if(this.productEditable.name == null || this.productEditable.name == ''){
       this.form.name = 1;
-
-    else {
-
-      for(let x of this.products){
-
-        if(this.productEditable.name == x.name){
-
-          if(this.productEditable.name !== this.product.name){
-
-            this.form.name = 2;
-            this.form.validate = false;
-            return;
-            
-          }        
-
-        }
-
-        
-      }
-
-      this.form.name = -1;
-
+      this.form.validate = false;
+      return false;
     }
+    return true;
 
   }//Fin de validateName public function()
 
-  validateCode(){
-    if(this.productEditable.code == null){
+  validateUniqueName(){    
+    this.form.name = -1;
 
-      this.form.code = 0;
-
-    } else { 
+    for(let x of this.products){
       
-      for(let x of this.products){
+      if(this.productEditable.name == x.name){
         
-        if(this.productEditable.code == x.code){
-
-          if(this.productEditable.code !== x.code){
-            this.form.code = 2;
-            this.form.validate = false;
-            return;
-          }          
+        if(this.productEditable.name !== this.product.name){
+          
+          this.form.name = 2;
+          this.form.validate = false;
+          break;
 
         }
-
-        
       }
-
-      this.form.code = -1;
-
     }
+    
+  }
 
+  validateCode(){
+    if(this.productEditable.code == null || this.productEditable.code == '') { return false; }
   }//Function that validate Product => Code unique but enable to works if is it null
+
+  validateUniqueCode(){
+    this.form.code = -1;
+    for(let x of this.products){
+        
+      if(this.productEditable.code == x.code){
+
+        if(this.productEditable.code !== this.product.code){
+          this.form.code = 2;
+          this.form.validate = false;
+          break;
+        }          
+
+      }      
+    }    
+  }
 
   validatePrice(){
     if(this.productEditable.price == null){
@@ -132,5 +157,14 @@ export class EditProductComponent implements OnInit {
     } 
     else { this.form.price = -1 }
   }//Validacion del Precio requerido
+
+  restoreValidation(){
+    this.form = {
+      validate: true,
+      name: 0,
+      code: 0,
+      price: 0
+    };
+  }
 
 }

@@ -1,3 +1,4 @@
+<mat-progress-bar mode="indeterminate" *ngIf="sendingData" class="barLoader"></mat-progress-bar>
 <div class="cardSpace" [@background]="state.background">
 
     <div class="closeCardBackground" (click)="closePop()">
@@ -7,29 +8,39 @@
     </div>
 
     <div class="cardModule" [@card]="state.card">
-        <h2>Nuevo Producto</h2>
+        <h2>Editar Producto</h2>
         <form (submit)="formSubmit()">
-            <p *ngIf="form.name == 1">* Nombre Requerido</p>
-            <p *ngIf="form.name == 2">* Nombre ya asignado</p>
-            <p *ngIf="form.code == 2">* Codigo de barras ya asignado</p>
-            <p *ngIf="form.price == 1">* Precio requerido</p>
+            <div>
+                <label>Nombre</label><br>
+                <input [(ngModel)]="productEditable.name" name="name" type="text" [ngClass]="{ 'inputError': form.name >= 1, 'inputVerified': form.name == -1 }"><br>
+                <small class="smallError" *ngIf="form.name == 1">Requerido</small>
+                <small class="smallError" *ngIf="form.name == 2">Nombre ya asignado</small>
+            </div>
 
-            <label>Nombre</label><br>
-            <input [(ngModel)]="productEditable.name" name="name" type="text"><br>
+            <div>
+                <label>Precio</label><br>
+                <input [(ngModel)]="productEditable.price" name="price" type="number" [ngClass]="{ 'inputError': form.price >= 1}" min="0"><br>
+                <small class="smallError" *ngIf="form.price == 1">Requerido</small>
+            </div>
 
-            <label>Codigo de barras</label><br>
-            <input [(ngModel)]="productEditable.code" name="code" type="text"><br>
+            <div>
+                <label>Cantidad</label><br>
+                <input [(ngModel)]="productEditable.stock" name="stock" type="number"><br>
+            </div>
 
-            <label>Precio</label><br>
-            <input [(ngModel)]="productEditable.price" name="price" type="number"><br>
+            <div>
+                <label>Reorden</label><br>
+                <input [(ngModel)]="productEditable.reorder" name="reorder" type="number" min="0"><br>
+            </div>
 
-            <label>Cantidad</label><br>
-            <input [(ngModel)]="productEditable.stock" name="stock" type="number"><br>
+            <div>
+                <label>Codigo de barras</label><br>
+                <input [(ngModel)]="productEditable.code" name="code" type="text" [ngClass]="{ 'inputError': form.code >= 1, 'inputVerified': form.code == -1 }"><br>
+                <small class="smallError" *ngIf="form.code == 2">Codigo ya asignado</small>
+            </div>
 
-            <label>Reorden</label><br>
-            <input [(ngModel)]="productEditable.reorder" name="reorder" type="number"><br>
 
-            <button mat-raised-button color="primary">Crear</button>
+            <button type="submit" class="btn btnAccept">Editar</button>
 
         </form>
 

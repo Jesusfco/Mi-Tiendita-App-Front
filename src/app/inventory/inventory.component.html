@@ -23,11 +23,12 @@
             <td>{{ product.reorder }}</td>
             <td>
                 <mat-icon>add_shopping_cart</mat-icon>
-                <mat-icon (click)="product.edit = !product.edit">edit</mat-icon>
+                <a [routerLink]="['/inventory/edit', product.id]">
+                    <mat-icon>edit</mat-icon>
+                </a>
                 <mat-icon>delete</mat-icon>
             </td>
 
-            <app-edit-product [product]="product" [products]="products" *ngIf="product.edit" (editEvent)="update($event)" (editCloseEvent)="product.edit = false"></app-edit-product>
         </tr>
 
     </tbody>

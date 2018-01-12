@@ -26,6 +26,12 @@ export class InventoryService {
     .toPromise();
   }
 
+  getOneProduct(id){
+    return this._http.get(this.link.url + 'inventory/' + id + this.storage.tokenUrl)
+    .map(data => data.json())
+    .toPromise();
+  }
+
   update(producto) { 
     return this._http.post(this.link.url + 'inventory/update' + this.storage.tokenUrl, producto)
     .map(data => data.json())

@@ -96,6 +96,7 @@ export class AppComponent {
     this._http.checkAuth().then(
       data => {
         this.storage.storageUserData(data.user);
+        this.storeInventoryHttp();
         setTimeout(() => {
 
           this.loaderAnimation();
@@ -115,6 +116,17 @@ export class AppComponent {
       }
     );
 
+  }
+
+  storeInventoryHttp(){
+    this._http.getProducts().then(
+      data => {
+        
+        this.storage.storageInventory(data);
+        
+      },
+      error => console.log(error)
+    );
   }
   
 }

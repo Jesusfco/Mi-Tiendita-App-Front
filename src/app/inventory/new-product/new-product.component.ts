@@ -131,4 +131,13 @@ export class NewProductComponent implements OnInit {
     else { this.form.price = -1 }
   }//Validacion del Precio requerido
 
+  restoreValidations(){
+    this.form = {
+      validate: false,
+      name: 0,
+      code: 0,
+      price: 0
+    };
+  }
+
 }
