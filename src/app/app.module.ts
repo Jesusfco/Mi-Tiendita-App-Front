@@ -45,6 +45,7 @@ import { InventoryService } from './inventory/inventory.service';
 import { SalePointComponent } from './sale-point/sale-point.component';
 
 import { routes } from './app.route';
+import { FilterInventoryPipe } from './filter-inventory.pipe';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { routes } from './app.route';
     NewProductComponent,
     EditProductComponent,
     SalePointComponent,
+    FilterInventoryPipe,
   ],
   imports: [
     BrowserModule,

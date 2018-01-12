@@ -1,6 +1,6 @@
 <h1>Inventario</h1>
 
-<input type="text" id="search"><label><mat-icon>search</mat-icon></label>
+<input [(ngModel)]="search" name="search" type="text" id="search"><label><mat-icon>search</mat-icon></label>
 
 
 <button class="createBtn" (click)="createPro = !createPro">Agregar Producto</button>
@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of products | filterInventory:search">
             <td>{{ product.name }}</td>
             <td>{{ product.price }}</td>
             <td>{{ product.stock }}</td>

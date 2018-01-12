@@ -9,7 +9,7 @@
 
     <div class="cardModule" [@card]="state.card">
         <h2>Editar Producto</h2>
-        <form (submit)="formSubmit()">
+        <form (submit)="formSubmit()" autocomplete="off">
             <div>
                 <label>Nombre</label><br>
                 <input [(ngModel)]="productEditable.name" name="name" type="text" [ngClass]="{ 'inputError': form.name >= 1, 'inputVerified': form.name == -1 }"><br>

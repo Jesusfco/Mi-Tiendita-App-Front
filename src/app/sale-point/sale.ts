@@ -1,2 +1,40 @@
+import { SaleDescription } from './sale-description';
 export class Sale {
+    public id: number;
+    public total: number;
+    public user_id: number;
+    public description: Array<SaleDescription> = [];
+    public created_at: string;
+
+    constructor(){
+        this.total = 0;
+    }
+
+    pushProduct(product){
+        if(checkUniqueDescription)
+            this.description.push(product);
+    }
+
+    checkUniqueDescription(product){
+        for (let x = 0; x < Object.keys(this.description).length; x++){
+            if(product.id_product ==  this.description[x].id_product){
+                this.description[x].quantity = product.quantity + this.description[x].quantity;
+                this.description[x].subtotal = this.description[x].quantity * this.description[x].price;
+                break;
+            }
+        }
+    }
+
+    getTotal(){
+        this.total = 0;
+        for(let x of this.description){
+            this.total += x.subtotal;
+        }
+    }
+
+    deleteProduct(product){
+
+    }
 }
+
+

@@ -8,26 +8,16 @@ import { EditProductComponent } from './inventory/edit-product/edit-product.comp
 import { SalePointComponent } from './sale-point/sale-point.component';
 
 export const routes: Routes = [
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: 'register',
-        component: RegisterComponent
-    },
-    {
-        path: 'inventory',
-        component: InventoryComponent,
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'inventory', component: InventoryComponent,
         children : [
-            {
-                path: 'create',
-                component: NewProductComponent
-            },
-            {
-                path: 'edit/:id',
-                component: EditProductComponent
-            }
+            { path: 'create', component: NewProductComponent },
+            { path: 'edit/:id', component: EditProductComponent },
         ]
-    }
+    }, //INVENTORY ROUTE
+    { path: 'sale-point', component: SalePointComponent,
+        children: [
+            // { path: '', component: }
+    ]}
 ];
