@@ -1,3 +1,41 @@
-<p>
-  sale-point works!
-</p>
+<form (submit)="identifyProduct()">
+    <input [(ngModel)]="search.name" name="name" type="text" id="search"><label><mat-icon>search</mat-icon></label>
+    <button type="submit">Agregar</button>
+</form>
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of sale.description">
+            <td>{{ product.name }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.subtotal }}</td>
+            <td>
+                <!-- <mat-icon>add_shopping_cart</mat-icon>
+                <a [routerLink]="['/inventory/edit', product.id]">
+                    <mat-icon>edit</mat-icon>
+                </a> -->
+                <mat-icon>delete</mat-icon>
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>
+<!-- <a [routerLink]="['/inventory/create']">
+    <button mat-fab color="pri" id="createBtn" (click)="createPro = !createPro">
+        <mat-icon >add_shopping_cart</mat-icon>
+    </button>
+</a> -->

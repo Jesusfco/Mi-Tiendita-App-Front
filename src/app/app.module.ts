@@ -44,6 +44,8 @@ import { EditProductComponent } from './inventory/edit-product/edit-product.comp
 import { InventoryService } from './inventory/inventory.service';
 import { SalePointComponent } from './sale-point/sale-point.component';
 
+import { SaleService } from './sale-point/sale.service';
+
 import { routes } from './app.route';
 import { FilterInventoryPipe } from './filter-inventory.pipe';
 
@@ -86,7 +88,7 @@ import { FilterInventoryPipe } from './filter-inventory.pipe';
     MatProgressSpinnerModule,
 
   ],
-  providers: [RegisterService , LoginService, InventoryService],
+  providers: [RegisterService , LoginService, InventoryService, SaleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

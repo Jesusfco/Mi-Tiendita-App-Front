@@ -9,7 +9,7 @@ import { FilterInventoryPipe } from '../filter-inventory.pipe';
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.css'],
-  // pipes: [ FilterInventoryPipe ]
+  
 })
 export class InventoryComponent implements OnInit {
 
