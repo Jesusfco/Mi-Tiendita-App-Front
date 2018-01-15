@@ -59,6 +59,8 @@ export class SaleProcessComponent implements OnInit {
   }
 
   confirmSale(){
+    this.sale.setCreatedAt();
+    localStorage.removeItem('saleDescription');
     this._http.postSale(this.sale).then(
       data => {
         let x = parseInt(localStorage.getItem('userCash'));
@@ -71,6 +73,8 @@ export class SaleProcessComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.sale.storeSaleErrorConnection(this.sale);
+        this.closePop();
       }
     );
 

@@ -57,6 +57,58 @@ export class Sale {
         }
         this.getTotal();
     }
+
+    storeSaleErrorConnection(sale){
+        let sales = this.getSalesErrorConnection();
+        sales.unshift(sale);
+        localStorage.setItem('sales', JSON.stringify(sales));
+    }
+
+    getSalesErrorConnection(){
+        if(JSON.parse(localStorage.getItem('sales')) != undefined){
+            return JSON.parse(localStorage.getItem('sales'));
+        }
+        return [];
+    }
+
+    setCreatedAt(){
+        
+    let x = new Date();
+    this.created_at = x.getFullYear() + "-";
+
+    if(x.getMonth() < 9){
+        this.created_at += "0" + (x.getMonth() + 1) + "-";
+    } else {
+        this.created_at += (x.getMonth() + 1) + "-";
+    }
+
+    if( x.getUTCDate() < 9){
+        this.created_at += "0" + (x.getUTCDate() + 1) + " ";        
+    }else {
+        this.created_at += (x.getUTCDate() + 1) + " ";
+    }
+
+    if(x.getHours() < 10){
+        this.created_at += "0" + x.getHours() + ":";
+    }
+    else {
+        this.created_at += x.getHours() + ":";
+    }
+
+    if( x.getMinutes() < 10) {
+        this.created_at += "0" + x.getMinutes() + ":";
+    } else {
+        this.created_at += x.getMinutes() + ":";
+    }
+
+    if( x.getSeconds() < 10) {
+        this.created_at += "0" + x.getSeconds();
+    } else {
+        this.created_at += x.getSeconds();
+    }
+    
+    console.log(this.created_at);
+    }
 }
 
 
