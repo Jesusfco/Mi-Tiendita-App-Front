@@ -103,9 +103,10 @@ nav button {
 #userInfSection #userTypeInf {
     font-size: 10px;
     position: absolute;
-    top: 15px;
-    right: 25px;
+    top: 0;
+    right: 05px;
     margin: 0;
+    padding: 0
 }
 
 
@@ -123,7 +124,13 @@ nav button {
 }
 
 @media screen and (max-width: 750px) {
+    nav {
+        height: 40px;
+    }
     .principalCard {
         width: 100%;
+    }
+    .principal {
+        padding-top: 40px !important;
     }
 }

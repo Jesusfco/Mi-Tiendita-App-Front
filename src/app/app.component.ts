@@ -96,7 +96,11 @@ export class AppComponent {
     this._http.checkAuth().then(
       data => {
         this.storage.storageUserData(data.user);
+        if(data.user.cash == undefined)
+          this.storage.storeCash(data.shop);
         this.storeInventoryHttp();
+        if(this.router.url == '/login' || this.router.url == '/register')
+          this.router.navigate(['/sale-point']);
         setTimeout(() => {
 
           this.loaderAnimation();

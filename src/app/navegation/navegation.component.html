@@ -11,11 +11,15 @@
     <div style="background-image: url(http://planoinformativo.com/stock12/image/2015/Agosto/25/tiendas.jpg)" id="userInfSection">
         <div>
             <img src="https://www.w3schools.com/w3css/img_avatar3.png">
-            <p>{{userData.userName | lowercase}}</p>
-            <p id="emailInf">{{userData.userEmail | lowercase}}</p>
-            <p *ngIf="userData.userType == 1" id="userTypeInf">Caja</p>
-            <p *ngIf="userData.userType == 2" id="userTypeInf">Administrador</p>
-            <p *ngIf="userData.userType == 3" id="userTypeInf">Super Administrador</p>
+            <p>{{userData.getName() | lowercase}}</p>
+            <p id="emailInf">{{userData.getEmail() | lowercase}}</p>
+            <div id="userTypeInf">
+                <p *ngIf="userData.getUserType() == 1">Caja</p>
+                <p *ngIf="userData.getUserType() == 2">Administrador</p>
+                <p *ngIf="userData.getUserType() == 3">Super Administrador</p>
+                <p>Caja: ${{ userData.getCash() }}</p>
+            </div>
+
         </div>
     </div>
 

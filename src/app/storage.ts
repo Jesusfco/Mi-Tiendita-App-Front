@@ -27,7 +27,23 @@ export class Storage {
         localStorage.setItem('userEmail', data.email);
         localStorage.setItem('userId', data.id);
         localStorage.setItem('userPhone', data.phone);
+        localStorage.setItem('userPhone', data.phone);
         localStorage.setItem('userType', data.user_type_id);
+        localStorage.setItem('userCash', data.cash);
+    }
+    storeCash(data){
+        localStorage.setItem('userCash', data.cash);
+    }
+
+    getName(){
+        return localStorage.getItem('userName');
+    }
+    getEmail(){
+        return localStorage.getItem('userEmail');
+    }
+
+    getUserType(){
+        return localStorage.getItem('userType');
     }
 
     storageInventory(data){
@@ -36,6 +52,10 @@ export class Storage {
 
     getInventory(){
         return JSON.parse(localStorage.getItem('inventory'));
+    }
+
+    getCash(){
+        return localStorage.getItem('userCash');
     }
 
     pushProduct(data){

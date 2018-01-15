@@ -167,4 +167,9 @@ export class EditProductComponent implements OnInit {
     };
   }
 
+  upperCaseName(){
+    if(this.productEditable.name != undefined)
+    this.productEditable.name = this.productEditable.name.toUpperCase();
+  }
+
 }

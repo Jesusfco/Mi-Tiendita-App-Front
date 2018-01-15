@@ -5,7 +5,7 @@ import { Storage } from '../../storage';
 import { Router } from '@angular/router';
 import { cardPop, backgroundOpacity} from '../../animations';
 
-import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
+// import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
 
 @Component({
   selector: 'app-new-product',
@@ -48,6 +48,7 @@ export class NewProductComponent implements OnInit {
 
   formSubmit(){
     this.form.validate = true;
+    this.upperCaseName();
     if(this.validateName())
       this.validateUniqueName();
     if(this.product.code !== null || this.product.code !== '')
@@ -138,6 +139,11 @@ export class NewProductComponent implements OnInit {
       code: 0,
       price: 0
     };
+  }
+  
+  upperCaseName(){
+    if(this.product.name != undefined)
+    this.product.name = this.product.name.toUpperCase();
   }
 
 }
