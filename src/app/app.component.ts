@@ -55,7 +55,7 @@ export class AppComponent {
 
   ngOnInit(){
 
-    
+    // console.log(navigator.connection);
     setTimeout(() => {
       
       this.loaderAnimationImg();      
@@ -100,7 +100,7 @@ export class AppComponent {
           this.storage.storeCash(data.shop);
 
         this.storeInventoryHttp();
-        
+
         if(this.router.url == '/login' || this.router.url == '/register')
           this.router.navigate(['/sale-point']);
         setTimeout(() => {
