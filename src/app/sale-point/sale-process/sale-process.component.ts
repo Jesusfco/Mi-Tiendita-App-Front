@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { cardPop, backgroundOpacity} from '../../animations';
 import { Router } from '@angular/router';
 import { Sale } from '../sale';
+import { SaleService } from '../sale.service';
+import { Product } from '../../product';
 
 @Component({
   selector: 'app-sale-process',
@@ -12,6 +14,7 @@ import { Sale } from '../sale';
 export class SaleProcessComponent implements OnInit {
 
   public sale: Sale = new Sale();
+  public inventory: Product =  new Product();
 
   state = [{
     background: 'initial',
@@ -26,7 +29,8 @@ export class SaleProcessComponent implements OnInit {
 
   public form: number = 1;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router,
+            private _http: SaleService) { 
     
     localStorage.setItem('saleStatus', '1');
 
@@ -55,6 +59,20 @@ export class SaleProcessComponent implements OnInit {
   }
 
   confirmSale(){
+    this._http.postSale(this.sale).then(
+      data => {
+        let x = parseInt(localStorage.getItem('userCash'));
+        localStorage.setItem('userCash', x + this.sale.total);
+
+        this.inventory.afterSale(this.sale.description);
+        localStorage.removeItem('saleStatus');
+        this.closePop();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
     localStorage.removeItem('saleStatus');
     this.closePop();
   }

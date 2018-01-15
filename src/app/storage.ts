@@ -22,6 +22,10 @@ export class Storage {
         localStorage.setItem('token', token);
     }
 
+    getTokenUrl(){
+        return '?token=' + localStorage.getItem('token');
+    }
+
     storageUserData(data){
         localStorage.setItem('userName', data.name);
         localStorage.setItem('userEmail', data.email);

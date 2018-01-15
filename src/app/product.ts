@@ -18,4 +18,21 @@ export class Product {
         this.reorder = 0;
         this.stock = 0;
     }
+
+    afterSale(sale){
+        let inventory = JSON.parse(localStorage.getItem('inventory'));
+
+        for(let x = 0; x < Object.keys(sale).length; x++){
+            for(let y = 0; y < Object.keys(inventory).length; y++){
+                if(sale[x].product_id == inventory[y].id){
+                    inventory[y].stock -= sale[x].quantity;
+                    console.log(sale[x]);
+                    break;
+                }
+            }
+        }
+
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+        
+    }
 }

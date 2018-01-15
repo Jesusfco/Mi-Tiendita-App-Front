@@ -121,8 +121,10 @@ export class RegisterComponent implements OnInit {
       data => {
         this.storage.storageToken(data.token);
         this.storage.storageUserData(data.user);
+        this.storage.storeCash({data: {cash: 0}});
+        this.storage.storageInventory(data.inventory);
         this.sendingData = false;
-        location.reload();
+        this.router.navigate(['/inventory']);
       },
       error => {
         console.log(error);

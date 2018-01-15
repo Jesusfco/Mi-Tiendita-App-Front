@@ -21,13 +21,13 @@ export class LoginService {
   }
 
   checkAuth() { 
-    return this._http.get(this.link.url + 'checkAuth' + this.token.tokenUrl)
+    return this._http.get(this.link.url + 'checkAuth' + this.token.getTokenUrl())
     .map(data => data.json())
     .toPromise();
   }
 
   getProducts() { 
-    return this._http.get(this.link.url + 'inventory/getProducts' + this.token.tokenUrl)
+    return this._http.get(this.link.url + 'inventory/getProducts' + this.token.getTokenUrl())
     .map(data => data.json())
     .toPromise();
   }
