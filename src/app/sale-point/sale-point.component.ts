@@ -56,7 +56,7 @@ export class SalePointComponent implements OnInit {
       if(x.code == this.search.name || x.name == this.search.name.toUpperCase()){
           
         this.sale.pushProduct({
-            id_product: x.id,
+            product_id: x.id,
             name: x.name,
             price: x.price,
             quantity: this.search.quantity,

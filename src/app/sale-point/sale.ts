@@ -30,7 +30,7 @@ export class Sale {
 
     checkUniqueDescription(product){
         for (let x = 0; x < Object.keys(this.description).length; x++){
-            if(product.id_product ==  this.description[x].id_product){
+            if(product.product_id ==  this.description[x].product_id){
                 this.description[x].quantity += product.quantity;
                 this.description[x].subtotal = this.description[x].quantity * this.description[x].price;
                 return false;
@@ -51,7 +51,7 @@ export class Sale {
     deleteProduct(id){
         console.log(id);
         for(let x = 0; x < Object.keys(this.description).length; x++){
-            if(id == this.description[x].id_product){
+            if(id == this.description[x].product_id){
                 this.description.splice(x, 1);
             }
         }

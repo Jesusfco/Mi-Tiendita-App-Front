@@ -62,7 +62,8 @@ export class SaleProcessComponent implements OnInit {
     this._http.postSale(this.sale).then(
       data => {
         let x = parseInt(localStorage.getItem('userCash'));
-        localStorage.setItem('userCash', x + this.sale.total);
+        x += this.sale.total;
+        localStorage.setItem('userCash', x.toString());
 
         this.inventory.afterSale(this.sale.description);
         localStorage.removeItem('saleStatus');
