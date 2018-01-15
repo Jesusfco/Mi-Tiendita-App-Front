@@ -72,7 +72,6 @@ export class Sale {
     }
 
     setCreatedAt(){
-        
     let x = new Date();
     this.created_at = x.getFullYear() + "-";
 

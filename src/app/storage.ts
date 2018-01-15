@@ -46,6 +46,11 @@ export class Storage {
         return localStorage.getItem('userEmail');
     }
 
+    getSalesErrorConnection(){
+        if(localStorage.getItem('sales') == undefined) return "";
+        return Object.keys(JSON.parse(localStorage.getItem('sales') ) ).length;
+    }
+
     getUserType(){
         return localStorage.getItem('userType');
     }

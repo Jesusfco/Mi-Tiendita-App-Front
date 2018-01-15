@@ -123,6 +123,13 @@ nav button {
     position: relative;
 }
 
+.notified {
+    color: red;
+    text-align: right;
+    position: absolute;
+    right: 13px;
+}
+
 @media screen and (max-width: 750px) {
     nav {
         height: 40px;

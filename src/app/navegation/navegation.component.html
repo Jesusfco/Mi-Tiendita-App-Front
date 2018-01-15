@@ -14,9 +14,9 @@
             <p>{{userData.getName() | lowercase}}</p>
             <p id="emailInf">{{userData.getEmail() | lowercase}}</p>
             <div id="userTypeInf">
-                <p *ngIf="userData.getUserType() == 1">Caja</p>
-                <p *ngIf="userData.getUserType() == 2">Administrador</p>
-                <p *ngIf="userData.getUserType() == 3">Super Administrador</p>
+                <p *ngIf="userData.getUserType() == '1'">Caja</p>
+                <p *ngIf="userData.getUserType() == '2'">Administrador</p>
+                <p *ngIf="userData.getUserType() == '3'">Super Administrador</p>
                 <p>Caja: ${{ userData.getCash() }}</p>
             </div>
 
@@ -27,7 +27,7 @@
     <ul>
 
         <a [routerLink]="['/sale-point']">
-            <li><button mat-button>Punto de Venta</button></li>
+            <li><button mat-button>Punto de Venta <span class="notified">{{ userData.getSalesErrorConnection() }}</span></button></li>
         </a>
 
         <a [routerLink]="['/inventory']">

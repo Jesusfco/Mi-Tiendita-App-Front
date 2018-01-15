@@ -97,7 +97,8 @@ export class SalePointComponent implements OnInit {
     return JSON.parse(localStorage.getItem('sale'));
   }
 
-  goSaleProcess(){    
+  goSaleProcess(){ 
+    // this.sale.sendStoreSales();
     this.interval = setInterval(() => this.intervalSaleLogic(), 1000);
     this.router.navigate(['/sale-point/sale-process']);
   }
