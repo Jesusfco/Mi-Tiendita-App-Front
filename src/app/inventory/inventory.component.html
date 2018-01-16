@@ -3,7 +3,7 @@
 <input [(ngModel)]="search" name="search" type="text" id="search"><label><mat-icon>search</mat-icon></label>
 
 
-<button class="createBtn" (click)="createPro = !createPro">Agregar Producto</button>
+<!-- <button class="createBtn" (click)="createPro = !createPro">Agregar Producto</button> -->
 
 <table>
     <thead>
@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let product of products | filterInventory:search">
+        <tr *ngFor="let product of products | filterInventory:search" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
             <td>{{ product.name }}</td>
             <td>{{ product.price }}</td>
             <td>{{ product.stock }}</td>

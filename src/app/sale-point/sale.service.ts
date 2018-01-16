@@ -25,4 +25,16 @@ export class SaleService {
     .map(data => data.json())
     .toPromise();
   }
+
+  getSales(){
+    return this._http.get(this.link.url + 'sales' + this.storage.getTokenUrl())
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  getSalesParameter(parameter){
+    return this._http.post(this.link.url + 'sales' + this.storage.getTokenUrl(), parameter)
+    .map(data => data.json())
+    .toPromise();
+  }
 }

@@ -26,15 +26,31 @@
     <h5>APLICACIÓN</h5>
     <ul>
 
-        <a [routerLink]="['/sale-point']">
+        <a [routerLink]="['/sale-point']" class="pcView">
             <li><button mat-button>Punto de Venta <span class="notified">{{ userData.getSalesErrorConnection() }}</span></button></li>
         </a>
 
-        <a [routerLink]="['/inventory']">
+        <a [routerLink]="['/inventory']" class="pcView">
             <li><button mat-button>Inventario</button></li>
         </a>
 
-        <li><button mat-button>Ventas</button></li>
+        <a [routerLink]="['/sales']" class="pcView">
+            <li><button mat-button>Ventas</button></li>
+        </a>
+
+        <!-- CLICK PARA MOVIL -->
+
+        <a (click)="redirect('/sale-point')" class="movilView">
+            <li><button mat-button>Punto de Venta <span class="notified">{{ userData.getSalesErrorConnection() }}</span></button></li>
+        </a>
+
+        <a (click)="redirect('/inventory')" class="movilView">
+            <li><button mat-button>Inventario</button></li>
+        </a>
+
+        <a (click)="redirect('/sales')" class="movilView">
+            <li><button mat-button>Ventas</button></li>
+        </a>
 
     </ul>
     <h5>USUARIO</h5>

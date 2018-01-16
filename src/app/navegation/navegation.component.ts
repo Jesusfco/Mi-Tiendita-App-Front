@@ -3,6 +3,8 @@ import { trigger, state, style, transition, animate, keyframes} from '@angular/a
 import { Storage } from '../storage';
 import { Product } from '../product';
 import { InventoryService } from '../inventory/inventory.service';
+import { Router } from '@angular/router';
+// import { animations } from '../animations';
 
 @Component({
   selector: 'app-navegation',
@@ -51,7 +53,7 @@ export class NavegationComponent implements OnInit {
       puntoVenta: false,
     }
 
-    constructor(private _http: InventoryService) { }            
+    constructor(private _http: InventoryService, private router: Router) { }            
 
     sideNav(){
         if(window.screen.width < 750){
@@ -89,6 +91,11 @@ export class NavegationComponent implements OnInit {
             // this.statePanel = (this.statePanel === 'initial' ? 'final' : 'initial');
 
         } 
+    }
+
+    redirect(url){
+      this.closeNavMov();
+      this.router.navigate([url]);
     }
 
     inventarioView(){

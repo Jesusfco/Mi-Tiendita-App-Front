@@ -49,6 +49,7 @@ import { SaleService } from './sale-point/sale.service';
 import { routes } from './app.route';
 import { FilterInventoryPipe } from './filter-inventory.pipe';
 import { SaleProcessComponent } from './sale-point/sale-process/sale-process.component';
+import { SaleComponent } from './sale-component/sale-component.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { SaleProcessComponent } from './sale-point/sale-process/sale-process.com
     SalePointComponent,
     FilterInventoryPipe,
     SaleProcessComponent,
+    SaleComponent,
   ],
   imports: [
     BrowserModule,

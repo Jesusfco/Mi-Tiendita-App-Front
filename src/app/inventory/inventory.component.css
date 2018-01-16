@@ -28,3 +28,11 @@
     padding-top: 5px;
     margin-left: -30px;
 }
+
+.danger {
+    background: rgb(194, 1, 1);
+}
+
+.advice {
+    background: orange;
+}

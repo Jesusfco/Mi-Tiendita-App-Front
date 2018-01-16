@@ -46,6 +46,9 @@ nav button {
     z-index: 3;
     /* outline: 1px solid #333;
     overflow-y: scroll; */
+    -webkit-box-shadow: 0px 2px 32px -4px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0px 2px 32px -4px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 2px 32px -4px rgba(0, 0, 0, 0.7);
 }
 
 .sideNav h5 {
@@ -65,6 +68,10 @@ nav button {
 .sideNav button {
     text-align: left;
     width: 100%;
+}
+
+.movilView {
+    display: none;
 }
 
 
@@ -121,6 +128,9 @@ nav button {
     min-height: 85vh;
     font-weight: 300px;
     position: relative;
+    -webkit-box-shadow: 0px 2px 31px 6px rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0px 2px 31px 6px rgba(0, 0, 0, 0.19);
+    box-shadow: 0px 2px 31px 6px rgba(0, 0, 0, 0.19);
 }
 
 .notified {
@@ -142,5 +152,14 @@ nav button {
     }
     .sideNav {
         padding: 40px 0px;
+        -webkit-box-shadow: 0px 2px 31px 6px rgba(0, 0, 0, 0.7);
+        -moz-box-shadow: 0px 2px 31px 6px rgba(0, 0, 0, 0.7);
+        box-shadow: 0px 2px 31px 6px rgba(0, 0, 0, 0.493);
+    }
+    .pcView {
+        display: none;
+    }
+    .movilView {
+        display: initial;
     }
 }

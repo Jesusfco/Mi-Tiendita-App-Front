@@ -1,0 +1,25 @@
+<h1>Inventario</h1>
+
+<input type="date" id="search"><label><mat-icon>search</mat-icon></label>
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Total</th>
+            <th>Fecha/Hora</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let sale of sales">
+            <td>{{ sale.id }}</td>
+            <td>{{ sale.total }}</td>
+            <td>{{ sale.created_at }}</td>
+        </tr>
+
+    </tbody>
+</table>
