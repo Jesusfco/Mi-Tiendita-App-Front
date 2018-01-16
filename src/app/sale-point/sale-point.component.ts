@@ -35,11 +35,13 @@ export class SalePointComponent implements OnInit {
 
   public interval: any = 0;
 
-  constructor(private _http: SaleService, 
-              private inventoryService: InventoryService, 
+  constructor(private _http: SaleService,
+              private inventoryService: InventoryService,
               private router: Router) {
 
                 this.inventory = this.storage.getInventory();
+                this.sendStoreSales();
+
                 if(this.sale.getLocalSale() != undefined){
                   this.sale.description = this.sale.getLocalSale();
                   this.sale.getTotal();
@@ -52,16 +54,16 @@ export class SalePointComponent implements OnInit {
   identifyProduct(){
     this.restoreFormValue();
     for(let x of this.inventory){
-      
+
       if(x.code == this.search.name || x.name == this.search.name.toUpperCase()){
-          
+
         this.sale.pushProduct({
             product_id: x.id,
             name: x.name,
             price: x.price,
             quantity: this.search.quantity,
           });
-          
+
         this.restoreSearch();
 
         break;
@@ -97,17 +99,33 @@ export class SalePointComponent implements OnInit {
     return JSON.parse(localStorage.getItem('sale'));
   }
 
-  goSaleProcess(){ 
-    // this.sale.sendStoreSales();
+  goSaleProcess(){
+    this.sendStoreSales();
     this.interval = setInterval(() => this.intervalSaleLogic(), 1000);
     this.router.navigate(['/sale-point/sale-process']);
   }
 
+  sendStoreSales(){
+
+    if(localStorage.getItem('sales') != undefined){
+        let x = JSON.parse(localStorage.getItem('sales'));
+        this._http.outServiceSales({sales: x}).then(
+                data => {
+                  // console.log(data);
+                    localStorage.removeItem('sales');
+                }, error => {
+                    console.log(error)
+                }
+            );
+    }
+
+  }
+
   intervalSaleLogic(){
-    
+
     if(localStorage.getItem('saleStatus') == undefined){
       this.sale = new Sale();
-      this.exitInterval();      
+      this.exitInterval();
     } else if(localStorage.getItem('saleStatus') == '0'){
       this.exitInterval();
     }
