@@ -4,7 +4,7 @@
 
 
 <!-- <button class="createBtn" (click)="createPro = !createPro">Agregar Producto</button> -->
-
+<h5>Limite {{ getUsersLenght() }} / {{ getLimitUser() }}</h5>
 <table>
     <thead>
         <tr>
@@ -28,7 +28,7 @@
 
     </tbody>
 </table>
-<a [routerLink]="['/employers/create']">
+<a *ngIf="validateLimitUser()" [routerLink]="['/employers/create']">
     <button mat-fab id="createBtn">
         <mat-icon >person_add</mat-icon>
     </button>

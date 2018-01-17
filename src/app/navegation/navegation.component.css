@@ -116,6 +116,11 @@ nav button {
     padding: 0
 }
 
+userTypeInf {
+    right: 15px;
+    text-align: right;
+}
+
 
 /* Area de Aplicacion principal */
 

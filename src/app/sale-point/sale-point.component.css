@@ -91,13 +91,17 @@ tbody {
         z-index: 4;
         margin: 0;
     }
+    .divSearch {
+        width: ;
+    }
     #search {
         margin: 0 auto;
-        width: 85%;
+        width: 85vw;
         transition: 1s;
+        padding-left: 15px;
     }
     #search:focus {
-        width: 96%;
+        width: 95vw;
     }
     .btnSearch {
         display: none;

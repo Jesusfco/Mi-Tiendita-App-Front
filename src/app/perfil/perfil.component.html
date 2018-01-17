@@ -1,3 +1,8 @@
-<p>
-  perfil works!
-</p>
+<h1>Perfil</h1>
+<form (submit)="cashSubmit()">
+    <div>
+        <label>Dinero en Caja Global</label>
+        <input type="number" min="0" [(ngModel)]="caja" name="caja">
+        <button class="btn btnAccept">Modificar</button>
+    </div>
+</form>

@@ -99,9 +99,11 @@ export class AppComponent {
         if(data.user.cash == undefined)
           this.storage.storeCash(data.shop);
 
+        this.storage.storeServiceData(data.service);
+
         this.storeInventoryHttp();
 
-        if(this.router.url == '/login' || this.router.url == '/register')
+        // if(this.router.url == '/login' || this.router.url == '/register')
           this.router.navigate(['/sale-point']);
         setTimeout(() => {
 

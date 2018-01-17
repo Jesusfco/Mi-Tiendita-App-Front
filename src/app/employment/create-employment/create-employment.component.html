@@ -1,3 +1,56 @@
-<p>
-  create-employment works!
-</p>
+<mat-progress-bar mode="indeterminate" *ngIf="sendingData" class="barLoader"></mat-progress-bar>
+<div class="cardSpace" [@background]="state.background">
+
+    <div class="closeCardBackground" (click)="closePop()">
+        <h5 class="closeIcon">
+            <mat-icon>close</mat-icon>
+        </h5>
+    </div>
+
+    <div class="cardModule" [@card]="state.card">
+        <h2>Crea un nuevo usuario</h2>
+        <mat-spinner *ngIf="sendingData"></mat-spinner>
+
+        <form (submit)="userForm()" [ngClass]="{ 'loadingForm': sendingData == true}">
+            <h4>Crea tu Usuario</h4>
+
+            <div>
+                <label>Nombre Completo</label><br>
+                <input [(ngModel)]="user.name" name="name" type="text" [ngClass]="{ 'inputError': validateUser.name >= 1 }">
+                <small class="smallError" *ngIf="validateUser.name == 1">Requerido</small>
+            </div>
+
+            <div>
+                <label>Tipo de Usuario</label>
+                <select [(ngModel)]="user.user_type_id" name="user_type_id" placeholder="Tipo de Usuario">
+                  <option *ngFor="let x of userTypes" value="{{x.value}}">{{x.view}}</option>               
+                </select>
+            </div>
+
+
+            <div>
+                <label>Correo:</label><br>
+                <input [(ngModel)]="user.email" [ngClass]="{ 'inputError': validateUser.email >= 1, 'inputVerified': validateUser.email == -1 }" name="email" type="email" (keydown)="keydownCheckUniqueEmail()">
+                <small class="smallError" *ngIf="validateUser.email == 1">Requerido</small>
+                <small class="smallError" *ngIf="validateUser.email == 2">Email ya registrado</small>
+            </div>
+
+            <div>
+                <label>Numero Celular:</label><br>
+                <input [(ngModel)]="user.phone" [ngClass]="{ 'inputError': validateUser.phone >= 1, 'inputVerified': validateUser.phone == -1 }" name="phone" type="tel" (keydown)="keydownCheckUniquePhone()">
+                <!-- <small class="smallError" *ngIf="validateUser.phone == 1">Requerido</small> -->
+                <small class="smallError" *ngIf="validateUser.phone == 2">Tel ya registrado</small>
+            </div>
+
+            <div>
+                <label>Contraseña:</label>
+                <input [(ngModel)]="user.password" name="password" type="password" [ngClass]="{ 'inputError': validateUser.password >= 1 }">
+                <small class="smallError" *ngIf="validateUser.password == 1">Requerido</small>
+            </div>
+
+            <button type="submit" class="btn btnAccept">Registrarse</button>
+
+        </form>
+    </div>
+
+</div>

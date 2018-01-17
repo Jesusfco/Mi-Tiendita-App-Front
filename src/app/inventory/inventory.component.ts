@@ -28,6 +28,19 @@ export class InventoryComponent implements OnInit {
     setInterval(() => this.refreshInventoryFromlocalStore(), 1500);
   }
 
+  countProduct(){
+    if(this.products.length == 0) { return 0}
+    else {
+      return Object.keys(this.products).length;
+    }
+  }
+
+  validateLimitProduct(){
+    if(this.countProduct() < this.storage.getLimitProduct()){
+      return true;
+    } return false;
+  }
+
   newProduct(data){
     
       this.products.push(data);

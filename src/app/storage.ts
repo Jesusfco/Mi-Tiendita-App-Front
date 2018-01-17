@@ -39,6 +39,15 @@ export class Storage {
         localStorage.setItem('userCash', data.cash);
     }
 
+    storeServiceData(service){
+        localStorage.setItem('products_limit', service.products_limit);
+        localStorage.setItem('users_limit', service.users_limit);
+    }
+
+    getLimitProduct(){
+        return parseInt(localStorage.getItem('products_limit'));
+    }
+
     getName(){
         return localStorage.getItem('userName');
     }

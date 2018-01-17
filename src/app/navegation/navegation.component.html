@@ -14,10 +14,10 @@
             <p>{{userData.getName() | lowercase}}</p>
             <p id="emailInf">{{userData.getEmail() | lowercase}}</p>
             <div id="userTypeInf">
-                <p *ngIf="userData.getUserType() == '1'">Caja</p>
+                <p *ngIf="userData.getUserType() == '1'">Cajero</p>
                 <p *ngIf="userData.getUserType() == '2'">Administrador</p>
                 <p *ngIf="userData.getUserType() == '3'">Super Administrador</p>
-                <p>Caja: ${{ userData.getCash() }}</p>
+                <p>Caja: <strong>${{ userData.getCash() }}</strong></p>
             </div>
 
         </div>
@@ -42,7 +42,7 @@
 
 
 
-        <li [routerLink]="['/employers']" class="pcView">
+        <li *ngIf="userData.getUserType() > 1" [routerLink]="['/employers']" class="pcView">
             <button mat-button>Usuarios</button>
         </li>
 
@@ -61,7 +61,7 @@
             <li><button mat-button>Ventas</button></li>
         </a>
 
-        <a (click)="redirect('/employers')" class="movilView">
+        <a *ngIf="userData.getUserType() > 1" (click)="redirect('/employers')" class="movilView">
             <li><button mat-button>Usuarios</button></li>
         </a>
 
