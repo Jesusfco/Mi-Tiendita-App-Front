@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from './inventory.service';
 import { Product } from '../product';
 import { Storage } from '../storage';
-import { FilterInventoryPipe } from '../filter-inventory.pipe';
+import { FilterInventoryPipe } from './filter-inventory.pipe';
 // import { setInterval } from 'timers';
 
 @Component({
