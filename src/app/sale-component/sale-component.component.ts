@@ -14,6 +14,7 @@ export class SaleComponent implements OnInit {
   constructor(private _http: SaleService) {
     this._http.getSales().then(
       data => this.sales = data,
+      // data => console.log(data),
       error => console.log(error)
     );
    }

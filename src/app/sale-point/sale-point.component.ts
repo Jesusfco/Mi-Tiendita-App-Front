@@ -35,6 +35,8 @@ export class SalePointComponent implements OnInit {
 
   public interval: any = 0;
 
+  sugests: Array<any> = [];
+
   constructor(private _http: SaleService,
               private inventoryService: InventoryService,
               private router: Router) {
@@ -49,10 +51,30 @@ export class SalePointComponent implements OnInit {
 
   }
 
+  getSugest(event){
+    
+    if(event == 38 || event == 40 || event == 13) return;
+    if(this.search.name == null || this.search.name == '') {
+      this.sugests = [];
+      return;
+    } else {
+      let search = this.search.name;
+
+      this.sugests = this.inventory.filter(function(product){
+
+        return (product.name.includes(search.toUpperCase()));
+      }) 
+    }
+    
+
+
+  }
+
   ngOnInit(){}
 
   identifyProduct(){
     this.restoreFormValue();
+    this.sugests = [];
     for(let x of this.inventory){
 
       if(x.code == this.search.name || x.name == this.search.name.toUpperCase()){

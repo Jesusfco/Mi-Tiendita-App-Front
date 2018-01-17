@@ -82,9 +82,9 @@ export class Sale {
     }
 
     if( x.getUTCDate() < 9){
-        this.created_at += "0" + (x.getUTCDate() + 1) + " ";        
+        this.created_at += "0" + (x.getUTCDate() ) + " ";        
     }else {
-        this.created_at += (x.getUTCDate() + 1) + " ";
+        this.created_at += (x.getUTCDate() ) + " ";
     }
 
     if(x.getHours() < 10){

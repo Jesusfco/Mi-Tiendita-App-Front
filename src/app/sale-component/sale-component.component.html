@@ -1,6 +1,6 @@
-<h1>Inventario</h1>
+<h1 class="routeTitle">Registro de Ventas</h1>
 
-<input type="date" id="search"><label><mat-icon>search</mat-icon></label>
+<input type="date" id="search"><label><mat-icon>date_range</mat-icon></label>
 
 
 
@@ -10,15 +10,17 @@
         <tr>
             <th>#</th>
             <th>Total</th>
-            <th>Fecha/Hora</th>
+            <th>Fecha</th>
+            <th>Hora</th>
         </tr>
     </thead>
 
     <tbody>
         <tr *ngFor="let sale of sales">
             <td>{{ sale.id }}</td>
-            <td>{{ sale.total }}</td>
-            <td>{{ sale.created_at }}</td>
+            <td> ${{ sale.total }}</td>
+            <td>{{ sale.created_at | date: format }}</td>
+            <td>{{ sale.created_at | date: 'hh:mm a' }}</td>
         </tr>
 
     </tbody>
