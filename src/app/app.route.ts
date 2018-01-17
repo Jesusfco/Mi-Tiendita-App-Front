@@ -13,8 +13,11 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { EmploymentComponent } from './employment/employment.component';
 import { CreateEmploymentComponent } from './employment/create-employment/create-employment.component';
 import { EditEmploymentComponent } from './employment/edit-employment/edit-employment.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
+    
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'perfil', component: PerfilComponent },
@@ -36,5 +39,6 @@ export const routes: Routes = [
     { path: 'sale-point', component: SalePointComponent,
         children: [
             { path: 'sale-process', component: SaleProcessComponent }
-    ]}
+    ]},
+    { path: '**', component:  PageNotFoundComponent },
 ];

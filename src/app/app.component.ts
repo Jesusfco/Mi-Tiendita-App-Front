@@ -62,12 +62,15 @@ export class AppComponent {
       
       if(this.storage.token == null || this.storage.token == ''){  
       
-        if(this.router.url !== '/register')
+        if(this.router.url !== '/register'){
           this.router.navigate(['/login']);
+          
+        }
+          
 
         setTimeout(() => {
           this.loaderAnimation();
-        }, 800);
+        }, 600);
         return;
       }
   
@@ -103,12 +106,14 @@ export class AppComponent {
 
         this.storeInventoryHttp();
 
-        // if(this.router.url == '/login' || this.router.url == '/register')
-          this.router.navigate(['/sale-point']);
+        
+          
         setTimeout(() => {
 
           this.loaderAnimation();
-
+          if(this.router.url == '/login' || this.router.url == '/register'){
+            this.router.navigate(['/sale-point']);
+          }
         }, 800);
       },
       error =>  {

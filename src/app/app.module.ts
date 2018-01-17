@@ -58,6 +58,7 @@ import { EditEmploymentComponent } from './employment/edit-employment/edit-emplo
 import { EmploymentPipePipe } from './employment/employment-pipe.pipe';
 import { PerfilService } from './perfil/perfil.service';
 import { EmploymentService } from './employment/employment.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { EmploymentService } from './employment/employment.service';
     CreateEmploymentComponent,
     EditEmploymentComponent,
     EmploymentPipePipe,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

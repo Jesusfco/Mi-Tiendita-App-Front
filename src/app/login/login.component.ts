@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
         this.storage.storageUserData(data.user);
         this.storage.storeCash(data.shop);
         this.storage.storageInventory(data.inventory);
+        this.storage.storeServiceData(data.service);
         this.router.navigate(['/inventory']);
       },
       error => {
