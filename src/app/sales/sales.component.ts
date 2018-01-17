@@ -7,7 +7,7 @@ import { SaleService } from '../sale-point/sale.service';
   templateUrl: './sale-component.component.html',
   styleUrls: ['./sale-component.component.css']
 })
-export class SaleComponent implements OnInit {
+export class SalesComponent implements OnInit {
   public sales = [];
 
 

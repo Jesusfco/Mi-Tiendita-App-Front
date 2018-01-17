@@ -69,17 +69,15 @@ export class SaleProcessComponent implements OnInit {
 
         this.inventory.afterSale(this.sale.description);
         localStorage.removeItem('saleStatus');
-        this.closePop();
       },
       error => {
         console.log(error);
         this.sale.storeSaleErrorConnection(this.sale);
-        this.closePop();
       }
     );
 
     localStorage.removeItem('saleStatus');
-    this.closePop();
+    this.closePop()
   }
 
   closePop(){    

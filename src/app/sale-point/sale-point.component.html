@@ -2,7 +2,7 @@
 
 <form (submit)="identifyProduct()">
     <div class="divSearch">
-        <input [(ngModel)]="search.name" [matAutocomplete]="auto" (keypress)="getSugest($event.keyCode)" placeholder="Codigo de barras / Nombre del producto" name="name" type="search" id="search">
+        <input [(ngModel)]="search.name" [matAutocomplete]="auto" (keyup)="getSugest($event.keyCode)" placeholder="Codigo de barras / Nombre del producto" name="name" type="search" id="search">
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let product of sugests" [value]="product.name">
                 {{ product.name }}

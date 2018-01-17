@@ -47,13 +47,21 @@ import { SalePointComponent } from './sale-point/sale-point.component';
 import { SaleService } from './sale-point/sale.service';
 
 import { routes } from './app.route';
-import { FilterInventoryPipe } from './filter-inventory.pipe';
+import { FilterInventoryPipe } from './inventory/filter-inventory.pipe';
 import { SaleProcessComponent } from './sale-point/sale-process/sale-process.component';
-import { SaleComponent } from './sale-component/sale-component.component';
+import { SalesComponent } from './sales/sales.component';
+import { ShowSaleComponent } from './sales/show-sale/show-sale.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { EmploymentComponent } from './employment/employment.component';
+import { CreateEmploymentComponent } from './employment/create-employment/create-employment.component';
+import { EditEmploymentComponent } from './employment/edit-employment/edit-employment.component';
+import { EmploymentPipePipe } from './employment/employment-pipe.pipe';
+import { PerfilService } from './perfil/perfil.service';
+import { EmploymentService } from './employment/employment.service';
 
 @NgModule({
   declarations: [
-    AppComponent,    
+    AppComponent,
     NavegationComponent,
     RegisterComponent,
     LoginComponent,
@@ -63,7 +71,13 @@ import { SaleComponent } from './sale-component/sale-component.component';
     SalePointComponent,
     FilterInventoryPipe,
     SaleProcessComponent,
-    SaleComponent,
+    SalesComponent,
+    ShowSaleComponent,
+    PerfilComponent,
+    EmploymentComponent,
+    CreateEmploymentComponent,
+    EditEmploymentComponent,
+    EmploymentPipePipe,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +85,6 @@ import { SaleComponent } from './sale-component/sale-component.component';
     HttpModule,
     JsonpModule,
     RouterModule.forRoot(routes),
-    // MaterializeModule,   
     BrowserAnimationsModule,  
     
     
@@ -92,7 +105,7 @@ import { SaleComponent } from './sale-component/sale-component.component';
     MatProgressSpinnerModule,
 
   ],
-  providers: [RegisterService , LoginService, InventoryService, SaleService],
+  providers: [RegisterService , LoginService, InventoryService, SaleService, PerfilService, EmploymentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

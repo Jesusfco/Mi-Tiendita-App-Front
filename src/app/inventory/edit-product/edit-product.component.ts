@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes} from '@angular/animations';
 import { cardPop, backgroundOpacity } from '../../animations';
 import { Product } from '../../product';
 import { InventoryService } from '../inventory.service';

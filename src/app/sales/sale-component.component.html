@@ -16,12 +16,16 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let sale of sales">
+
+        <tr *ngFor="let sale of sales" [routerLink]="['/sales', sale.id]">
             <td>{{ sale.id }}</td>
             <td> ${{ sale.total }}</td>
             <td>{{ sale.created_at | date: format }}</td>
             <td>{{ sale.created_at | date: 'hh:mm a' }}</td>
         </tr>
 
+
     </tbody>
 </table>
+
+<router-outlet></router-outlet>

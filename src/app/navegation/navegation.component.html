@@ -26,17 +26,26 @@
     <h5>APLICACIÓN</h5>
     <ul>
 
-        <a [routerLink]="['/sale-point']" class="pcView">
-            <li><button mat-button>Punto de Venta <span class="notified">{{ userData.getSalesErrorConnection() }}</span></button></li>
-        </a>
+        <li [routerLink]="['/sale-point']" class="pcView">
+            <button mat-button>Punto de Venta <span class="notified">{{ userData.getSalesErrorConnection() }}</span></button>
+        </li>
 
-        <a [routerLink]="['/inventory']" class="pcView">
-            <li><button mat-button>Inventario</button></li>
-        </a>
 
-        <a [routerLink]="['/sales']" class="pcView">
-            <li><button mat-button>Ventas</button></li>
-        </a>
+        <li [routerLink]="['/inventory']" class="pcView">
+            <button mat-button>Inventario</button></li>
+
+
+
+        <li [routerLink]="['/sales']" class="pcView">
+            <button mat-button>Ventas</button>
+        </li>
+
+
+
+        <li [routerLink]="['/employers']" class="pcView">
+            <button mat-button>Usuarios</button>
+        </li>
+
 
         <!-- CLICK PARA MOVIL -->
 
@@ -52,10 +61,17 @@
             <li><button mat-button>Ventas</button></li>
         </a>
 
+        <a (click)="redirect('/employers')" class="movilView">
+            <li><button mat-button>Usuarios</button></li>
+        </a>
+
     </ul>
     <h5>USUARIO</h5>
     <ul>
-        <li><button mat-button>Perfil</button></li>
+        <li [routerLink]="['/perfil']" class="pcView"><button mat-button>Perfil</button></li>
+        <a (click)="redirect('/perfil')" class="movilView">
+            <li><button mat-button>Perfil</button></li>
+        </a>
         <li><button mat-button (click)="cerrarSesion()">Cerrar Sesión</button></li>
         <!-- <li><button md-button>Perfil</button></li> -->
     </ul>

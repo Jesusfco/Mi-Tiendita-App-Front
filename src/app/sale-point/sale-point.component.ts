@@ -49,6 +49,8 @@ export class SalePointComponent implements OnInit {
                   this.sale.getTotal();
                 }
 
+
+
   }
 
   getSugest(event){

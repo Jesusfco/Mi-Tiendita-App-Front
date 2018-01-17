@@ -1,0 +1,38 @@
+<h1 class="routeTitle">Usuarios</h1>
+
+<input [(ngModel)]="search" name="search" type="text" id="search" placeholder="Buscar Usuario"><label><mat-icon>search</mat-icon></label>
+
+
+<!-- <button class="createBtn" (click)="createPro = !createPro">Agregar Producto</button> -->
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Tipo</th>
+            <th>Caja</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users | employmentPipe:search" [ngClass]="{ 'inactive': user.active == 0}">
+            <td>{{ user.name | lowercase }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.user_type_id }}</td>
+            <td>{{ user.cash }}</td>
+
+
+        </tr>
+
+    </tbody>
+</table>
+<a [routerLink]="['/employers/create']">
+    <button mat-fab id="createBtn">
+        <mat-icon >person_add</mat-icon>
+    </button>
+</a>
+
+<!-- <app-new-product *ngIf="createPro" (closeEvent)="createPro = false" (createEvent)="newProduct($event)"></app-new-product> -->
+<router-outlet></router-outlet>

@@ -37,4 +37,14 @@ export class SaleService {
     .map(data => data.json())
     .toPromise();
   }
+
+  showSale(id){
+    return this._http.get(this.link.url + 'sales/'+ id + this.storage.getTokenUrl())
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }
+
+  
+

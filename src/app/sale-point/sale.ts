@@ -81,10 +81,10 @@ export class Sale {
         this.created_at += (x.getMonth() + 1) + "-";
     }
 
-    if( x.getUTCDate() < 9){
-        this.created_at += "0" + (x.getUTCDate() ) + " ";        
+    if( x.getDate() < 9){
+        this.created_at += "0" + (x.getDate() ) + " ";        
     }else {
-        this.created_at += (x.getUTCDate() ) + " ";
+        this.created_at += (x.getDate() ) + " ";
     }
 
     if(x.getHours() < 10){
