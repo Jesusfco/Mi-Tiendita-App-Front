@@ -17,6 +17,8 @@ export class Product {
         this.add = false;
         this.reorder = 0;
         this.stock = 0;
+        this.name = '';
+        this.code = '';
     }
 
     afterSale(sale){
@@ -34,5 +36,18 @@ export class Product {
 
         localStorage.setItem('inventory', JSON.stringify(inventory));
         
+    }
+
+    deleteProductStorage(id){
+        let inventory = JSON.parse(localStorage.getItem('inventory'));
+
+        for(let x = 0; x < Object.keys('inventory').length; x++){
+            if(inventory[x].id == id){
+                inventory.splice(x, 1);
+                break;
+            }
+        }
+
+        localStorage.setItem('inventory', JSON.stringify(inventory));
     }
 }

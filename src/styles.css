@@ -29,6 +29,10 @@ h5 {
 
 .responsive-table {}
 
+.responsive-table:hover {
+    overflow-x: scroll;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -66,6 +70,9 @@ th {
 }
 
 @media screen and (max-width: 750px) {
+    .responsive-table {
+        overflow-x: scroll;
+    }
     .tbody {
         text-transform: capitalize;
     }

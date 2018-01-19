@@ -9,7 +9,8 @@
 
     <div class="cardModule" [@card]="state.card">
         <h2>Editar Producto</h2>
-        <form (submit)="formSubmit()" autocomplete="off">
+        <label class="delete" (click)="editProcess = !editProcess"><mat-icon>delete</mat-icon></label>
+        <form *ngIf="editProcess" (submit)="formSubmit()" autocomplete="off">
             <div>
                 <label>Nombre</label><br>
                 <input [(ngModel)]="productEditable.name" name="name" type="text" [ngClass]="{ 'inputError': form.name >= 1, 'inputVerified': form.name == -1 }"><br>
@@ -43,6 +44,12 @@
             <button type="submit" class="btn btnAccept">Editar</button>
 
         </form>
+
+        <div *ngIf="!editProcess">
+            <h2>Confirmar la eliminacion del producto {{ product.name }}</h2>
+            <button (click)="editProcess = !editProcess">Cancelar</button>
+            <button (click)="deleteProduct()">Aceptar</button>
+        </div>
 
     </div>
 </div>

@@ -29,7 +29,7 @@ export class InventoryComponent implements OnInit {
   }
 
   countProduct(){
-    if(this.products.length == 0) { return 0}
+    if(this.products == undefined) { return 0}
     else {
       return Object.keys(this.products).length;
     }

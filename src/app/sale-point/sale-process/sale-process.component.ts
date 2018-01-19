@@ -32,7 +32,7 @@ export class SaleProcessComponent implements OnInit {
   constructor(private router: Router,
             private _http: SaleService) { 
     
-    localStorage.setItem('saleStatus', '1');
+    
 
     this.sale.description = this.sale.getLocalSale();
     this.sale.getTotal();

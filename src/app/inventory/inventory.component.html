@@ -4,35 +4,42 @@
 
 
 <!-- <button class="createBtn" (click)="createPro = !createPro">Agregar Producto</button> -->
+<div class="responsive-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Reorden</th>
+                <th>Codigo</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="storage.getUserType() > 1 && products != undefined">
 
-<table>
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Reorden</th>
-            <th *ngIf="storage.getUserType() > 1">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let product of products | filterInventory:search" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
-            <td>{{ product.name | lowercase }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.stock }}</td>
-            <td>{{ product.reorder }}</td>
-            <td *ngIf="storage.getUserType() > 1">
-                <mat-icon>add_shopping_cart</mat-icon>
-                <a [routerLink]="['/inventory/edit', product.id]">
-                    <mat-icon>edit</mat-icon>
-                </a>
-                <mat-icon>delete</mat-icon>
-            </td>
+            <tr [routerLink]="['/inventory/edit', product.id]" *ngFor="let product of products | filterInventory:search" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
+                <td>{{ product.name | lowercase }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.reorder }}</td>
+                <td>{{ product.code }}</td>
+            </tr>
+        </tbody>
 
-        </tr>
+        <tbody *ngIf="storage.getUserType() < 2 && products != undefined">
 
-    </tbody>
-</table>
+            <tr *ngFor="let product of products | filterInventory:search" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
+                <td>{{ product.name | lowercase }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.reorder }}</td>
+                <td>{{ product.code }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
 <a [routerLink]="['/inventory/create']" *ngIf="storage.getUserType() > 1 && validateLimitProduct()">
     <button mat-fab id="createBtn" (click)="createPro = !createPro">
         <mat-icon >add_shopping_cart</mat-icon>

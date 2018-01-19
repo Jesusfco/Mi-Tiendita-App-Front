@@ -13,9 +13,18 @@ export class User {
     
     constructor(){
         this.user_type_id = 1;
+        this.phone = '';
+    }
+
+    validatePhoneFormat(){
+        this.phone =  this.phone.replace(/\D/g, '');
     }
 
     getLimitUser(){
+        return parseInt(localStorage.getItem('user_limit'));
+    }
+
+    getOwnId(){
         return parseInt(localStorage.getItem('user_limit'));
     }
     

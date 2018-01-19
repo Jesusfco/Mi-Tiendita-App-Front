@@ -134,9 +134,7 @@ export class AppComponent {
   storeInventoryHttp(){
     this._http.getProducts().then(
       data => {
-        
-        this.storage.storageInventory(data);
-        
+          this.storage.storageInventory(data);
       },
       error => console.log(error)
     );

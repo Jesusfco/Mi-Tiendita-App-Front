@@ -65,14 +65,19 @@ export class Storage {
     }
 
     storageInventory(data){
-        if( typeof data[0].id == 'string'){
-            for(let x = 0; x < data.length; x++){
-                data[x].price = parseInt(data[x].price);
-                data[x].id = parseInt(data[x].id);
-                data[x].stock = parseInt(data[x].stock);
-                data[x].reorder = parseInt(data[x].reorder);
+        if(data.length !== 0){
+
+            if( typeof data[0].id == 'string'){
+                for(let x = 0; x < data.length; x++){
+                    data[x].price = parseInt(data[x].price);
+                    data[x].id = parseInt(data[x].id);
+                    data[x].stock = parseInt(data[x].stock);
+                    data[x].reorder = parseInt(data[x].reorder);
+                }
             }
+
         }
+        
         localStorage.setItem('inventory', JSON.stringify(data));
     }
 

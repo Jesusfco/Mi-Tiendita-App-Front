@@ -68,7 +68,7 @@
 
             <div>
                 <label>Numero Celular:</label><br>
-                <input [(ngModel)]="user.phone" [ngClass]="{ 'inputError': validateUser.phone >= 1, 'inputVerified': validateUser.phone == -1 }" name="phone" type="tel" (keydown)="keydownCheckUniquePhone()">
+                <input (keyup)="user.validatePhoneFormat()" [(ngModel)]="user.phone" [ngClass]="{ 'inputError': validateUser.phone >= 1, 'inputVerified': validateUser.phone == -1 }" name="phone" type="tel" (keydown)="keydownCheckUniquePhone()">
                 <small class="smallError" *ngIf="validateUser.phone == 1">Requerido</small>
                 <small class="smallError" *ngIf="validateUser.phone == 2">Tel ya registrado</small>
             </div>

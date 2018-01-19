@@ -16,6 +16,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EditProductComponent implements OnInit {
   
   product: Product = new Product();
+  prod: Product = new Product();
   products = [];
   productEditable: Product = new Product();
 
@@ -29,6 +30,7 @@ export class EditProductComponent implements OnInit {
   }
 
   sendingData: boolean = false;
+  editProcess: boolean = true;
 
   form = {validate: true, name: 0, code: 0, price: 0}; 
 
@@ -169,6 +171,20 @@ export class EditProductComponent implements OnInit {
   upperCaseName(){
     if(this.productEditable.name != undefined)
     this.productEditable.name = this.productEditable.name.toUpperCase();
+  }
+
+  // eliminacion del producto
+  deleteProduct(){
+
+    this._http.delete(this.product).then(
+      data => {
+        this.prod.deleteProductStorage(this.product.id);
+        this.closePop();
+      }, error => {
+        console.log(error);
+      }
+    );
+
   }
 
 }
