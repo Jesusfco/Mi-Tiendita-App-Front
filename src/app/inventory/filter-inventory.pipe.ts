@@ -12,8 +12,9 @@ export class FilterInventoryPipe implements PipeTransform {
     
 
     return products.filter(function(product){
-
+      if(product.code != undefined)
       return (product.name.includes(search.toUpperCase()) || product.code.includes(search));
+      return (product.name.includes(search.toUpperCase()));
     })
     
   }

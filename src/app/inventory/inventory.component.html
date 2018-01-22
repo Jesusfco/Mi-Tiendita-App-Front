@@ -8,20 +8,22 @@
     <table>
         <thead>
             <tr>
-                <th>Nombre</th>
+                <th class="alignLeft">Nombre</th>
                 <th>Precio</th>
                 <th>Cantidad</th>
                 <th>Reorden</th>
+                <th>Departamento</th>
                 <th>Codigo</th>
             </tr>
         </thead>
         <tbody *ngIf="storage.getUserType() > 1 && products != undefined">
 
             <tr [routerLink]="['/inventory/edit', product.id]" *ngFor="let product of products | filterInventory:search" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
-                <td>{{ product.name | lowercase }}</td>
-                <td>{{ product.price }}</td>
+                <td class="alignLeft">{{ product.name | lowercase }}</td>
+                <td>$ {{ product.price }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.reorder }}</td>
+                <td>{{ product.department }}</td>
                 <td>{{ product.code }}</td>
             </tr>
         </tbody>
@@ -29,10 +31,11 @@
         <tbody *ngIf="storage.getUserType() < 2 && products != undefined">
 
             <tr *ngFor="let product of products | filterInventory:search" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
-                <td>{{ product.name | lowercase }}</td>
+                <td class="alignLeft">{{ product.name | lowercase }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.reorder }}</td>
+                <td>{{ product.department }}</td>
                 <td>{{ product.code }}</td>
             </tr>
 

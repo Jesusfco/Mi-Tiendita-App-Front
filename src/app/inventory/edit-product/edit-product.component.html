@@ -25,6 +25,11 @@
             </div>
 
             <div>
+                <label>Precio de compra</label><br>
+                <input [(ngModel)]="productEditable.cost_price" name="cost_price" type="number" min="0"><br>
+            </div>
+
+            <div>
                 <label>Cantidad</label><br>
                 <input [(ngModel)]="productEditable.stock" name="stock" type="number"><br>
             </div>
@@ -32,6 +37,11 @@
             <div>
                 <label>Reorden</label><br>
                 <input [(ngModel)]="productEditable.reorder" name="reorder" type="number" min="0"><br>
+            </div>
+
+            <div>
+                <label>Departamento:</label><br>
+                <input [(ngModel)]="productEditable.department" name="department" type="text"><br>
             </div>
 
             <div>

@@ -31,8 +31,18 @@
             </div>
 
             <div>
+                <label>Precio de compra</label><br>
+                <input [(ngModel)]="product.cost_price" name="cost_price" type="number" min="0"><br>
+            </div>
+
+            <div>
                 <label>Cantidad</label><br>
                 <input [(ngModel)]="product.stock" name="stock" type="number"><br>
+            </div>
+
+            <div>
+                <label>Departamento:</label><br>
+                <input [(ngModel)]="product.department" name="department" type="text"><br>
             </div>
 
             <div>
