@@ -29,6 +29,8 @@ export class EditProductComponent implements OnInit {
     card: 'initial',
   }
 
+  
+
   sendingData: boolean = false;
   editProcess: boolean = true;
 
@@ -49,6 +51,9 @@ export class EditProductComponent implements OnInit {
     this.observerRef.unsubscribe();
     this.state.background = 'initial';
       this.state.card = 'initial';
+
+    if(localStorage.getItem('inventoryUpdateStatus') == '1')
+      localStorage.setItem('inventoryUpdateStatus', '0');
   }
 
   ngOnInit() {
@@ -77,12 +82,12 @@ export class EditProductComponent implements OnInit {
       return;
     } 
 
-    console.log(this.form);
-
     this._http.update(this.productEditable).then(
       data => {
         this.sendingData = false;
         this.store.updateProduct(this.productEditable);
+        localStorage.setItem('productUpdated', JSON.stringify({original: this.product, edited: this.productEditable}));
+        localStorage.removeItem('inventoryUpdateStatus');
         this.closePop();
       },
       error => {

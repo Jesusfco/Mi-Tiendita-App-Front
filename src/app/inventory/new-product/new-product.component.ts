@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { Product } from '../../product';
 import { InventoryService } from '../inventory.service';
 import { Storage } from '../../storage';
@@ -46,6 +46,11 @@ export class NewProductComponent implements OnInit {
 
   }
 
+  ngOnDestroy(){
+    if(localStorage.getItem('inventoryCreateStatus') == '1')
+      localStorage.setItem('inventoryCreateStatus', '0');
+  }
+
   formSubmit(){
     this.form.validate = true;
     this.upperCaseName();
@@ -59,7 +64,9 @@ export class NewProductComponent implements OnInit {
 
     this._http.create(this.product).then(
       data => {
-        this.storage.pushProduct(data);        
+        this.storage.pushProduct(data);
+        localStorage.setItem('productCreated', JSON.stringify(data));
+        localStorage.removeItem('inventoryCreateStatus');
         this.closePop();
       },
 

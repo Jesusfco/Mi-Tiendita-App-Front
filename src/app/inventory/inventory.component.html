@@ -8,17 +8,17 @@
     <table>
         <thead>
             <tr>
-                <th class="alignLeft">Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
+                <th (click)="sortName()" class="alignLeft">Nombre</th>
+                <th (click)="sortPrice()">Precio</th>
+                <th (click)="sortStock()">Cantidad</th>
                 <th>Reorden</th>
-                <th>Departamento</th>
+                <th (click)="sortDepartment()">Departamento</th>
                 <th>Codigo</th>
             </tr>
         </thead>
         <tbody *ngIf="storage.getUserType() > 1 && products != undefined">
 
-            <tr [routerLink]="['/inventory/edit', product.id]" *ngFor="let product of products | filterInventory:search" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
+            <tr (click)="updateObservable()" [routerLink]="['/inventory/edit', product.id]" *ngFor="let product of products | filterInventory:search" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
                 <td class="alignLeft">{{ product.name | lowercase }}</td>
                 <td>$ {{ product.price }}</td>
                 <td>{{ product.stock }}</td>
@@ -43,7 +43,7 @@
     </table>
 </div>
 
-<a [routerLink]="['/inventory/create']" *ngIf="storage.getUserType() > 1 && validateLimitProduct()">
+<a (click)="createObservable()" [routerLink]="['/inventory/create']" *ngIf="storage.getUserType() > 1 && validateLimitProduct()">
     <button mat-fab id="createBtn" (click)="createPro = !createPro">
         <mat-icon >add_shopping_cart</mat-icon>
     </button>
