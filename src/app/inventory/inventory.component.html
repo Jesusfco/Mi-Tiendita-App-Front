@@ -13,7 +13,7 @@
                 <th (click)="sortStock()">Cantidad</th>
                 <th>Reorden</th>
                 <th (click)="sortDepartment()">Departamento</th>
-                <th>Codigo</th>
+                <th (click)="sortCode()">Codigo</th>
             </tr>
         </thead>
         <tbody *ngIf="storage.getUserType() > 1 && products != undefined">

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Sale } from '../../sale-point/sale';
 import { SaleService } from '../../sale-point/sale.service';
 import { cardPop, backgroundOpacity } from '../../animations';
+import { Storage } from '../../storage';
 
 @Component({
   selector: 'app-show-sale',
@@ -17,15 +18,19 @@ export class ShowSaleComponent implements OnInit {
     background: 'initial',
     card: 'initial',
   };
-
+  public products = [];
   public observerRef;
+  public storage: Storage = new Storage();
 
   constructor(private router: Router, private _http: SaleService, private actRou: ActivatedRoute) {
 
     this.observerRef = actRou.params.subscribe(params => {
       this.sale.id = params['id'];
       this._http.showSale(this.sale.id).then(
-        data => this.sale = data,
+        data => {
+          this.sale = this.storage.setNamesById(data);
+
+        },
         error => console.log(error)
       );
     });

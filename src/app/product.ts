@@ -44,7 +44,7 @@ export class Product {
     deleteProductStorage(id){
         let inventory = JSON.parse(localStorage.getItem('inventory'));
 
-        for(let x = 0; x < Object.keys('inventory').length; x++){
+        for(let x = 0; x < Object.keys(inventory).length; x++){
             if(inventory[x].id == id){
                 inventory.splice(x, 1);
                 break;

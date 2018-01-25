@@ -77,7 +77,7 @@ export class Storage {
             }
 
         }
-        
+
         localStorage.setItem('inventory', JSON.stringify(data));
     }
 
@@ -113,5 +113,23 @@ export class Storage {
         for (let x of products){
             if (id == x.id) { return x; }
         }
+    }
+
+    setNamesById(data){
+
+        let products = this.getInventory();
+
+        for(let x = 0; x < Object.keys(data.description).length; x++){
+            if(data.description[x].product_name == undefined){
+                for (let y of products){
+                    if(y.id == data.description[x].product_id){
+                        data.description[x].product_name =  y.name;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return data;
     }
 }

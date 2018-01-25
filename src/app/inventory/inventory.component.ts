@@ -61,6 +61,17 @@ export class InventoryComponent implements OnInit {
 
   }
 
+  delete(id){
+    for(let x = 0; x < Object.keys(this.products).length; x++){
+      if(this.products[x].id == id){
+        this.products.splice(x, 1);
+          break;
+      }
+    }
+
+    this.refreshTable();
+  }
+
   refreshInventoryFromlocalStore(){
     if(this.bucle == true)
       this.products = this.storage.getInventory();
@@ -83,6 +94,11 @@ export class InventoryComponent implements OnInit {
       clearInterval(this.intervalUpdate);
       localStorage.removeItem('inventoryUpdateStatus');
 
+    } else if(localStorage.getItem('inventoryUpdateStatus') == '2'){
+      this.delete(parseInt(localStorage.getItem('productUpdated')));
+      localStorage.removeItem('productUpdated');
+      localStorage.removeItem('inventoryUpdateStatus');
+      clearInterval(this.intervalUpdate);
     }
 
     
@@ -164,6 +180,19 @@ export class InventoryComponent implements OnInit {
       if(a.stock < b.stock){
         return -1;
       } else if (a.stock > b.stock){
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    this.refreshTable();
+  }
+
+  sortCode(){
+    this.products.sort((a, b) => {
+      if(a.code < b.code){
+        return -1;
+      } else if (a.code > b.code){
         return 1;
       } else {
         return 0;

@@ -106,7 +106,7 @@ export class Sale {
         this.created_at += x.getSeconds();
     }
     
-    console.log(this.created_at);
+    
     }
 }
 

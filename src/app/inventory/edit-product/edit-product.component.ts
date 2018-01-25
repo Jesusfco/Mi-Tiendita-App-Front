@@ -183,6 +183,8 @@ export class EditProductComponent implements OnInit {
 
     this._http.delete(this.product).then(
       data => {
+        localStorage.setItem('inventoryUpdateStatus', '2');
+        localStorage.setItem('productUpdated', this.product.id.toString());
         this.prod.deleteProductStorage(this.product.id);
         this.closePop();
       }, error => {
