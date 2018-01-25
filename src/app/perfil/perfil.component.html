@@ -1,8 +1,43 @@
 <h1>Perfil</h1>
-<form (submit)="cashSubmit()">
-    <div>
-        <label>Dinero en Caja Global</label>
-        <input type="number" min="0" [(ngModel)]="caja" name="caja">
-        <button class="btn btnAccept">Modificar</button>
+<div class="flexRow">
+
+    <div class="l6 m6">
+        <h3>Usuario</h3>
+        <p>Nombre: {{ user.name }}</p>
+        <p>Correo: {{ user.email }}</p>
+        <p>Telefono: {{ user.phone }}</p>
+        <p *ngIf="user.cash == null">Caja: Caja deshabilitada</p>
+        <p *ngIf="user.cash != null">Caja: {{ user.cash}}</p>
+        <p *ngIf="user.user_type_id == 1">Tipo de Usuario: Cajero</p>
+        <p *ngIf="user.user_type_id == 2">Tipo de Usuario: Administrador</p>
+        <p *ngIf="user.user_type_id == 3">Tipo de Usuario: Super Administrador</p>
     </div>
-</form>
+
+    <div class="l6 m6">
+        <form (submit)="cashSubmit()">
+            <div>
+                <h3>Ganancia del día</h3>
+                <h4>$ {{ money }}</h4>
+                <h3>Dinero en Caja Global</h3>
+                <input type="number" min="0" [(ngModel)]="caja" name="caja">
+                <button class="btn btnAccept">Modificar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="l6 m6">
+        <h3>Tienda</h3>
+        <p>Nombre: {{ shop.name }}</p>
+
+        <p>Direccion: {{ shop.street }}, #{{ shop.number }} colonia {{ shop.colony }} </p>
+        <p>C.P. {{ shop.postalCode }}</p>
+        <p>Ciudad: {{ shop.city }}, {{ shop.state }}</p>
+    </div>
+
+    <div class="l6 m6">
+        <h3>Servicio Contratado</h3>
+        <p>Nombre: {{ service.name }}</p>
+        <p>Descripción: {{ service.description }}</p>
+        <p>Inventario Limite: {{ service.products_limit }}</p>
+    </div>
+</div>

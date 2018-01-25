@@ -23,6 +23,13 @@ h5 {
     margin-bottom: 5px;
 }
 
+.container {
+    width: 81%;
+    max-width: 1100px;
+    display: block;
+    margin: 0 auto;
+}
+
 .routeTitle {
     text-align: center;
 }
@@ -143,6 +150,18 @@ th {
 
 /* formularios inputs and buttons */
 
+.flexRow {
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.flexRow div {
+    padding: 10px;
+}
+
 input,
 select {
     border: none;
@@ -242,10 +261,6 @@ select {
 
 /* Inputs Grid Styles */
 
-.input {
-    display: block;
-}
-
 .l12 {
     width: 100%;
 }
@@ -255,7 +270,7 @@ select {
 }
 
 .l6 {
-    width: 49%;
+    width: 50%;
 }
 
 .l4 {
@@ -266,7 +281,10 @@ select {
     width: 24%;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 92%;
+    }
     .l9 {
         width: 100%;
     }
@@ -274,9 +292,27 @@ select {
         width: 100%;
     }
     .l4 {
-        width: 49%;
+        width: 50%;
     }
     .l3 {
-        width: 49%;
+        width: 50%;
+    }
+    .m6 {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .l4 {
+        width: 100%;
+    }
+    .l3 {
+        width: 100%;
+    }
+    .m6 {
+        width: 100%;
+    }
+    .s6 {
+        width: 50%;
     }
 }

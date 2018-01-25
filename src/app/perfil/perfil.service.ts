@@ -19,4 +19,10 @@ export class PerfilService {
     .map(data => data.json())
     .toPromise();
   }
+
+  getPerfil(){
+    return this._http.get(this.link.url + 'perfil' + this.storage.getTokenUrl())
+    .map(data => data.json())
+    .toPromise();
+  }
 }
