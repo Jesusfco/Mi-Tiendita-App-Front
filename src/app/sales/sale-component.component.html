@@ -1,6 +1,18 @@
 <h1 class="routeTitle">Registro de Ventas</h1>
+<h3>Ganancia</h3>
+<p>${{ analize.neto }}</p>
+<h3>Total</h3>
+<p>${{ analize.total }}</p>
+<div *ngIf="analize.undefined > 0">
+    <h3>Productos costo compra indefinidos</h3>
+    <p>#{{ analize.undefined }}</p>
+</div>
+<form (submit)="search()">
+    <input type="date" [(ngModel)]="date.from" name="from" id="search"><label><mat-icon>date_range</mat-icon></label>
+    <input type="date" [(ngModel)]="date.to" name="to" id="search"><label><mat-icon>date_range</mat-icon></label>
+    <button type="submit">Buscar</button>
+</form>
 
-<input type="date" id="search"><label><mat-icon>date_range</mat-icon></label>
 
 
 

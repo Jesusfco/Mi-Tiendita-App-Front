@@ -17,7 +17,7 @@
         <form (submit)="cashSubmit()">
             <div>
                 <h3>Ganancia del día</h3>
-                <h4>$ {{ money }}</h4>
+                <h4>$ {{ analize.neto }}</h4>
                 <h3>Dinero en Caja Global</h3>
                 <input type="number" min="0" [(ngModel)]="caja" name="caja">
                 <button class="btn btnAccept">Modificar</button>

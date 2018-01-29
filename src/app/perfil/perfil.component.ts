@@ -26,7 +26,11 @@ export class PerfilComponent implements OnInit {
   public payment: Payment;
   public products: any;
 
-  public money: number = 0;
+  public analize = {
+        neto: 0,
+        total: 0,
+        undefined: 0
+  };
 
   constructor(private _http: PerfilService, private router: Router) {
     this.caja = parseInt(this.storage.getCash());
@@ -37,7 +41,7 @@ export class PerfilComponent implements OnInit {
         this.service = data.service;
         this.shop = data.shop;
         this.payment = data.payment;
-        this.money = this.sale.getGrossProfit(data.sales);
+        this.analize = this.sale.getGrossProfit(data.sales);
       }, error => {
         console.log(error);
       }
