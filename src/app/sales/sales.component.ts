@@ -33,10 +33,7 @@ export class SalesComponent implements OnInit {
 
         this.request = false;
         this.sales = data;
-
-        if (data !== undefined) {
-          this.analize = this.sal.getGrossProfit(data);
-        }
+        this.analize = this.sal.getGrossProfit(data);
 
       },
       error => {
@@ -54,11 +51,11 @@ export class SalesComponent implements OnInit {
     this.request = true;
     this._http.getSalesParameter(this.date).then(
       data => {
+
         this.request = false;
         this.sales = data;
-        if(data !== undefined){
-          this.analize = this.sal.getGrossProfit(data);
-        }
+        this.analize = this.sal.getGrossProfit(data);
+
       },
       error => {
         console.log(error);

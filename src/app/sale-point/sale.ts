@@ -109,28 +109,42 @@ export class Sale {
 
 
     getGrossProfit(sales){
-        let money = 0;
+        let neto = 0;
         let countUndefined = 0;
         let total = 0;
         let products = JSON.parse(localStorage.getItem('inventory'));
+        
+        if(sales == undefined){
+            return {
+                neto: neto,
+                total: total,
+                undefined: countUndefined
+            };
+        }
+
         //Por cada venta
         for(let sale of sales){
 
             total += sale.total;
-            //por cada descripcion de la venta
-            for(let desc of sale.description){
-                if(desc.product_id != undefined){
-                    //Si tiene id busca la equivalencia en el inventario
-                    for( let product of products){
-                        if(desc.product_id == product.id){
 
-                            if(product.cost_price <= 0 || product.cost_price == undefined){
-                                countUndefined++;
-                            } else {
-                                money += (desc.price - product.cost_price) * desc.quantity;
+            if(sale.description != undefined){
+                
+                //por cada descripcion de la venta
+                for(let desc of sale.description){
+                    console.log(desc);
+                    if(desc.product_id != undefined){
+                        //Si tiene id busca la equivalencia en el inventario
+                        for( let product of products){
+                            if(desc.product_id == product.id){
+
+                                if(product.cost_price <= 0 || product.cost_price == undefined){
+                                    countUndefined++;
+                                } else {
+                                    neto += (desc.price - product.cost_price) * desc.quantity;
+                                }
+                                console.log(neto);
+                                break;
                             }
-
-                            break;
                         }
                     }
                 }
@@ -138,7 +152,7 @@ export class Sale {
         }
 
         return {
-                neto: money,
+                neto: neto,
                 total: total,
                 undefined: countUndefined
             };

@@ -1,3 +1,5 @@
+<mat-progress-bar mode="indeterminate" *ngIf="request" class="barLoader"></mat-progress-bar>
+
 <h1 class="routeTitle">Registro de Ventas</h1>
 <h3>Ganancia</h3>
 <p>${{ analize.neto }}</p>
@@ -27,7 +29,7 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody [ngClass]="{ 'loadingForm': request == true}">
 
         <tr *ngFor="let sale of sales" [routerLink]="['/sales', sale.id]">
             <td>{{ sale.id }}</td>
