@@ -32,7 +32,10 @@ export class PerfilComponent implements OnInit {
         undefined: 0
   };
 
+  public request: boolean = false;
+
   constructor(private _http: PerfilService, private router: Router) {
+    this.request = true;
     this.caja = parseInt(this.storage.getCash());
 
     _http.getPerfil().then(
@@ -42,8 +45,10 @@ export class PerfilComponent implements OnInit {
         this.shop = data.shop;
         this.payment = data.payment;
         this.analize = this.sale.getGrossProfit(data.sales);
+        this.request = false;
       }, error => {
         console.log(error);
+        this.request = false;
       }
     );
    }

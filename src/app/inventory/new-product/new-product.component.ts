@@ -22,6 +22,8 @@ export class NewProductComponent implements OnInit {
     card: 'initial',
   }
 
+  request: boolean = false;
+
   public product = new Product();
 
   form = {
@@ -52,6 +54,7 @@ export class NewProductComponent implements OnInit {
   }
 
   formSubmit(){
+    this.request = true;
     this.form.validate = true;
     this.upperCaseName();
     if(this.validateName())
@@ -60,10 +63,14 @@ export class NewProductComponent implements OnInit {
       this.validateUniqueCode();
     this.validatePrice();
 
-    if(this.form.validate !== true) return;
+    if(this.form.validate !== true){
+      this.request = false;
+      return;
+    } 
 
     this._http.create(this.product).then(
       data => {
+        this.request = false;
         this.storage.pushProduct(data);
         localStorage.setItem('productCreated', JSON.stringify(data));
         localStorage.removeItem('inventoryCreateStatus');
@@ -71,7 +78,7 @@ export class NewProductComponent implements OnInit {
       },
 
       error => {
-
+        this.request = false;
       }
     );
 

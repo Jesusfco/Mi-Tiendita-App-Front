@@ -125,24 +125,24 @@ export class Sale {
         //Por cada venta
         for(let sale of sales){
 
-            total += sale.total;
+            total += parseInt(sale.total);
 
             if(sale.description != undefined){
                 
                 //por cada descripcion de la venta
                 for(let desc of sale.description){
-                    console.log(desc);
+                    
                     if(desc.product_id != undefined){
                         //Si tiene id busca la equivalencia en el inventario
                         for( let product of products){
-                            if(desc.product_id == product.id){
+                            if( parseInt(desc.product_id) == product.id){
 
                                 if(product.cost_price <= 0 || product.cost_price == undefined){
                                     countUndefined++;
                                 } else {
-                                    neto += (desc.price - product.cost_price) * desc.quantity;
+                                    neto += (desc.price - product.cost_price) * parseInt(desc.quantity);
                                 }
-                                console.log(neto);
+                                
                                 break;
                             }
                         }

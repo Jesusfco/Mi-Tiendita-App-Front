@@ -30,8 +30,8 @@ export class EditProductComponent implements OnInit {
   }
 
   
-
-  sendingData: boolean = false;
+  request: boolean = false;
+  
   editProcess: boolean = true;
 
   form = {validate: true, name: 0, code: 0, price: 0}; 
@@ -68,7 +68,7 @@ export class EditProductComponent implements OnInit {
 
   formSubmit(){
 
-    this.sendingData = true;
+    this.request = true;
 
     this.restoreValidation();
     if(this.validateName())
@@ -78,20 +78,20 @@ export class EditProductComponent implements OnInit {
     this.validatePrice();
 
     if(this.form.validate == false){
-      this.sendingData = false;
+      this.request = false;
       return;
     } 
 
     this._http.update(this.productEditable).then(
       data => {
-        this.sendingData = false;
+        this.request = false;
         this.store.updateProduct(this.productEditable);
         localStorage.setItem('productUpdated', JSON.stringify({original: this.product, edited: this.productEditable}));
         localStorage.removeItem('inventoryUpdateStatus');
         this.closePop();
       },
       error => {
-        this.sendingData = false;
+        this.request = false;
         console.log(error);
       }
     );

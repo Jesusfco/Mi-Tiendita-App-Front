@@ -1,5 +1,6 @@
+<mat-progress-bar mode="indeterminate" *ngIf="request" class="barLoader"></mat-progress-bar>
 <h1>Perfil</h1>
-<div class="flexRow">
+<div class="flexRow" [ngClass]="{ 'loadingForm': request == true}">
 
     <div class="l6 m6">
         <h3>Usuario</h3>
