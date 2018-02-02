@@ -198,6 +198,9 @@ export class InventoryComponent implements OnInit {
   }
 
   searchWriting(){
+    if(this.pageEvent != undefined)
+      this.pageEvent.pageIndex = 0;
+    this.pageEvent.pageIndex = 0;
     this.searchProducts = this.searchFilter();
     this.asssignValuesBackProducts();
   }
