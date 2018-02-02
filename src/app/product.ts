@@ -31,7 +31,7 @@ export class Product {
             for(let y = 0; y < Object.keys(inventory).length; y++){
                 if(sale[x].product_id == inventory[y].id){
                     inventory[y].stock -= sale[x].quantity;
-                    console.log(sale[x]);
+                    
                     break;
                 }
             }

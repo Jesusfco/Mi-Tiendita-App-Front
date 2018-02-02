@@ -32,6 +32,7 @@ export class SalePointComponent implements OnInit {
   public storage: Storage = new Storage();
 
   public observerSale: any;
+  public observerFailSales: any;
 
   public interval: any = 0;
 
@@ -42,14 +43,11 @@ export class SalePointComponent implements OnInit {
               private router: Router) {
 
                 this.inventory = this.storage.getInventory();
-                this.sendStoreSales();
 
                 if(this.sale.getLocalSale() != undefined){
                   this.sale.description = this.sale.getLocalSale();
                   this.sale.getTotal();
                 }
-
-
 
   }
 
@@ -138,6 +136,7 @@ export class SalePointComponent implements OnInit {
                 data => {
                   // console.log(data);
                     localStorage.removeItem('sales');
+                    clearInterval(this.observerFailSales);
                 }, error => {
                     console.log(error)
                 }
@@ -151,6 +150,8 @@ export class SalePointComponent implements OnInit {
     if(localStorage.getItem('saleStatus') == undefined){
       this.sale = new Sale();
       this.exitInterval();
+      this.setObservableFailSales();
+
     } else if(localStorage.getItem('saleStatus') == '0'){
       this.exitInterval();
     }
@@ -158,6 +159,14 @@ export class SalePointComponent implements OnInit {
 
   exitInterval(){
     clearInterval(this.interval);
+  }
+
+  setObservableFailSales(){
+
+    if(localStorage.getItem('sales') == undefined){ return;}
+    if(this.observerFailSales != undefined){ return; }
+    this.observerFailSales = setInterval(() => this.sendStoreSales(), 30000);
+    
   }
 
 }
