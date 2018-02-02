@@ -30,7 +30,8 @@ import {
   MatSliderModule,
   MatSlideToggleModule,
   MatProgressBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatPaginatorModule,
 } from '@angular/material';
 
 import { NavegationComponent } from './navegation/navegation.component';
@@ -107,6 +108,7 @@ import { NotificationComponent } from './notification/notification.component';
     MatSlideToggleModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
 
   ],
   providers: [RegisterService , LoginService, InventoryService, SaleService, PerfilService, EmploymentService],

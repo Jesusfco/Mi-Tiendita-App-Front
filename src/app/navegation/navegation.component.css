@@ -127,6 +127,7 @@ userTypeInf {
 .principalCard {
     width: 95%;
     margin: 0 auto;
+    margin-bottom: 85px;
     max-width: 1600px;
     background: white;
     display: block;

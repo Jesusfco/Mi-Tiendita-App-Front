@@ -3,6 +3,7 @@ import { InventoryService } from './inventory.service';
 import { Product } from '../product';
 import { Storage } from '../storage';
 import { FilterInventoryPipe } from './filter-inventory.pipe';
+import { PageEvent } from '@angular/material';
 // import { setInterval } from 'timers';
 
 @Component({
@@ -14,10 +15,19 @@ import { FilterInventoryPipe } from './filter-inventory.pipe';
 export class InventoryComponent implements OnInit {
 
   products = [];
-  search: string;
-  createPro:boolean =  false;
+  backProducts = [];
+  searchProducts = [];
+  search: string = '';
+  createPro: boolean =  false;
   storage: Storage = new Storage();
 
+  lenghtArrayOptions: Array<number> = [ 10, 25, 50, 100, 200 ];
+  pageOption: Array<number> = [];
+
+  pageEvent: PageEvent;
+  pageValue = 
+    {pageIndex: 1, pageSize: 25, length: this.countProduct() };
+  
 
   bucle: boolean = true;
 
@@ -27,15 +37,44 @@ export class InventoryComponent implements OnInit {
   constructor(private _http: InventoryService) { }
 
   ngOnInit() {
-    this.products = this.storage.getInventory();
+    this.backProducts = this.storage.getInventory();
+    this.searchProducts = this.backProducts;
+    
+    for(let x = 0; x < 25; x ++){
+      if(x == Object.keys(this.searchProducts).length) { break;}
+      this.products.push(this.searchProducts[x]);
+    }
     // setInterval(() => this.refreshInventoryFromlocalStore(), 1500);
   }
 
-  countProduct(){
-    if(this.products == undefined) { return 0}
-    else {
-      return Object.keys(this.products).length;
+  testPage($event){
+    
+    this.pageEvent = $event;
+    let page =  this.pageEvent.pageIndex;
+    let items = this.pageEvent.pageSize;
+    
+    this.products = [];
+
+    for(let x = 0; x < items; x ++){
+      if(x + (page * items) == Object.keys(this.searchProducts).length) { break;}
+      this.products.push(this.searchProducts[x + (page * items)]);
     }
+    
+
+  }
+
+  countProduct(){
+    if(this.products == undefined) { return 0;}
+    else {
+
+        return Object.keys(this.searchProducts).length;
+
+
+    }
+  }
+
+  nextPage(){
+    console.log('siguiente pagina');
   }
 
   validateLimitProduct(){
@@ -124,23 +163,80 @@ export class InventoryComponent implements OnInit {
     
   }
 
-  refreshTable(){
-    let x = this.search;
-    this.search = '';
+  asssignValuesBackProducts(){
 
-    setTimeout(() => {
-      this.search = x;
-    }, 100);
+    this.products = [];
+
+    if(this.pageEvent == undefined){
+    
+      for(let x = 0; x < 25; x ++){
+        if(x == Object.keys(this.searchProducts).length) { break;}
+        this.products.push(this.searchProducts[x]);
+      }
+
+    } else {
+
+      for(let x = 0; x < this.pageEvent.pageSize; x ++){
+        if(x + (this.pageEvent.pageIndex * this.pageEvent.pageSize) == Object.keys(this.searchProducts).length) { break;}
+        this.products.push(this.searchProducts[x + (this.pageEvent.pageIndex * this.pageEvent.pageSize)]);
+      }
+
+    }
+  }
+
+  refreshTable(){
+    // let x = this.search;
+    // this.search = '';
+
+
+
+    // setTimeout(() => {
+    //   this.search = x;
+    // }, 100);
+    this.asssignValuesBackProducts();
     
   }
 
+  searchWriting(){
+    this.searchProducts = this.searchFilter();
+    this.asssignValuesBackProducts();
+  }
+
+  searchFilter(){
+    this.searchProducts = this.backProducts;
+    let busqueda = this.search;
+    if(this.search === undefined) return this.searchProducts;
+
+    
+
+    return this.searchProducts.filter(function(product){
+      if(product.code != undefined && product.department != undefined)
+      return (product.name.includes(busqueda.toUpperCase()) || product.code.includes(busqueda) || product.department.includes(busqueda.toUpperCase()));
+
+      else if( product.code != undefined && product.department == undefined)
+      return (product.name.includes(busqueda.toUpperCase()) || product.code.includes(busqueda));
+
+      else if( product.code == undefined && product.department != undefined)
+      return (product.name.includes(busqueda.toUpperCase()) || product.department.toUpperCase().includes(busqueda.toUpperCase()));
+
+      else if( product.code == undefined && product.department == undefined)
+      return (product.name.includes(busqueda.toUpperCase()));
+    });
+  }
+
   sortDepartment(){
-    this.products.sort((a, b) => {
+    this.searchProducts.sort((a, b) => {
+
+      if(a.department != undefined) a.department.toUpperCase();
+      if(b.department != undefined) b.department.toUpperCase();
+
       if(a.department < b.department){
         return -1;
       } else if (a.department > b.department){
         return 1;
-      } else {
+      } else if(a.department == ''){
+        return 1;
+      }else {
         return 0;
       }
     });
@@ -149,7 +245,7 @@ export class InventoryComponent implements OnInit {
   }
 
   sortName(){
-    this.products.sort((a, b) => {
+    this.searchProducts.sort((a, b) => {
       if(a.name < b.name){
         return -1;
       } else if (a.name > b.name){
@@ -162,7 +258,7 @@ export class InventoryComponent implements OnInit {
   }
 
   sortPrice(){
-    this.products.sort((a, b) => {
+    this.searchProducts.sort((a, b) => {
       if(a.price < b.price){
         return -1;
       } else if (a.price > b.price){
@@ -176,7 +272,7 @@ export class InventoryComponent implements OnInit {
   }
 
   sortStock(){
-    this.products.sort((a, b) => {
+    this.searchProducts.sort((a, b) => {
       if(a.stock < b.stock){
         return -1;
       } else if (a.stock > b.stock){
@@ -185,11 +281,13 @@ export class InventoryComponent implements OnInit {
         return 0;
       }
     });
+
+    
     this.refreshTable();
   }
 
   sortCode(){
-    this.products.sort((a, b) => {
+    this.searchProducts.sort((a, b) => {
       if(a.code < b.code){
         return -1;
       } else if (a.code > b.code){
