@@ -117,16 +117,28 @@ export class AppComponent {
         }, 800);
       },
       error =>  {
-        localStorage.removeItem('token');
-        this.router.navigate(['/login']);
-        console.log(error);
-        setTimeout(() => {
+        if(error.status == 0){
           
+          if(this.router.url == '/login' || this.router.url == '/register'){
+            this.router.navigate(['/sale-point']);
+          }
+
+        } else {
+
+          localStorage.removeItem('token');
+          this.router.navigate(['/login']);
+          console.log(error);
+         
+
+        } //Else
+
+        setTimeout(() => {
+            
           this.loaderAnimation();
 
         }, 800);
-
-      }
+        
+      } // Fin del Error
     );
 
   }
