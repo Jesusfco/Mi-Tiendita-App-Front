@@ -19,7 +19,10 @@ export class SalesComponent implements OnInit {
   public analize = {
     neto: 0,
     total: 0,
-    undefined: 0
+    undefined: {
+      count: 0,
+      products: [],
+    },
   };
 
   public request: boolean = false;

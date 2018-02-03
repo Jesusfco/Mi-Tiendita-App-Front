@@ -34,12 +34,6 @@ h5 {
     text-align: center;
 }
 
-.responsive-table {}
-
-.responsive-table:hover {
-    overflow-x: scroll;
-}
-
 .alignLeft {
     text-align: left;
 }
@@ -81,7 +75,7 @@ th {
     padding: 5px;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 1000px) {
     .responsive-table {
         overflow-x: scroll;
     }

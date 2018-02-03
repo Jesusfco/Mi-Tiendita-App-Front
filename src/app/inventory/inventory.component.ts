@@ -175,7 +175,7 @@ export class InventoryComponent implements OnInit {
       }
 
     } else {
-
+      
       for(let x = 0; x < this.pageEvent.pageSize; x ++){
         if(x + (this.pageEvent.pageIndex * this.pageEvent.pageSize) == Object.keys(this.searchProducts).length) { break;}
         this.products.push(this.searchProducts[x + (this.pageEvent.pageIndex * this.pageEvent.pageSize)]);
@@ -198,9 +198,10 @@ export class InventoryComponent implements OnInit {
   }
 
   searchWriting(){
-    if(this.pageEvent != undefined)
+    if(this.pageEvent != undefined){
       this.pageEvent.pageIndex = 0;
-    this.pageEvent.pageIndex = 0;
+    }
+    
     this.searchProducts = this.searchFilter();
     this.asssignValuesBackProducts();
   }

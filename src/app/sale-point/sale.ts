@@ -110,7 +110,10 @@ export class Sale {
 
     getGrossProfit(sales){
         let neto = 0;
-        let countUndefined = 0;
+        let countUndefined = {
+            count: 0,
+            products: []
+        };
         let total = 0;
         let products = JSON.parse(localStorage.getItem('inventory'));
         
@@ -121,6 +124,7 @@ export class Sale {
                 undefined: countUndefined
             };
         }
+
 
         //Por cada venta
         for(let sale of sales){
@@ -138,7 +142,7 @@ export class Sale {
                             if( parseInt(desc.product_id) == product.id){
 
                                 if(product.cost_price <= 0 || product.cost_price == undefined){
-                                    countUndefined++;
+                                    
                                 } else {
                                     neto += (desc.price - product.cost_price) * parseInt(desc.quantity);
                                 }
@@ -151,6 +155,17 @@ export class Sale {
             }
         }
 
+        //Conteo de productos sin costo de compra
+        for( let x of products){
+            if(x.cost_price == undefined){
+                countUndefined.count++;
+                countUndefined.products.push({id: x.id, name: x.name});
+                console.log(x);
+            }
+            
+        }
+
+        
         return {
                 neto: neto,
                 total: total,

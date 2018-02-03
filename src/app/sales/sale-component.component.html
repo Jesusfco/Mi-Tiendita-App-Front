@@ -5,9 +5,9 @@
 <p>${{ analize.neto }}</p>
 <h3>Total</h3>
 <p>${{ analize.total }}</p>
-<div *ngIf="analize.undefined > 0">
+<div *ngIf="analize.undefined.count > 0">
     <h3>Productos costo compra indefinidos</h3>
-    <p>#{{ analize.undefined }}</p>
+    <p>#{{ analize.undefined.count }}</p>
 </div>
 <form (submit)="search()">
     <input type="date" [(ngModel)]="date.from" name="from" id="search"><label><mat-icon>date_range</mat-icon></label>

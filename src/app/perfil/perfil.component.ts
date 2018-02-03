@@ -29,7 +29,7 @@ export class PerfilComponent implements OnInit {
   public analize = {
         neto: 0,
         total: 0,
-        undefined: 0
+        undefined: undefined
   };
 
   public request: boolean = false;
