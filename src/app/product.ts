@@ -25,12 +25,16 @@ export class Product {
     }
 
     afterSale(sale){
+
+        let description =  sale.description;
         let inventory = JSON.parse(localStorage.getItem('inventory'));
 
-        for(let x = 0; x < Object.keys(sale).length; x++){
+        for(let x = 0; x < Object.keys(description).length; x++){
             for(let y = 0; y < Object.keys(inventory).length; y++){
-                if(sale[x].product_id == inventory[y].id){
-                    inventory[y].stock -= sale[x].quantity;
+                if(description[x].product_id == inventory[y].id){
+                    inventory[y].stock -= description[x].quantity;
+                    inventory[y].updated_at = sale.created_at;
+
                     
                     break;
                 }
@@ -53,4 +57,42 @@ export class Product {
 
         localStorage.setItem('inventory', JSON.stringify(inventory));
     }
+
+     sync(updated){
+
+        if(updated.length == 0) return;
+
+        
+
+        let inventory = JSON.parse(localStorage.getItem('inventory'));
+
+        for(let i = 0; i < Object.keys(inventory).length; i++){
+
+            for(let y = 0; y < Object.keys(updated).length; y++){
+
+                if(inventory[i].id == parseInt(updated[y].id)) {
+
+                    inventory[i] = updated[y];
+                    updated[y].used = true;
+                    console.log('producto actualizado');
+                }
+
+            }
+
+        } //FINAL DE FOR
+
+        for(let sync of updated){
+            if(sync.used == undefined){
+                inventory.push(sync);
+
+                console.log("PRODUCTO AGREGADO");
+            }
+        }
+
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+
+    }
+
+    
+
 }

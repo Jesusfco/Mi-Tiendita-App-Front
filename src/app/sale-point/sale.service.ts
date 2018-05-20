@@ -23,7 +23,10 @@ export class SaleService {
   outServiceSales(sale) {
     return this._http.post(this.link.url + 'sale/outService' + this.storage.getTokenUrl(), sale)
     .map(data => data.json())
-    .toPromise();
+    .toPromise().then(
+      data => localStorage.setItem('request', JSON.stringify(true)),
+      error => localStorage.setItem('request', JSON.stringify(error))
+    );
   }
 
   getSales(){

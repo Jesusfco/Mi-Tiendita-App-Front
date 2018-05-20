@@ -70,6 +70,7 @@ export class NewProductComponent implements OnInit {
 
     this._http.create(this.product).then(
       data => {
+        console.log(data);
         this.request = false;
         this.storage.pushProduct(data);
         localStorage.setItem('productCreated', JSON.stringify(data));

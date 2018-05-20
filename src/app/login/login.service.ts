@@ -21,15 +21,23 @@ export class LoginService {
   }
 
   checkAuth() { 
+
     return this._http.get(this.link.url + 'checkAuth' + this.token.getTokenUrl())
     .map(data => data.json())
     .toPromise();
+
   }
 
   getProducts() { 
     return this._http.get(this.link.url + 'inventory/getProducts' + this.token.getTokenUrl())
     .map(data => data.json())
     .toPromise();
+  }
+
+  syncProducts(last) {
+    return this._http.post(this.link.url + 'inventory/sync' + this.token.getTokenUrl(), {last_updated: last} )
+              .map(data => data.json())
+              .toPromise();
   }
 
 }

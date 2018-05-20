@@ -1,4 +1,4 @@
-<h1 class="routeTitle">Inventario {{ countProduct()}} / {{ storage.getLimitProduct() }}</h1>
+<h1 class="routeTitle">Inventario {{ backProducts.length }} / {{ storage.getLimitProduct() }}</h1>
 
 <input [(ngModel)]="search" name="search" type="text" id="search" (keyup)="searchWriting()" placeholder="Buscar Producto"><label><mat-icon>search</mat-icon></label>
 

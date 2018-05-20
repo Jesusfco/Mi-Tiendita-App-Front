@@ -1,0 +1,44 @@
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 10px;
+    width: 250px;
+    box-shadow: 7px 6px 23px -9px rgba(0, 0, 0, 0.75);
+    border-radius: 2px;
+    transition: .5s ease;
+}
+
+.correct {
+    background: #c5ffcb;
+}
+
+.correct h4 {
+    color: #026502;
+}
+
+.correct p {
+    color: #026502;
+}
+
+.alert {
+    background: #fcbdb8;
+    color: red;
+}
+
+.alert h4 {
+    color: red;
+}
+
+mat-icon {
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    cursor: pointer;
+}
+
+.translate {
+    transform: translateX(150%);
+    opacity: .1;
+}

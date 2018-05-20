@@ -59,31 +59,53 @@ export class SaleProcessComponent implements OnInit {
   }
 
   confirmSale(){
+
     this.sale.setCreatedAt();
     localStorage.removeItem('saleDescription');
     this._http.postSale(this.sale).then(
+
       data => {
+
         let x = parseInt(localStorage.getItem('userCash'));
         x += this.sale.total;
         localStorage.setItem('userCash', x.toString());
 
-        this.inventory.afterSale(this.sale.description);
+        this.inventory.afterSale(this.sale);
         localStorage.removeItem('saleStatus');
-      },
-      error => {
-        console.log(error);
-        this.sale.storeSaleErrorConnection(this.sale);
+
+        //NOTIFICACION DE EXITO
+        let not = {
+          status: 200,
+          title: 'Venta Cargada con exito',
+          description: 'La venta se ha cargado al servidor'
+        };
+
+        localStorage.setItem('request', JSON.stringify(not));
+
       }
+
+    ).catch(
+
+      error => {
+
+        localStorage.setItem('request', JSON.stringify(error));
+        this.sale.storeSaleErrorConnection(this.sale);
+
+      }
+
     );
 
     localStorage.removeItem('saleStatus');
-    this.closePop()
+    this.closePop();
+    
   }
 
-  closePop(){    
+  closePop(){
+
     setTimeout(() => {
       this.router.navigate(['/sale-point']);
     }, 450);
+
     this.state[0].background = 'initial';
     this.state[0].card = 'initial';
     
