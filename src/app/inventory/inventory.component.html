@@ -1,4 +1,5 @@
 <h1 class="routeTitle">Inventario {{ backProducts.length }} / {{ storage.getLimitProduct() }}</h1>
+<p><a target="_blank" href="http://localhost:8000/api/excel/inventory{{ storage.getTokenUrl() }}">Descargar Inventario</a></p>
 
 <input [(ngModel)]="search" name="search" type="text" id="search" (keyup)="searchWriting()" placeholder="Buscar Producto"><label><mat-icon>search</mat-icon></label>
 

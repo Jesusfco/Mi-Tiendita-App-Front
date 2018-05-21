@@ -40,4 +40,16 @@ export class LoginService {
               .toPromise();
   }
 
+  syncMoney(money){
+    return this._http.post(this.link.url + 'cash/sync' + this.token.getTokenUrl(), {cash: money} )
+              .map(data => data.json())
+              .toPromise();
+  }
+
+  checkConection() {
+    return this._http.get(this.link.url + 'checkConection')
+              .map(data => data.json())
+              .toPromise();
+  }
+
 }

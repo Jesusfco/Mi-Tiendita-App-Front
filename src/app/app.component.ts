@@ -54,11 +54,15 @@ export class AppComponent {
 
   inventory: Product = new Product();
   syncInventoryInterval: any;
+  observerConectionInterval: any;
+  moneyInterval: any;
 
   constructor(private _http: LoginService, private router: Router){}
 
   ngOnInit(){
 
+    localStorage.setItem('out_conection', '0');
+    this.setObserverConectionInterval();
     // console.log(navigator.connection);
     setTimeout(() => {
       
@@ -164,7 +168,7 @@ export class AppComponent {
       data => {
 
           this.storage.storageInventory(data);
-          this.setSyncInventoryInterval();
+          this.restoreAllIntervalApplication();
       },
 
       error => console.log(error)
@@ -175,7 +179,7 @@ export class AppComponent {
 
   setSyncInventoryInterval() {
 
-    this.syncInventoryInterval = setInterval(() => this.syncInventory(), 5000);
+    this.syncInventoryInterval = setInterval(() => this.syncInventory(), 25000);
 
   }
 
@@ -217,12 +221,98 @@ export class AppComponent {
       },
 
       error => {
-
-
+        console.log('error en sincronizacion');
         clearInterval(this.syncInventoryInterval);
+        this.syncInventoryInterval = 0;
+
+        localStorage.setItem('request', JSON.stringify(error));
+
       }
 
     );
   }
+
+  setObserverConectionInterval() {
+
+    this.observerConectionInterval = setInterval(() => this.conectionObserver(), 25000);
+
+  }
+
+  conectionObserver() {
+
+    if(parseInt(localStorage.getItem('out_conection')) <= 0) return;
+
+    this._http.checkConection().then(
+
+      data => {
+
+        if(parseInt(localStorage.getItem('out_conection')) <= 0) return;
+
+        let not = {
+          status: 200,
+          title: 'Conexión Restablecida',
+          description: 'Se ha Restablecido la conexión'
+        };
+
+        localStorage.setItem('request', JSON.stringify(not));
+        localStorage.setItem('out_conection', '0');
+        this.clearAllIntervalApplication();
+        this.restoreAllIntervalApplication();
+
+        
+
+      },
+
+      error => localStorage.setItem('request', JSON.stringify(error))
+
+    );
+
+  }
+
+  setMoneyOberver(){
+
+    this.moneyInterval = setInterval(() => this.moneyIntervalLogic(), 10000);
+
+  }
+
+  moneyIntervalLogic() {
+    let money = parseFloat(localStorage.getItem('userCash'));
+    this._http.syncMoney(money).then(
+      data => {
+        if(data == money) return;
+        console.log(data + ' - ' + money);
+
+        let not = {
+          status: 200,
+          title: 'Dinero Sincronizado',
+          description: 'Hay $' + data + ' en la caja'
+        };
+
+        localStorage.setItem('request', JSON.stringify(not));
+
+        localStorage.setItem('userCash', data.toString());
+
+      }, error => {
+        console.log('Error dinero');
+        clearInterval(this.moneyInterval);
+        localStorage.setItem('request', JSON.stringify(error));
+
+      }
+    );
+  }
+
+  restoreAllIntervalApplication() {
+    this.setSyncInventoryInterval();
+    this.setMoneyOberver();
+  }
+
+  clearAllIntervalApplication() {
+
+    clearInterval(this.moneyInterval);
+    clearInterval(this.syncInventoryInterval);
+
+  }
+
+
 
 }

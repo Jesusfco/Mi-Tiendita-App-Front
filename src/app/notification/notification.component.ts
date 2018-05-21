@@ -24,6 +24,8 @@ export class NotificationComponent implements OnInit {
   checkStorage(){
 
     let request = localStorage.getItem('request');
+    localStorage.removeItem('request');
+
     if(request == undefined) return;
 
     let message = {
@@ -33,7 +35,6 @@ export class NotificationComponent implements OnInit {
     };
 
     let x = JSON.parse(request);
-
 
     if(x.status < 250 && x.status >= 200){
 
@@ -53,17 +54,34 @@ export class NotificationComponent implements OnInit {
 
         }
 
-
     }
 
     else {
 
-      console.log(x);
-
       if(x.status == 0){
+
         message.title = "Error de Conexión";
         message.description = "No se ha establecido conexion al servidor";
         message.type = 2;
+
+        let lecture = localStorage.getItem('out_conection');
+        let count;
+
+        if(lecture != undefined) {
+
+          count = parseInt(lecture);
+          count++;
+          localStorage.setItem('out_conection', count.toString() );
+
+        } else {
+
+          localStorage.setItem('out_conection', '1');
+          count = 0;
+
+        }
+
+        if(count > 1) message.type = 0;
+
       }
 
       else {
@@ -75,18 +93,8 @@ export class NotificationComponent implements OnInit {
       }
 
     }
-
-    setTimeout(() => {
-
-
-      setTimeout(() => {
-        if(this.notifications.length > 0) 
-        this.notifications.splice(0, 1);
-      }, 700);
-
-      document.getElementById('not').classList.add('translate');
-
-    }, 10000);
+    
+    if(message.type == 0) return;
 
     this.notifications.push(message);
 
@@ -96,8 +104,24 @@ export class NotificationComponent implements OnInit {
       element.classList.remove('translate');
 
     }, 10);
-    
-    localStorage.removeItem('request');
+
+    //Notificacion permanece si es falla de conexion
+    if(message.type == 2){
+      if(x.status == 0) {        
+        return;
+      }
+    }
+
+    setTimeout(() => {
+
+      setTimeout(() => {
+        if(this.notifications.length > 0) 
+        this.notifications.splice(0, 1);
+      }, 700);
+
+      document.getElementById('not').classList.add('translate');
+
+    }, 10000);
 
   }
 
