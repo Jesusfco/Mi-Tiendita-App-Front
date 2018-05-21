@@ -52,4 +52,9 @@ export class LoginService {
               .toPromise();
   }
 
+  outServiceSales(sale) {
+    return this._http.post(this.link.url + 'sale/outService' + this.token.getTokenUrl(), sale)
+    .map(data => data.json())
+    .toPromise();
+  }
 }

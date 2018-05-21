@@ -38,6 +38,8 @@ export class NotificationComponent implements OnInit {
 
     let x = JSON.parse(request);
 
+    // console.log(x);
+
     if(x.status < 250 && x.status >= 200){
 
         if(x.title != undefined){
@@ -84,8 +86,33 @@ export class NotificationComponent implements OnInit {
 
         if(count > 1) message.type = 0;
 
-      } else if(x.status == 401 || x.status == 400) {
+      } else if(x.status == 400) {
+          let login = parseInt(localStorage.getItem('login'));
+
+          if(login == -1) return;
+
+          message.title = "Token Invalido";
+          message.description = "Iniciar de nuevo sesión";
+          message.type = 2;
+
+          localStorage.setItem('login', '0');
+
           this.router.navigate(['/login']);
+
+      } else if (x.status == 401) {
+
+        let login = parseInt(localStorage.getItem('login'));
+
+        if(login == -1) return;
+        
+        message.title = "Token Expirado";
+        message.description = "Iniciar de nuevo sesión";
+        message.type = 2;
+
+        this.router.navigate(['/login']);
+
+        localStorage.setItem('login', '0');
+
       }
 
 

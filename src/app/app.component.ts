@@ -53,18 +53,26 @@ export class AppComponent {
   storage: Storage = new Storage();
 
   inventory: Product = new Product();
+
+  //INTERVAL
   syncInventoryInterval: any;
   observerConectionInterval: any;
   loginObserverInterval: any;
   moneyInterval: any;
+  salesFailInterval: any;
 
-  constructor(private _http: LoginService, private router: Router){}
-
-  ngOnInit(){
+  constructor(private _http: LoginService, private router: Router){
 
     localStorage.setItem('out_conection', '0');
+    localStorage.setItem('login', '0');
+
     this.setObserverConectionInterval();
-    // console.log(navigator.connection);
+    this.setloginObserverInterval();
+
+  }
+
+  ngOnInit(){
+    
     setTimeout(() => {
       
       this.loaderAnimationImg();      
@@ -73,9 +81,8 @@ export class AppComponent {
       
         if (this.router.url !== '/register'){
           this.router.navigate(['/login']);
-          
+ 
         }
-          
 
         setTimeout(() => {
           this.loaderAnimation();
@@ -87,14 +94,7 @@ export class AppComponent {
 
     }, 100);
 
-    
-
-    
   }
-
-  // test(){
-  //   this.fileInput.nativeElement.click();
-  // }
 
   loaderAnimationImg(){
     this.stateLoaderImg = (this.stateLoaderImg === 'initial' ? 'final' : 'initial');
@@ -109,9 +109,13 @@ export class AppComponent {
 
       data => {
 
+        localStorage.setItem('login', '1');
+
         this.storage.storageUserData(data.user);
 
-        if (data.user.cash == undefined) { this.storage.storeCash(data.shop); }
+        if (data.user.cash == undefined) { 
+          this.storage.storeCash(data.shop); 
+        }
 
         this.storage.storeServiceData(data.service);
 
@@ -123,14 +127,14 @@ export class AppComponent {
 
           if (this.router.url == '/login' || this.router.url == '/register'){
 
-            this.router.navigate(['/sale-point']);
+            this.router.navigate(['/inventory']);
 
           }
 
         }, 800);
 
-
       },
+
       error =>  {
 
         localStorage.setItem('request', JSON.stringify(error));
@@ -235,7 +239,7 @@ export class AppComponent {
 
   setObserverConectionInterval() {
 
-    this.observerConectionInterval = setInterval(() => this.conectionObserver(), 25000);
+    this.observerConectionInterval = setInterval(() => this.conectionObserver(), 10000);
 
   }
 
@@ -260,8 +264,6 @@ export class AppComponent {
         this.clearAllIntervalApplication();
         this.restoreAllIntervalApplication();
 
-        
-
       },
 
       error => localStorage.setItem('request', JSON.stringify(error))
@@ -272,7 +274,7 @@ export class AppComponent {
 
   setMoneyOberver(){
 
-    this.moneyInterval = setInterval(() => this.moneyIntervalLogic(), 10000);
+    this.moneyInterval = setInterval(() => this.moneyIntervalLogic(), 25000);
 
   }
 
@@ -281,8 +283,7 @@ export class AppComponent {
     this._http.syncMoney(money).then(
       data => {
         data = parseFloat(data);
-        if(data == money) return;
-        console.log(data + ' - ' + money);
+        if(data == money) return;        
 
         let not = {
           status: 200,
@@ -295,6 +296,7 @@ export class AppComponent {
         localStorage.setItem('userCash', data.toString());
 
       }, error => {
+
         console.log('Error dinero');
         clearInterval(this.moneyInterval);
         localStorage.setItem('request', JSON.stringify(error));
@@ -303,15 +305,73 @@ export class AppComponent {
     );
   }
 
+  setloginObserverInterval(){
+    this.loginObserverInterval = setInterval(() => this.loginObserverLogic(), 1000);
+  }
+
+  loginObserverLogic() {
+    
+    let login = parseInt(localStorage.getItem('login'));
+
+    if(login == -1 || login == 2) return;
+
+    if(login == 0) {
+      this.clearAllIntervalApplication();
+      localStorage.setItem('login', '-1');
+    }
+
+    else if(login == 1) {
+      this.restoreAllIntervalApplication();
+      localStorage.setItem('login', '2');
+    }
+
+  }
+
+  setSalesFailInterval(){
+    this.salesFailInterval = setInterval(() => this.salesFailIntervalLogic(), 25000);
+  }
+
+  salesFailIntervalLogic() {
+
+    if(localStorage.getItem('sales') != undefined){
+
+      let x = JSON.parse(localStorage.getItem('sales'));
+      this._http.outServiceSales({sales: x}).then(
+              data => {
+
+                  localStorage.removeItem('sales');
+
+                  let not = {
+                    status: 200,
+                    title: 'Ventas Respaldadas',
+                    description: '#'+ x.length + 'han sido cargadas al servidor'
+                  };
+          
+                  localStorage.setItem('request', JSON.stringify(not));
+
+              }, error => {
+
+                localStorage.setItem('request', JSON.stringify(error));
+
+                if(error.status != 500) clearInterval(this.salesFailInterval);
+
+              }
+          );
+    }
+
+  }
+
   restoreAllIntervalApplication() {
     this.setSyncInventoryInterval();
     this.setMoneyOberver();
+    this.setSalesFailInterval();
   }
 
   clearAllIntervalApplication() {
 
     clearInterval(this.moneyInterval);
     clearInterval(this.syncInventoryInterval);
+    clearInterval(this.salesFailInterval);
 
   }
 
