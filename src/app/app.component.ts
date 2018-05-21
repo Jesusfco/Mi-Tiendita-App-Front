@@ -55,6 +55,7 @@ export class AppComponent {
   inventory: Product = new Product();
   syncInventoryInterval: any;
   observerConectionInterval: any;
+  loginObserverInterval: any;
   moneyInterval: any;
 
   constructor(private _http: LoginService, private router: Router){}
@@ -102,7 +103,7 @@ export class AppComponent {
     this.stateLoader = (this.stateLoader === 'initial' ? 'final' : 'initial');
   }
 
-  checkLogin(){    
+  checkLogin(){
 
     this._http.checkAuth().then(
 
@@ -279,6 +280,7 @@ export class AppComponent {
     let money = parseFloat(localStorage.getItem('userCash'));
     this._http.syncMoney(money).then(
       data => {
+        data = parseFloat(data);
         if(data == money) return;
         console.log(data + ' - ' + money);
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification',
@@ -12,7 +13,7 @@ export class NotificationComponent implements OnInit {
   
   public interval: any;
 
-  constructor() {
+  constructor(private router: Router) {
 
     this.interval = setInterval(() => this.checkStorage(), 1000);
 
@@ -83,7 +84,10 @@ export class NotificationComponent implements OnInit {
 
         if(count > 1) message.type = 0;
 
+      } else if(x.status == 401 || x.status == 400) {
+          this.router.navigate(['/login']);
       }
+
 
       else {
 

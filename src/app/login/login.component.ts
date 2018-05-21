@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
         this.storage.storageInventory(data.inventory);
         this.storage.storeServiceData(data.service);
         this.router.navigate(['/inventory']);
+        localStorage.setItem('login', '1');
       },
       error => {
         console.log(error);
