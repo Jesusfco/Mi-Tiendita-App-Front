@@ -85,14 +85,24 @@ export class EditProductComponent implements OnInit {
     this._http.update(this.productEditable).then(
       data => {
         this.request = false;
-        this.store.updateProduct(this.productEditable);
-        localStorage.setItem('productUpdated', JSON.stringify({original: this.product, edited: this.productEditable}));
+        this.store.updateProduct(data);
+        localStorage.setItem('productUpdated', JSON.stringify({original: this.product, edited: data}));
         localStorage.removeItem('inventoryUpdateStatus');
+
+        let noti = {
+          status: 200,
+          title: 'Producto Actualizado',
+          description: 'Datos cargados a la Base de Datos'
+        };
+
+        localStorage.setItem('request', JSON.stringify(noti));
+
         this.closePop();
       },
       error => {
         this.request = false;
         console.log(error);
+        localStorage.setItem('request', JSON.stringify(error));
       }
     );
 
@@ -113,6 +123,8 @@ export class EditProductComponent implements OnInit {
       this.form.validate = false;
       return false;
     }
+
+    this.productEditable.name = this.productEditable.name.toUpperCase();
     return true;
 
   }//Fin de validateName public function()

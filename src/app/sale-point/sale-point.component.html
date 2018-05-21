@@ -16,43 +16,48 @@
 
     </div>
 
-
-
     <!-- <button class="btn btnSearch" type="submit">Agregar</button> -->
     <h3 class="totalForm">Total: {{ sale.total }}</h3>
 </form>
 
+<div class="responsive-table">
 
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
 
-
-<table>
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Subtotal</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let product of sale.description">
-            <td>{{ product.name | lowercase }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.subtotal }}</td>
-            <td>
-                <!-- <mat-icon>add_shopping_cart</mat-icon>
+        <tbody>
+            <tr *ngFor="let product of sale.description">
+                <td>{{ product.name | lowercase }}</td>
+                <td *ngIf="product.modify == true">
+                    <form (submit)="finishModify(product)">
+                        <input id="focusModify" [(ngModel)]="product.quantity" name="quantity" type="number" min="1">
+                    </form>
+                </td>
+                <td *ngIf="product.modify == false" (click)="startModify(product)">{{ product.quantity }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.subtotal }}</td>
+                <td>
+                    <!-- <mat-icon>add_shopping_cart</mat-icon>
                 <a [routerLink]="['/inventory/edit', product.id]">
                     <mat-icon>edit</mat-icon>
                 </a> -->
-                <mat-icon (click)="sale.deleteProduct(product.product_id)">delete</mat-icon>
-            </td>
+                    <mat-icon (click)="sale.deleteProduct(product.product_id)">delete</mat-icon>
+                </td>
 
-        </tr>
+            </tr>
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+</div>
 
 <!-- <h3>Total: {{ sale.total }}</h3> -->
 <button class="btn btnCancel" (click)="restoreSale()">Cancelar</button>

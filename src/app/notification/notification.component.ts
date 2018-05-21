@@ -31,7 +31,8 @@ export class NotificationComponent implements OnInit {
     let message = {
       title: null,
       description: null,
-      type: 1
+      type: 1,
+      id: null
     };
 
     let x = JSON.parse(request);
@@ -95,15 +96,13 @@ export class NotificationComponent implements OnInit {
     }
     
     if(message.type == 0) return;
+    this.checkLimitAlerts();
+
+    message.id = Math.floor((Math.random() * 10000) + 1);
 
     this.notifications.push(message);
 
-    setTimeout(() => {
-
-      let element = document.getElementById('not');
-      element.classList.remove('translate');
-
-    }, 10);
+    this.removeClasses(message.id);
 
     //Notificacion permanece si es falla de conexion
     if(message.type == 2){
@@ -112,28 +111,85 @@ export class NotificationComponent implements OnInit {
       }
     }
 
-    setTimeout(() => {
+    // setTimeout(() => {
 
-      setTimeout(() => {
-        if(this.notifications.length > 0) 
-        this.notifications.splice(0, 1);
-      }, 700);
+    //   setTimeout(() => {
+    //     if(this.notifications.length > 0) 
 
-      document.getElementById('not').classList.add('translate');
+    //     for(let i = 0; i < this.notifications.length; i++) {
+    //       if(this.notifications[i].id == message.id){
+    //         this.notifications.splice(i, 1);
+    //         break;
+    //       }
+    //     }
+        
+    //   }, 700);
 
-    }, 10000);
+    //   this.addClasses(message.id);
+
+    // }, 10000);
 
   }
 
-  close(){
-    document.getElementById('not').classList.add('translate');
+  close(id){   
+
+    document.getElementById('not' + id).classList.add('translate');
 
     setTimeout(() => {
     
-      this.notifications.splice(0, 1);
+      for(let i = 0; i < this.notifications.length; i++) {
+        if(this.notifications[i].id == id){
+          this.notifications.splice(i, 1);          
+          break;
+        }
+      }
+
     }, 700);
     
   }
 
+  addClasses(id){
+
+    setTimeout(() => {
+    
+      document.getElementById('not' + id).classList.add('translate');
+
+    }, 10);
+
+    setTimeout(() => {
+    
+      document.getElementById('not' + id).classList.add('smaller');
+
+    }, 150);
+  }
+
+  removeClasses(id){
+
+    setTimeout(() => {
+    
+      document.getElementById('not' + id).classList.remove('smaller');
+
+    }, 10);
+
+    setTimeout(() => {
+    
+      document.getElementById('not' + id).classList.remove('translate');
+
+    }, 150);
+
+  }
+
+  checkLimitAlerts(){
+    if(this.notifications.length > 5){
+       this.addClasses(this.notifications[5].id);
+
+       
+       setTimeout(() => {
+    
+        this.notifications.splice(0, 1);
+  
+      }, 500);
+    }
+  }
 
 }

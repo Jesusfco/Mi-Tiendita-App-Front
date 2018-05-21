@@ -101,6 +101,7 @@ export class NewProductComponent implements OnInit {
       this.form.name = 1;
       return false;
     } else {
+      this.upperCaseName();
       return true;
     }
 

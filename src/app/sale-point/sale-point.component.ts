@@ -84,6 +84,7 @@ export class SalePointComponent implements OnInit {
             name: x.name,
             price: x.price,
             quantity: this.search.quantity,
+            modify: false
           });
 
         this.restoreSearch();
@@ -167,6 +168,24 @@ export class SalePointComponent implements OnInit {
     if(this.observerFailSales != undefined){ return; }
     this.observerFailSales = setInterval(() => this.sendStoreSales(), 30000);
     
+  }
+
+  startModify(product){
+    product.modify = true;
+
+    setTimeout(() => {
+    
+      document.getElementById('focusModify').focus();
+
+    }, 50);
+  }
+
+  finishModify(product){
+    if(product.quantity <=0){
+      product.quantity = 1;
+    }
+
+    product.modify = false;
   }
 
 }

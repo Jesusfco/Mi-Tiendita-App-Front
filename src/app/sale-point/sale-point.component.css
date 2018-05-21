@@ -78,6 +78,11 @@ tbody {
     overflow-y: scroll;
 }
 
+td input {
+    width: auto;
+    background: #ffeaa8;
+}
+
 @media screen and (max-width: 750px) {
     tbody {
         max-height: 75vh;

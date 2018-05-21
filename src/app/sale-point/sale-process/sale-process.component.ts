@@ -66,7 +66,7 @@ export class SaleProcessComponent implements OnInit {
 
       data => {
 
-        let x = parseInt(localStorage.getItem('userCash'));
+        let x = parseFloat(localStorage.getItem('userCash'));
         x += this.sale.total;
         localStorage.setItem('userCash', x.toString());
 
@@ -97,7 +97,7 @@ export class SaleProcessComponent implements OnInit {
 
     localStorage.removeItem('saleStatus');
     this.closePop();
-    
+
   }
 
   closePop(){

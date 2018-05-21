@@ -96,14 +96,18 @@ export class Storage {
     }
 
     updateProduct(product){
+        
         let products = this.getInventory();
+
         for (let x = 0; x < Object.keys(products).length; x++){
 
+            
             if (product.id == products[x].id) { 
+
                 products[x] = product;
-                console.log(products);
                 this.storageInventory(products);
                 break;
+
             }
         }
     }
