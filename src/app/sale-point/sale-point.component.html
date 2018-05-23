@@ -38,7 +38,7 @@
                 <td>{{ product.name | lowercase }}</td>
                 <td *ngIf="product.modify == true">
                     <form (submit)="finishModify(product)">
-                        <input id="focusModify" [(ngModel)]="product.quantity" name="quantity" type="number" min="1">
+                        <input id="focusModify" (keyup)=changingQuantity(product) [(ngModel)]="product.quantity" name="quantity" type="number" min="1">
                     </form>
                 </td>
                 <td *ngIf="product.modify == false" (click)="startModify(product)">{{ product.quantity }}</td>

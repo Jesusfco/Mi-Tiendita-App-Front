@@ -146,6 +146,16 @@ export class SalePointComponent implements OnInit {
 
   }
 
+  changingQuantity(product) {
+    // console.log(event);
+    if(product.quantity <= 0 || product.quantity == null || product.quantity == undefined) {
+      product.quantity = 1;
+    }
+
+    product.subtotal = product.quantity * product.price;
+    this.sale.getTotal();
+  }
+
   intervalSaleLogic(){
 
     if(localStorage.getItem('saleStatus') == undefined){
