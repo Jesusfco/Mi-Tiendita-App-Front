@@ -64,11 +64,22 @@ export class EditProductComponent implements OnInit {
       this.state.background = 'final';
       this.state.card = 'final';
     }, 100);
+
+    setTimeout(() => {
+    
+      document.getElementById('inputNameProduct').focus();
+
+    }, 400);
+
   }
 
   formSubmit(){
 
     this.request = true;
+
+    this.productEditable.upperCaseDepartment();
+    this.productEditable.upperCaseName();
+    this.productEditable.formatCode();
 
     this.restoreValidation();
     if(this.validateName())
@@ -84,6 +95,7 @@ export class EditProductComponent implements OnInit {
 
     this._http.update(this.productEditable).then(
       data => {
+
         this.request = false;
         this.store.updateProduct(data);
         localStorage.setItem('productUpdated', JSON.stringify({original: this.product, edited: data}));
@@ -100,15 +112,18 @@ export class EditProductComponent implements OnInit {
         this.closePop();
       },
       error => {
+
         this.request = false;
-        console.log(error);
+
         localStorage.setItem('request', JSON.stringify(error));
+
       }
     );
 
   }
 
-  closePop(){    
+  closePop(){
+
     setTimeout(() => {
       this.router.navigate(['/inventory']);
     }, 450);
@@ -117,22 +132,23 @@ export class EditProductComponent implements OnInit {
     
   }
 
-  validateName(){    
-    if(this.productEditable.name == null || this.productEditable.name == ''){
+  validateName() {    
+
+    if(this.productEditable.name == ''){
+
       this.form.name = 1;
       this.form.validate = false;
       return false;
+      
     }
 
-    this.productEditable.name = this.productEditable.name.toUpperCase();
     return true;
 
   }//Fin de validateName public function()
 
-  validateUniqueName(){    
-    this.form.name = -1;
+  validateUniqueName() {
 
-    this.productEditable.name = this.productEditable.name.replace(/\s+$/, '');
+    this.form.name = -1;
 
     for(let x of this.products){
       
@@ -145,19 +161,19 @@ export class EditProductComponent implements OnInit {
           break;
 
         }
+
       }
+
     }
     
   }
 
   validateCode(){
-    if(this.productEditable.code == null || this.productEditable.code == '') { return false; }
+    if(this.productEditable.code == '') { return false; }
   }//Function that validate Product => Code unique but enable to works if is it null
 
   validateUniqueCode(){
     this.form.code = -1;
-
-    this.productEditable.code = this.productEditable.code.replace(/\s+$/, '');
 
     for(let x of this.products){
         
@@ -190,11 +206,6 @@ export class EditProductComponent implements OnInit {
     };
   }
 
-  upperCaseName(){
-    if(this.productEditable.name != undefined)
-    this.productEditable.name = this.productEditable.name.toUpperCase();
-  }
-
   // eliminacion del producto
   deleteProduct(){
 
@@ -204,11 +215,30 @@ export class EditProductComponent implements OnInit {
         localStorage.setItem('productUpdated', this.product.id.toString());
         this.prod.deleteProductStorage(this.product.id);
         this.closePop();
+
+        let not = {
+          status: 200,
+          title: 'Producto Eliminado',
+          description: 'El Producto se ha eliminado del servidor'
+        };
+
+        localStorage.setItem('request', JSON.stringify(not));
+
       }, error => {
-        console.log(error);
+
+        localStorage.setItem('request', JSON.stringify(error));
+        
       }
     );
 
+  }
+
+  detectEsc(x) {
+    
+    if(x.keyCode == 27) {
+      this.closePop();
+    }
+    
   }
 
 }

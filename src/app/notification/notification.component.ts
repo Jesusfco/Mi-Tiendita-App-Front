@@ -144,17 +144,20 @@ export class NotificationComponent implements OnInit {
 
     // setTimeout(() => {
 
-    //   setTimeout(() => {
+      setTimeout(() => {
     //     if(this.notifications.length > 0) 
 
     //     for(let i = 0; i < this.notifications.length; i++) {
     //       if(this.notifications[i].id == message.id){
     //         this.notifications.splice(i, 1);
+              // this.setPositionNotification();
     //         break;
+    
     //       }
     //     }
         
-    //   }, 700);
+        
+      }, 700);
 
     //   this.addClasses(message.id);
 
@@ -162,18 +165,24 @@ export class NotificationComponent implements OnInit {
 
   }
 
-  close(id){   
+  close(id){
 
-    document.getElementById('not' + id).classList.add('translate');
+    let indice = null;
+
+    for(let i = 0; i < this.notifications.length; i++) {
+
+      if(this.notifications[i].id == id){
+        
+        indice = i;
+        this.closeAndSetTransform(i);
+
+      }
+    }
 
     setTimeout(() => {
-    
-      for(let i = 0; i < this.notifications.length; i++) {
-        if(this.notifications[i].id == id){
-          this.notifications.splice(i, 1);          
-          break;
-        }
-      }
+          
+          this.notifications.splice(indice, 1); 
+          
 
     }, 700);
     
@@ -182,14 +191,14 @@ export class NotificationComponent implements OnInit {
   addClasses(id){
 
     setTimeout(() => {
-    
+      this.setPositionNotification();
       document.getElementById('not' + id).classList.add('translate');
 
     }, 10);
 
     setTimeout(() => {
     
-      document.getElementById('not' + id).classList.add('smaller');
+      // document.getElementById('not' + id).classList.add('smaller');
 
     }, 150);
   }
@@ -197,8 +206,8 @@ export class NotificationComponent implements OnInit {
   removeClasses(id){
 
     setTimeout(() => {
-    
-      document.getElementById('not' + id).classList.remove('smaller');
+      this.setPositionNotification();
+      // document.getElementById('not' + id).classList.remove('smaller');
 
     }, 10);
 
@@ -221,6 +230,48 @@ export class NotificationComponent implements OnInit {
   
       }, 500);
     }
+  }
+
+  setPositionNotification() {
+
+    let leng = this.notifications.length - 1;
+
+    let margin = 25;
+    let heightCount = 0;
+
+    for(let i = leng; i >= 0; i--) {
+
+      document.getElementById('not' + this.notifications[i].id).style.transform = "translateY(-" + heightCount +"px)";
+
+      heightCount += document.getElementById('not' + this.notifications[i].id).offsetHeight + margin;
+
+    }
+
+  }
+
+  closeAndSetTransform(x) {
+
+    let leng = this.notifications.length - 1;
+
+    
+    let margin = 25;
+    let heightCount = 0;
+
+    for(let i = leng; i >= 0; i--) {
+
+      if(x == i) {
+
+        document.getElementById('not' + this.notifications[i].id).style.transform = "translate( 150%, -" + heightCount +"px)";
+
+      } else {
+
+        document.getElementById('not' + this.notifications[i].id).style.transform = "translate(0, -" + heightCount +"px)";
+        heightCount += document.getElementById('not' + this.notifications[i].id).offsetHeight + margin;
+      }
+
+
+    }
+
   }
 
 }

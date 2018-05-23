@@ -60,9 +60,13 @@ export class NewProductComponent implements OnInit {
   }
 
   formSubmit(){
+    
     this.request = true;
     this.form.validate = true;
-    this.upperCaseName();
+
+    this.product.upperCaseName();
+    this.product.upperCaseDepartment();
+
     if(this.validateName())
       this.validateUniqueName();
     if(this.product.code !== null || this.product.code !== '')
@@ -102,13 +106,16 @@ export class NewProductComponent implements OnInit {
 
   validateName(){
 
-    if(this.product.name == null || this.product.name == ''){
+    if(this.product.name == ''){
+
       this.form.validate = false;
       this.form.name = 1;
       return false;
+
     } else {
-      this.upperCaseName();
+
       return true;
+
     }
 
   }//Fin de validateName public function()
@@ -117,7 +124,7 @@ export class NewProductComponent implements OnInit {
     this.form.name = -1;
 
     this.product.name = this.product.name.replace(/\s+$/, '');
-    
+
     for(let x of this.products){
 
       if(this.product.name == x.name){
@@ -166,10 +173,13 @@ export class NewProductComponent implements OnInit {
       price: 0
     };
   }
-  
-  upperCaseName(){
-    if(this.product.name != undefined)
-    this.product.name = this.product.name.toUpperCase();
-  }
 
+  detectEsc(x) {
+    
+    if(x.keyCode == 27) {
+      this.closePop();
+    }
+    
+  }
+  
 }

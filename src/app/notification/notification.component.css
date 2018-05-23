@@ -12,8 +12,10 @@
     box-shadow: 7px 6px 23px -9px rgba(0, 0, 0, 0.75);
     border-radius: 2px;
     transition: all .5s ease;
-    position: relative;
+    position: absolute;
     margin-top: 25px;
+    bottom: 0;
+    right: 0;
 }
 
 .smaller {

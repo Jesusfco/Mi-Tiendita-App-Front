@@ -9,9 +9,9 @@ export class Product {
     public stock: number;
     public department: string;
     public created_at: string;
-    public edit:boolean;
-    public delete:boolean;
-    public add:boolean;
+    public edit: boolean;
+    public delete: boolean;
+    public add: boolean;
 
 
     constructor(){
@@ -22,6 +22,25 @@ export class Product {
         this.stock = 0;
         this.name = '';
         this.code = '';
+        this.department = '';
+    }
+
+    upperCaseName() {
+
+        this.name = this.name.replace(/\s+$/, '');
+        this.name = this.name.toUpperCase();
+
+    }
+
+    upperCaseDepartment() {
+
+        this.department = this.department.replace(/\s+$/, '');
+        this.department = this.department.toUpperCase();
+    
+    }
+
+    formatCode(){
+        this.code = this.code.replace(/\s+$/, '');
     }
 
     afterSale(sale){
