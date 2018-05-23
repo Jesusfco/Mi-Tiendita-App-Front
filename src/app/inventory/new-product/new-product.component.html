@@ -15,7 +15,7 @@
 
             <div>
                 <label>Nombre</label><br>
-                <input [(ngModel)]="product.name" name="name" type="text" [ngClass]="{ 'inputError': form.name >= 1? 'inputVerified': form.name == -1 }"><br>
+                <input id="newProductNameInput" [(ngModel)]="product.name" name="name" type="text" [ngClass]="{ 'inputError': form.name >= 1? 'inputVerified': form.name == -1 }"><br>
                 <small class="smallError" *ngIf="form.name == 1">Requerido</small>
                 <small class="smallError" *ngIf="form.name == 2">Nombre ya asignado</small>
             </div>

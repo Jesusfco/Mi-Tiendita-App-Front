@@ -9,14 +9,14 @@
     <div class="cardModule" [@card]="state[0].card">
         <form *ngIf="form == 1" (submit)="checkClientMoney()">
             <h2>Dinero del Cliente</h2>
-            <input type="number" [(ngModel)]="sale.clientMoney" name="clientMoney" value="{{sale.total}}" min="{{sale.total}}">
+            <input id="clientMoneyInput" type="number" [(ngModel)]="sale.clientMoney" name="clientMoney" value="{{sale.total}}" min="{{sale.total}}">
 
             <button type="submit" class="btn btnAccept">Confirmar</button>
         </form>
 
         <form *ngIf="form == 2" (submit)="confirmSale()">
             <h2>Cambio: ${{ sale.clientMoney - sale.total }}</h2>
-            <button type="submit" class="btn btnAccept">Confirmar</button>
+            <button id="confirmSaleProcess" type="submit" class="btn btnAccept">Confirmar</button>
         </form>
     </div>
 

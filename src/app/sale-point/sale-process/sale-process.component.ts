@@ -46,6 +46,12 @@ export class SaleProcessComponent implements OnInit {
       this.state[0].background = 'final';
       this.state[0].card = 'final';
     }, 80);
+
+    setTimeout(() => {
+    
+      document.getElementById('clientMoneyInput').focus();
+
+    }, 400);
   }
 
   ngOnDestroy() {    
@@ -56,6 +62,12 @@ export class SaleProcessComponent implements OnInit {
 
   checkClientMoney(){
     this.form = 2;
+
+    setTimeout(() => {
+    
+      document.getElementById('confirmSaleProcess').focus();
+
+    }, 200);
   }
 
   confirmSale(){

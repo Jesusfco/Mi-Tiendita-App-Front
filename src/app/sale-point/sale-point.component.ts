@@ -51,9 +51,12 @@ export class SalePointComponent implements OnInit {
 
   }
 
+  ngOnInit(){}
+
   getSugest(event){
     
     if(event == 38 || event == 40 || event == 13) return;
+
     if(this.search.name == null || this.search.name == '') {
       this.sugests = [];
       return;
@@ -70,9 +73,12 @@ export class SalePointComponent implements OnInit {
 
   }
 
-  ngOnInit(){}
-
   identifyProduct(){
+
+    if(this.search.name == '' || this.search.name == null) return;
+
+    this.search.name = this.search.name.replace(/\s+$/, '');
+
     this.restoreFormValue();
     this.sugests = [];
     for(let x of this.inventory){

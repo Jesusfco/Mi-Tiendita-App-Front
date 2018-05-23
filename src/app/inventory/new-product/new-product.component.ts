@@ -44,6 +44,12 @@ export class NewProductComponent implements OnInit {
       this.state.card = 'final';
     }, 100);
 
+    setTimeout(() => {
+    
+      document.getElementById('newProductNameInput').focus();
+
+    }, 400);
+
     this.products = this.storage.getInventory();
 
   }
@@ -109,6 +115,9 @@ export class NewProductComponent implements OnInit {
 
   validateUniqueName(){    
     this.form.name = -1;
+
+    this.product.name = this.product.name.replace(/\s+$/, '');
+    
     for(let x of this.products){
 
       if(this.product.name == x.name){
@@ -125,6 +134,7 @@ export class NewProductComponent implements OnInit {
 
   validateUniqueCode(){
   
+    this.product.code = this.product.code.replace(/\s+$/, '');
     for(let x of this.products){
       
       if(this.product.code == x.code){

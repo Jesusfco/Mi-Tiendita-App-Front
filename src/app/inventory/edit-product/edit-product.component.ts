@@ -132,6 +132,8 @@ export class EditProductComponent implements OnInit {
   validateUniqueName(){    
     this.form.name = -1;
 
+    this.productEditable.name = this.productEditable.name.replace(/\s+$/, '');
+
     for(let x of this.products){
       
       if(this.productEditable.name == x.name){
@@ -154,6 +156,9 @@ export class EditProductComponent implements OnInit {
 
   validateUniqueCode(){
     this.form.code = -1;
+
+    this.productEditable.code = this.productEditable.code.replace(/\s+$/, '');
+
     for(let x of this.products){
         
       if(this.productEditable.code == x.code){
