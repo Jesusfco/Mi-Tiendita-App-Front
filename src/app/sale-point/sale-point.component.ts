@@ -129,33 +129,16 @@ export class SalePointComponent implements OnInit {
   }
 
   goSaleProcess(){
-    this.sendStoreSales();
+
     localStorage.setItem('saleStatus', '1');
     this.interval = setInterval(() => this.intervalSaleLogic(), 1000);
     this.router.navigate(['/sale-point/sale-process']);
   }
 
-  sendStoreSales(){
-
-    if(localStorage.getItem('sales') != undefined){
-        let x = JSON.parse(localStorage.getItem('sales'));
-        this._http.outServiceSales({sales: x}).then(
-                data => {
-                  // console.log(data);
-                    localStorage.removeItem('sales');
-                    clearInterval(this.observerFailSales);
-                }, error => {
-                    console.log(error)
-                }
-            );
-    }
-
-  }
-
   changingQuantity(product) {
     // console.log(event);
     if(product.quantity <= 0 || product.quantity == null || product.quantity == undefined) {
-      product.quantity = 1;
+      return;
     }
 
     product.subtotal = product.quantity * product.price;
@@ -167,7 +150,6 @@ export class SalePointComponent implements OnInit {
     if(localStorage.getItem('saleStatus') == undefined){
       this.sale = new Sale();
       this.exitInterval();
-      this.setObservableFailSales();
 
     } else if(localStorage.getItem('saleStatus') == '0'){
       this.exitInterval();
@@ -176,14 +158,6 @@ export class SalePointComponent implements OnInit {
 
   exitInterval(){
     clearInterval(this.interval);
-  }
-
-  setObservableFailSales(){
-
-    if(localStorage.getItem('sales') == undefined){ return;}
-    if(this.observerFailSales != undefined){ return; }
-    this.observerFailSales = setInterval(() => this.sendStoreSales(), 30000);
-    
   }
 
   startModify(product){
@@ -197,9 +171,13 @@ export class SalePointComponent implements OnInit {
   }
 
   finishModify(product){
-    if(product.quantity <=0){
+
+    if(product.quantity <= 0 || product == null){
       product.quantity = 1;
     }
+
+    product.subtotal = product.quantity * product.price;
+    this.sale.getTotal();
 
     product.modify = false;
   }

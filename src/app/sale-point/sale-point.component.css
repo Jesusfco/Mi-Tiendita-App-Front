@@ -1,5 +1,7 @@
 .btn {
     width: 80%;
+    margin: 0 auto;
+    display: block;
 }
 
 .btnSale {
@@ -83,15 +85,48 @@ td input {
     background: #ffeaa8;
 }
 
+.options {
+    color: darkred;
+    position: absolute;
+    top: 1px;
+    right: 15px;
+}
+
+.options p {
+    margin: 0;
+}
+
+.options p mat-icon {
+    transform: scale(.7);
+    position: relative;
+    bottom: -6px;
+}
+
+#createBtn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background: #ff0057;
+    color: white;
+    transition: .4s;
+}
+
+#createBtn:focus {
+    box-shadow: 0 5px 8px -1px rgba(0, 0, 0, .2), 0 9px 14px 0 rgba(0, 0, 0, .14), 0 3px 24px 0 rgba(0, 0, 0, .12);
+    transform: scale(1.15);
+}
+
 @media screen and (max-width: 750px) {
-    tbody {
+    .responsive-table {
         max-height: 75vh;
         overflow: scroll;
     }
+    .options {
+        display: none;
+    }
     .totalForm {
-        position: fixed;
-        top: 10px;
-        color: white;
+        position: absolute;
+        top: 5px;
         font-size: 18px;
         z-index: 4;
         margin: 0;

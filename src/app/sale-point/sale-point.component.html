@@ -1,4 +1,10 @@
 <h1 class="routeTitle">Punto de Venta</h1>
+<div class="options">
+    <div>
+        <p (click)="restoreSale()">
+            <mat-icon>cancel</mat-icon> Cancelar Venta </p>
+    </div>
+</div>
 
 <form (submit)="identifyProduct()">
     <div class="divSearch">
@@ -17,7 +23,7 @@
     </div>
 
     <!-- <button class="btn btnSearch" type="submit">Agregar</button> -->
-    <h3 class="totalForm">Total: {{ sale.total }}</h3>
+    <h3 class="totalForm">Total: ${{ sale.total }}</h3>
 </form>
 
 <div class="responsive-table">
@@ -38,18 +44,15 @@
                 <td>{{ product.name | lowercase }}</td>
                 <td *ngIf="product.modify == true">
                     <form (submit)="finishModify(product)">
-                        <input id="focusModify" (keyup)=changingQuantity(product) [(ngModel)]="product.quantity" name="quantity" type="number" min="1">
+                        <input id="focusModify" (keyup)=changingQuantity(product) (blur)="finishModify(product)" [(ngModel)]="product.quantity" name="quantity" type="number" min="1">
                     </form>
                 </td>
                 <td *ngIf="product.modify == false" (click)="startModify(product)">{{ product.quantity }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.subtotal }}</td>
                 <td>
-                    <!-- <mat-icon>add_shopping_cart</mat-icon>
-                <a [routerLink]="['/inventory/edit', product.id]">
-                    <mat-icon>edit</mat-icon>
-                </a> -->
-                    <mat-icon (click)="sale.deleteProduct(product.product_id)">delete</mat-icon>
+                    <mat-icon (click)="sale.deleteProduct(product.product_id)">remove_shopping_cart</mat-icon>
+                    <mat-icon (click)="startModify(product)">edit</mat-icon>
                 </td>
 
             </tr>
@@ -59,16 +62,16 @@
 
 </div>
 
-<!-- <h3>Total: {{ sale.total }}</h3> -->
-<button class="btn btnCancel" (click)="restoreSale()">Cancelar</button>
+
+
 <button (click)="goSaleProcess()" *ngIf="sale.description.length != 0" class="btn btnSale">Vender</button>
 
 
-<button *ngIf="sale.description.length == 0" class="btn  btnSaleNone">Vender</button>
-<!-- <a [routerLink]="['/inventory/create']">
-    <button mat-fab color="pri" id="createBtn" (click)="createPro = !createPro">
+<button *ngIf="sale.description.length == 0" class="btn  btnSaleNone" disabled>Vender</button>
+
+
+<button *ngIf="sale.description.length > 0" mat-fab color="pri" id="createBtn" (click)="goSaleProcess()">
         <mat-icon >add_shopping_cart</mat-icon>
     </button>
-</a> -->
 
 <router-outlet></router-outlet>

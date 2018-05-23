@@ -93,12 +93,27 @@ export class NavegationComponent implements OnInit {
         } 
     }
 
-    redirect(url){
+    redirect(url) {
       this.closeNavMov();
       this.router.navigate([url]);
     }
 
     inventarioView(){
 
+    }
+
+    touchStart(event) {
+      // if(event.buttons == 0) return;
+      console.log(event.buttons);
+    }
+
+    touchMove(event) {
+      if(event.buttons == 0) return;
+      console.log(event);
+    }
+
+    touchEnd(event) {
+      if(event.buttons == 0) return;
+      console.log(event);
     }
 }

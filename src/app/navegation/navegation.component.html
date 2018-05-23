@@ -7,7 +7,7 @@
     </div>
 </nav>
 
-<div class="sideNav" [@menu]='stateMenu'>
+<div class="sideNav" [@menu]='stateMenu' (touchmove)="touchStart($event)">
     <div style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYiLcbhsWY4HlvDpIMKzJP2OB-QG0yYopa1_lhsgA7CErzcxkG)" id="userInfSection">
         <div>
             <img src="https://www.w3schools.com/w3css/img_avatar3.png">
