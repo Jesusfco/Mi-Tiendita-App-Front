@@ -41,6 +41,7 @@ export class Product {
     }
 
     formatCode(){
+        if(this.code == null) return;
         this.code = this.code.replace(/\s+$/, '');
     }
 

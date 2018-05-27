@@ -56,7 +56,9 @@ export class InventoryComponent implements OnInit {
       if(x == Object.keys(this.searchProducts).length) { break;}
       this.products.push(this.searchProducts[x]);
     }
-    // setInterval(() => this.refreshInventoryFromlocalStore(), 1500);
+    
+    this.intervalUpdate = setInterval(() => this.updateIntervalLogic(), 1000);
+
   }
 
   testPage($event){
@@ -111,6 +113,7 @@ export class InventoryComponent implements OnInit {
     }
 
     this.refreshTable();
+    localStorage.setItem('inventorySearch', JSON.stringify(this.searchProducts));
 
   }
 
@@ -132,31 +135,15 @@ export class InventoryComponent implements OnInit {
 
   updateObservable(){
     localStorage.setItem('inventorySearch', JSON.stringify(this.searchProducts));
-    localStorage.setItem('inventoryUpdateStatus', '1');
-    this.intervalUpdate = setInterval(() => this.updateIntervalLogic(), 1000);
   }
 
   updateIntervalLogic(){
-
-    if(localStorage.getItem('inventoryUpdateStatus') == undefined){
       
+    if(localStorage.getItem('productUpdated') == undefined) return;
+
       this.update(JSON.parse(localStorage.getItem('productUpdated')));
       localStorage.removeItem('productUpdated');
-      clearInterval(this.intervalUpdate);
 
-    } else if(localStorage.getItem('inventoryUpdateStatus') == '0'){
-      
-      clearInterval(this.intervalUpdate);
-      localStorage.removeItem('inventoryUpdateStatus');
-
-    } else if(localStorage.getItem('inventoryUpdateStatus') == '2'){
-      this.delete(parseInt(localStorage.getItem('productUpdated')));
-      localStorage.removeItem('productUpdated');
-      localStorage.removeItem('inventoryUpdateStatus');
-      clearInterval(this.intervalUpdate);
-    }
-
-    
   }
 
   createObservable(){

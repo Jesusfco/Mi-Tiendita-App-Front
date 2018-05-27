@@ -59,6 +59,19 @@ export class EditProductComponent implements OnInit {
                   this.product = this.store.showProductById(params['id']);
                   Object.assign(this.productEditable, this.product);
 
+                  if(this.productEditable.department == null){
+                    this.productEditable.department = '';
+                    this.product.department = '';
+                  }
+                  if(this.productEditable.reorder == null) {
+                    this.productEditable.reorder = 0;
+                  }
+
+                  if(this.product.code == null) {
+                    this.product.code = null;
+                    this.productEditable.code = null;
+                  }
+
                   this.getBeforeAfterProduct();
                 });
 
@@ -109,8 +122,6 @@ export class EditProductComponent implements OnInit {
     this.state.background = 'initial';
       this.state.card = 'initial';
 
-    if(localStorage.getItem('inventoryUpdateStatus') == '1')
-      localStorage.setItem('inventoryUpdateStatus', '0');
   }
 
   ngOnInit() {
@@ -160,8 +171,6 @@ export class EditProductComponent implements OnInit {
 
   formSubmit(){
 
-    this.request = true;
-
     this.productEditable.upperCaseDepartment();
     this.productEditable.upperCaseName();
     this.productEditable.formatCode();
@@ -173,10 +182,16 @@ export class EditProductComponent implements OnInit {
       this.validateUniqueCode();
     this.validatePrice();
 
+    this.validateChange();
+
+
+
     if(this.form.validate == false){
-      this.request = false;
+      
       return;
     } 
+
+    this.request = true;
 
     this._http.update(this.productEditable).then(
       data => {
@@ -184,7 +199,6 @@ export class EditProductComponent implements OnInit {
         this.request = false;
         this.store.updateProduct(data);
         localStorage.setItem('productUpdated', JSON.stringify({original: this.product, edited: data}));
-        localStorage.removeItem('inventoryUpdateStatus');
 
         let noti = {
           status: 200,
@@ -194,7 +208,12 @@ export class EditProductComponent implements OnInit {
 
         localStorage.setItem('request', JSON.stringify(noti));
 
-        this.closePop();
+        setTimeout(() => {
+
+          this.inventorySearch = JSON.parse(localStorage.getItem('inventorySearch'));
+
+        }, 1200);
+
       },
       error => {
 
@@ -282,6 +301,21 @@ export class EditProductComponent implements OnInit {
     else { this.form.price = -1 }
   }//Validacion del Precio requerido
 
+  validateChange(){
+
+    if(this.productEditable.name == this.product.name &&
+      this.productEditable.price == this.product.price &&
+      this.productEditable.reorder == this.product.reorder &&
+      this.productEditable.stock == this.product.stock &&
+      this.productEditable.department == this.product.department &&
+      this.productEditable.code == this.product.code
+    ) {
+      this.form.validate = false;
+    }
+   
+
+  }
+
   restoreValidation(){
     this.form = {
       validate: true,
@@ -326,9 +360,7 @@ export class EditProductComponent implements OnInit {
     
   }
 
-  test(x) {
-    console.log(x);
-  }
+  
   detectArrow(event){
 
     if(event.keyCode == 39) {

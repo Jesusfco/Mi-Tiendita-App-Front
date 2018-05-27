@@ -30,7 +30,7 @@
 }
 
 .time {
-    transition: .3s;
+    transition: .35s ease-out;
 }
 
 .btnControl {
