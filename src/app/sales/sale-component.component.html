@@ -1,6 +1,8 @@
 <mat-progress-bar mode="indeterminate" *ngIf="request" class="barLoader"></mat-progress-bar>
 
 <h1 class="routeTitle">Registro de Ventas</h1>
+
+<p><a target="_blank" href="{{ url.url }}excel/sales{{ storage.getTokenUrl() }}&from={{date.from}}">Descargar Inventario</a></p>
 <h3>Ganancia</h3>
 <p>${{ analize.neto }}</p>
 <h3>Total</h3>

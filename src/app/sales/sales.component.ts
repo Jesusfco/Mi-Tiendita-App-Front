@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Sale } from '../sale-point/sale';
 import { SaleService } from '../sale-point/sale.service';
+import { Url } from '../url';
+import { Storage } from '../storage';
 
 @Component({
   selector: 'app-sale-component',
@@ -27,9 +29,14 @@ export class SalesComponent implements OnInit {
 
   public request: boolean = false;
 
+  public storage: Storage = new Storage();
+  public url: Url = new Url();
+
 
   constructor(private _http: SaleService) {
+
     this.request = true;
+    this.getDates();
 
     this._http.getSales().then(
       data => {
@@ -76,5 +83,21 @@ export class SalesComponent implements OnInit {
     }
 
   }
+
+  getDates(){
+    let d = new Date();
+
+    if(d.getMonth() <= 7){
+      this.date.from = d.getFullYear() + "-0" + (d.getMonth() + 1 ) + "-" + d.getDate();
+      this.date.to = d.getFullYear() + "-0" + (d.getMonth() + 1 ) + "-" + (d.getDate() + 1);
+    } else if (d.getMonth() == 8){
+      this.date.from = d.getFullYear() + "-0" + (d.getMonth() + 1 ) + "-" + d.getDate();
+      this.date.to = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + (d.getDate() + 1);
+    } else {
+      this.date.from = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate();
+      this.date.to = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + (d.getDate() + 1);
+    }
+  }
+
 }
 
