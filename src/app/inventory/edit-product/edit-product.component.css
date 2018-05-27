@@ -24,12 +24,24 @@
 }
 
 .controls {
-    position: fixed;
-    z-index: 25;
+    /* position: fixed; */
     color: white;
     cursor: pointer;
 }
 
 .time {
-    transition: .4s;
+    transition: .3s;
+}
+
+.btnControl {
+    background: none;
+    border: none;
+    position: fixed;
+    z-index: 25;
+}
+
+@media screen and (max-width: 750px) {
+    .btnControl {
+        display: none;
+    }
 }

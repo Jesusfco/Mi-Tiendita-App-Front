@@ -2,12 +2,12 @@
 
 <div (keyup)="detectEsc($event)" class="cardSpace" [@background]="state.background">
 
-    <button (keyup)="detectArrow($event)">
+    <button class="btnControl leftArrow" (keyup)="detectArrow($event)" matTooltip="Anterior Producto" matTooltipPosition="right">
         <mat-icon  (click)="swipeRight()" class="controls leftArrow">arrow_back</mat-icon>
     </button>
 
-    <button>
-            <mat-icon (keyup)="detectArrow($event)" (click)="swipeLeft()" class="controls rightArrow">arrow_forward</mat-icon>
+    <button class="btnControl rightArrow" (keyup)="detectArrow($event)" matTooltip="Siguiente Producto" matTooltipPosition="left">
+        <mat-icon (click)="swipeLeft()" class="controls rightArrow">arrow_forward</mat-icon>
     </button>
 
 
@@ -17,10 +17,10 @@
         </h5>
     </div>
 
-    <div id="card" class="cardModule" [@card]="state.card" (pointermove)="moveTouch($event)" (pointerenter)="startTouch($event)" (pointerleave)="finishTouch($event)">
+    <!-- (pointermove)="moveTouch($event)" (pointerenter)="startTouch($event)" (pointerleave)="finishTouch($event)" -->
+    <div (touchmove)="doSomething($event)" (touchstart)="setInit($event)" (touchend)="decideFinal($event)" id="card" class="cardModule" [@card]="state.card">
         <h2>Editar Producto</h2>
-        <p (click)="nextProduct()
-        ">Siguiente Producto</p>
+
         <label class="delete" (click)="editProcess = !editProcess"><mat-icon>delete</mat-icon></label>
         <form *ngIf="editProcess" (submit)="formSubmit()" autocomplete="off" [ngClass]="{ 'loadingForm': request == true}">
             <div>

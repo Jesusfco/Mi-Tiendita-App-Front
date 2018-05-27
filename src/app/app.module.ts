@@ -116,4 +116,6 @@ import { NotificationComponent } from './notification/notification.component';
   providers: [RegisterService , LoginService, InventoryService, SaleService, PerfilService, EmploymentService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  // var app = angular.module("demoapp", ["ngTouch"]);
+ }

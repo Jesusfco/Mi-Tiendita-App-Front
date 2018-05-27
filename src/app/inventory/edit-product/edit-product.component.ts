@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { cardPop, backgroundOpacity } from '../../animations';
 import { Product } from '../../product';
 import { InventoryService } from '../inventory.service';
@@ -33,7 +33,7 @@ export class EditProductComponent implements OnInit {
     card: 'initial',
   }
 
-  touch: any = {
+  public touch: any = {
     touchStart: 0,
     touchMove: 0,
     touchFinish: 0,
@@ -63,6 +63,46 @@ export class EditProductComponent implements OnInit {
                 });
 
               }
+
+  @HostListener('document.getElementById("card"):touchmove', ['$event']) doSomething($event) {
+    
+    this.touch.touchMove = $event.changedTouches[0].clientX - this.touch.touchStart;
+    document.getElementById('card').style.transform = "translateX(" + this.touch.touchMove + "px)";
+
+  }
+
+  @HostListener('document.getElementById("card"):touchstart', ['$event']) setInit($event) {
+    
+    this.touch.touchStart = $event.changedTouches[0].clientX;
+
+  }
+
+  @HostListener('document.getElementById("card"):touchend', ['$event']) decideFinal($event) {
+
+      this.touch.touchFinish = $event.changedTouches[0].clientX;
+
+      if(this.touch.touchMove <= -150){
+
+        this.swipeLeft();
+
+      } else if (this.touch.touchMove >= 150) {
+
+        this.swipeRight();
+
+      } else {
+
+        document.getElementById('card').classList.add('time');
+        document.getElementById('card').style.transform = "translateX(0px)";
+
+        setTimeout(() => {
+
+          document.getElementById('card').classList.remove('time');
+
+        }, 400);
+
+      }
+    
+  }
 
   ngOnDestroy(){
     this.observerRef.unsubscribe();
@@ -286,6 +326,9 @@ export class EditProductComponent implements OnInit {
     
   }
 
+  test(x) {
+    console.log(x);
+  }
   detectArrow(event){
 
     if(event.keyCode == 39) {
@@ -296,18 +339,6 @@ export class EditProductComponent implements OnInit {
       this.closePop();
     }
     
-  }
-
-  nextProduct(){
-    this.router.navigate(['/inventory/edit/147']);
-  }
-
-  afterProduct(){
-
-  }
-
-  beforeProduct(){
-
   }
 
   startTouch(event) {
@@ -358,9 +389,26 @@ export class EditProductComponent implements OnInit {
   }
 
   finishTouch(event){
-    if(event.buttons == 0) return;
-    console.log(event.x);
-    this.touch.touchFinish = event.x;
+
+    if(this.touch.touchMove <= -150){
+
+      this.swipeLeft();
+
+    } else if (this.touch.touchMove >= 150) {
+
+      this.swipeRight();
+
+    } else {
+
+      document.getElementById('card').classList.add('time');
+      document.getElementById('card').style.transform = "translateX(0px)";
+
+      setTimeout(() => {
+        document.getElementById('card').classList.remove('time');
+      }, 400);
+
+    }
+
   }
 
   swipeLeft(){
