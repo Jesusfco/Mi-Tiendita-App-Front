@@ -59,6 +59,8 @@ export class SalesComponent implements OnInit {
 
   search(){
     this.request = true;
+
+    this.validateFromTo();
     this._http.getSalesParameter(this.date).then(
       data => {
 
@@ -82,6 +84,18 @@ export class SalesComponent implements OnInit {
 
     }
 
+  }
+
+  validateFromTo() {
+    let d = new Date(this.date.from);
+    let x = new Date(this.date.to);
+
+    if(d > x) {
+      let yy = this.date.from;
+      this.date.from = this.date.to;
+      this.date.to = yy;
+
+    }
   }
 
   getDates(){

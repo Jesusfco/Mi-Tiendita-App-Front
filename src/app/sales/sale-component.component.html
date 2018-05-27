@@ -2,20 +2,21 @@
 
 <h1 class="routeTitle">Registro de Ventas</h1>
 
-<p><a target="_blank" href="{{ url.url }}excel/sales{{ storage.getTokenUrl() }}&from={{date.from}}">Descargar Inventario</a></p>
-<h3>Ganancia</h3>
+<p><a target="_blank" href="{{ url.url }}excel/sales{{ storage.getTokenUrl() }}&from={{date.from}}">Descargar Ventas</a></p>
+<!-- <h3>Ganancia</h3>
 <p>${{ analize.neto }}</p>
 <h3>Total</h3>
 <p>${{ analize.total }}</p>
 <div *ngIf="analize.undefined.count > 0">
     <h3>Productos costo compra indefinidos</h3>
     <p>#{{ analize.undefined.count }}</p>
-</div>
-<form (submit)="search()">
-    <input type="date" [(ngModel)]="date.from" name="from" id="search"><label><mat-icon>date_range</mat-icon></label>
-    <input type="date" [(ngModel)]="date.to" name="to" id="search"><label><mat-icon>date_range</mat-icon></label>
-    <button type="submit">Buscar</button>
-</form>
+</div> -->
+
+
+<input (change)="search()" type="date" [(ngModel)]="date.from" name="from" id="search"><label><mat-icon>date_range</mat-icon></label>
+<input (change)="search()" type="date" [(ngModel)]="date.to" name="to" id="search"><label><mat-icon>date_range</mat-icon></label>
+
+
 
 
 
