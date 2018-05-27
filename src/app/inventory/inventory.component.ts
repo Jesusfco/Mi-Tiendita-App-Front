@@ -15,9 +15,9 @@ import { PageEvent } from '@angular/material';
 })
 export class InventoryComponent implements OnInit {
 
-  products = [];
-  backProducts = [];
-  searchProducts = [];
+  products: Array<Product> = [];
+  backProducts: Array<Product> = [];
+  searchProducts: Array<Product> = [];
   search: string = '';
   createPro: boolean =  false;
   storage: Storage = new Storage();
@@ -32,6 +32,16 @@ export class InventoryComponent implements OnInit {
   
 
   bucle: boolean = true;
+
+  sort: any = {
+    name: 0,
+    price: -1,
+    cost: -1,
+    stock: -1,
+    reorder: -1,
+    department: -1,
+    code: -1,
+  };
 
   intervalUpdate: any;
   intervalCreate: any;
@@ -121,6 +131,7 @@ export class InventoryComponent implements OnInit {
   }
 
   updateObservable(){
+    localStorage.setItem('inventorySearch', JSON.stringify(this.searchProducts));
     localStorage.setItem('inventoryUpdateStatus', '1');
     this.intervalUpdate = setInterval(() => this.updateIntervalLogic(), 1000);
   }
@@ -254,58 +265,224 @@ export class InventoryComponent implements OnInit {
   }
 
   sortName(){
-    this.searchProducts.sort((a, b) => {
-      if(a.name < b.name){
-        return -1;
-      } else if (a.name > b.name){
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+
+    if(this.sort.name == 0) {
+      
+      this.searchProducts.sort((a, b) => {
+        if(a.name < b.name) {
+          return -1;
+        } else if (a.name > b.name) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.name = 1;
+
+    } else if ( this.sort.name == 1 ) {
+
+      this.searchProducts.sort((a, b) => {
+        if(a.name > b.name) {
+          return -1;
+        } else if (a.name < b.name) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.name = 0;
+
+    }
+    
     this.refreshTable();
   }
 
+
+
   sortPrice(){
-    this.searchProducts.sort((a, b) => {
-      if(a.price < b.price){
-        return -1;
-      } else if (a.price > b.price){
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+
+    if(this.sort.price == -1 || this.sort.price == 0){
+
+      this.searchProducts.sort((a, b) => {
+        if(a.price < b.price){
+          return -1;
+        } else if (a.price > b.price){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.price = 1;
+
+    } else if (this.sort.price == 1){
+
+      this.searchProducts.sort((a, b) => {
+        if(a.price > b.price){
+          return -1;
+        } else if (a.price < b.price){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.price = 0;
+
+    }
+    
 
     this.refreshTable();
   }
 
   sortStock(){
-    this.searchProducts.sort((a, b) => {
-      if(a.stock < b.stock){
-        return -1;
-      } else if (a.stock > b.stock){
-        return 1;
-      } else {
-        return 0;
-      }
-    });
 
+    if(this.sort.stock == -1 || this.sort.stock == 0){
+
+      this.searchProducts.sort((a, b) => {
+        if(a.stock < b.stock) {
+          return -1;
+        } else if (a.price > b.price) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.stock = 1;
+
+    } else if(this.sort.stock == 1 ) {
+    
+      this.searchProducts.sort((a, b) => {
+        if(a.stock > b.stock) {
+          return -1;
+        } else if (a.stock < b.stock) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.stock = 0;
+
+    }
+
+    this.refreshTable();
+
+  }
+
+  sortCode(){
+    let s = this.sort.code;
+
+    if(this.sort.code <= 0){
+      
+      this.searchProducts.sort((a, b) => {
+        if(a.code < b.code){
+          return -1;
+        } else if (a.code > b.code){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.code = 1;
+
+    } else {
+
+      this.searchProducts.sort((a, b) => {
+        if(a.code > b.code){
+          return -1;
+        } else if (a.code < b.code){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.code = 0;
+
+    }
     
     this.refreshTable();
   }
 
-  sortCode(){
-    this.searchProducts.sort((a, b) => {
-      if(a.code < b.code){
-        return -1;
-      } else if (a.code > b.code){
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+  sortCost() {
+
+    let s = this.sort.cost;
+
+    if(this.sort.cost <= 0){
+      
+      this.searchProducts.sort((a, b) => {
+        if(a.cost_price < b.cost_price){
+          return -1;
+        } else if (a.cost_price > b.cost_price){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.cost = 1;
+
+    } else {
+
+      this.searchProducts.sort((a, b) => {
+        if(a.cost_price > b.cost_price){
+          return -1;
+        } else if (a.cost_price < b.cost_price){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.cost = 0;
+
+    }
+
     this.refreshTable();
+
+  }
+
+  sortReorder() {
+
+    let s = this.sort.reorder;
+
+    if(this.sort.reorder <= 0){
+      
+      this.searchProducts.sort((a, b) => {
+        if(a.reorder < b.reorder){
+          return -1;
+        } else if (a.reorder > b.reorder){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.reorder = 1;
+
+    } else {
+
+      this.searchProducts.sort((a, b) => {
+        if(a.reorder > b.reorder){
+          return -1;
+        } else if (a.reorder < b.reorder){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.reorder = 0;
+
+    }
+
+    this.refreshTable();
+
   }
 
 }

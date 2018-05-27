@@ -23,6 +23,7 @@ export class Product {
         this.name = '';
         this.code = '';
         this.department = '';
+
     }
 
     upperCaseName() {

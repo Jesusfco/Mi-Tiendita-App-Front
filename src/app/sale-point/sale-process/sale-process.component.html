@@ -6,7 +6,7 @@
         </h5>
     </div>
 
-    <div class="cardModule" [@card]="state[0].card">
+    <div (keyup)="detectEsc($event)" class="cardModule" [@card]="state[0].card">
         <form *ngIf="form == 1" (submit)="checkClientMoney()">
             <h2>Dinero del Cliente</h2>
             <input id="clientMoneyInput" type="number" [(ngModel)]="sale.clientMoney" name="clientMoney" value="{{sale.total}}" min="{{sale.total}}">

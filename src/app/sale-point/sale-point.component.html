@@ -1,10 +1,5 @@
 <h1 class="routeTitle">Punto de Venta</h1>
-<div class="options">
-    <div>
-        <p (click)="restoreSale()">
-            <mat-icon>cancel</mat-icon> Cancelar Venta </p>
-    </div>
-</div>
+
 
 <form (submit)="identifyProduct()">
     <div class="divSearch">
@@ -29,6 +24,7 @@
 <div class="responsive-table">
 
     <table>
+
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -65,13 +61,34 @@
 
 
 <button (click)="goSaleProcess()" *ngIf="sale.description.length != 0" class="btn btnSale">Vender</button>
-
-
 <button *ngIf="sale.description.length == 0" class="btn  btnSaleNone" disabled>Vender</button>
 
+<div class="floatOptions">
 
-<button *ngIf="sale.description.length > 0" mat-fab color="pri" id="createBtn" (click)="goSaleProcess()">
-        <mat-icon >add_shopping_cart</mat-icon>
+    <div class="moreOptions">
+
+        <button (click)="restoreSale()" matTooltip="Cancelar Venta" matTooltipPosition="left" mat-fab id="cancelButton">
+            <mat-icon >cancel</mat-icon>
+        </button>
+
+        <button matTooltip="Buscar Product" matTooltipPosition="left" mat-fab id="searchButton">
+            <mat-icon >search</mat-icon>
+        </button>
+
+        <button (click)="goSaleProcess()" matTooltip="Realizar Venta" matTooltipPosition="left" mat-fab id="sellButton">
+            <mat-icon >add_shopping_cart</mat-icon>
+        </button>
+
+    </div>
+
+    <button mat-fab color="pri" class="floatOptionPrincipal">
+        <mat-icon >edit</mat-icon>
     </button>
+
+</div>
+
+<!-- <button *ngIf="sale.description.length > 0" mat-fab color="pri" id="createBtn" (click)="goSaleProcess()">
+        <mat-icon >add_shopping_cart</mat-icon>
+    </button> -->
 
 <router-outlet></router-outlet>

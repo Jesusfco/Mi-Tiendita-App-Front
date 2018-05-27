@@ -19,14 +19,16 @@ export class LoginComponent implements OnInit {
     this.elementRef.nativeElement.focus();
   }
 
-  data: any = {
+  public data: any = {
     email: '',
-    password: null
+    password: ''
   };
-  form = {
+
+  public form = {
     email: 0,
     password: 0,
-    form: 0,
+    credentials: 0,
+    form: true,
   };
 
   sendingData: boolean = false;
@@ -40,13 +42,13 @@ export class LoginComponent implements OnInit {
   }
   accesar() {
 
-    this.sendingData = true;
-
-    this.form.form == 0;
+    this.restoreValidation();
     this.validateMail();
     this.validatePassword();
 
-    if(this.form.form == 1)  return; 
+    if(this.form.form == false)  return; 
+
+    this.sendingData = true;
 
     this._http.login(this.data).then(
       data => {
@@ -59,33 +61,48 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('login', '1');
       },
       error => {
+
+        if(error.status == 401) {
+          this.form.credentials = 1;
+        }
+        
         console.log(error);
-        this.sendingData = false;
       }
+    ).then(
+      () => this.sendingData = false
     );
-  }
-  
-  checkAuth() {
-    this._http.checkAuth().then(
-      data => console.log(data),
-      error => console.log(error)
-    );  
   }
 
   validateMail(){
+
     this.form.email = 0;
-    if(this.data.email == null || this.data.email == '') {
+    this.data.email = this.data.email.replace(/\s+$/, '');
+
+    if(this.data.email == '') {
       this.form.email = 1;
-      this.form.form = 1;
+      this.form.form = false;
     }    
   }
 
   validatePassword(){
     this.form.password = 0;
-    if(this.data.password == null || this.data.password == '') {
+    this.data.password = this.data.password.replace(/\s+$/, '');
+
+    if(this.data.password == '') {
       this.form.password = 1;
-      this.form.form = 1;
+      this.form.form = false;
     }
+  }
+
+  restoreValidation() {
+
+    this.form = {
+      email: 0,
+      password: 0,
+      form: true,
+      credentials: 0,
+    };
+
   }
   
 

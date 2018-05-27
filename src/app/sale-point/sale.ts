@@ -157,10 +157,9 @@ export class Sale {
 
         //Conteo de productos sin costo de compra
         for( let x of products){
-            if(x.cost_price == undefined){
+            if(x.cost_price == null|| x.cost_price == 0){
                 countUndefined.count++;
                 countUndefined.products.push({id: x.id, name: x.name});
-                console.log(x);
             }
             
         }

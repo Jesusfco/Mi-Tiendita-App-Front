@@ -20,6 +20,10 @@ export class EditProductComponent implements OnInit {
   products = [];
   productEditable: Product = new Product();
 
+  inventorySearch: Array<Product> = [];
+  productAfter: number;
+  productBefore: number;
+
   observerRef: any;
 
   store: Storage = new Storage();
@@ -28,6 +32,15 @@ export class EditProductComponent implements OnInit {
     background: 'initial',
     card: 'initial',
   }
+
+  touch: any = {
+    touchStart: 0,
+    touchMove: 0,
+    touchFinish: 0,
+
+
+    touchClicked: 0
+  };
 
   
   request: boolean = false;
@@ -40,9 +53,13 @@ export class EditProductComponent implements OnInit {
               private router: Router,
               private actRou: ActivatedRoute) {
 
+                this.inventorySearch = JSON.parse(localStorage.getItem('inventorySearch'));
+
                 this.observerRef = actRou.params.subscribe(params => {
                   this.product = this.store.showProductById(params['id']);
                   Object.assign(this.productEditable, this.product);
+
+                  this.getBeforeAfterProduct();
                 });
 
               }
@@ -71,6 +88,34 @@ export class EditProductComponent implements OnInit {
 
     }, 400);
 
+  }
+
+  getBeforeAfterProduct(){
+    let x = this.inventorySearch.length;
+
+    
+    for(let i = 0; i < this.inventorySearch.length; i++){
+
+      if(this.inventorySearch[i].id == this.product.id){
+
+        this.productAfter = i + 1;
+        this.productBefore = i - 1;
+
+        if(this.productBefore == -1){
+          this.productBefore = this.inventorySearch[x - 1].id;
+        } else {
+          this.productBefore = this.inventorySearch[this.productBefore].id;
+        }
+
+        if(this.productAfter == x){
+          this.productAfter = this.inventorySearch[0].id;
+        } else {
+          this.productAfter = this.inventorySearch[this.productAfter].id;
+        }
+
+        break;
+      }
+    }
   }
 
   formSubmit(){
@@ -241,4 +286,128 @@ export class EditProductComponent implements OnInit {
     
   }
 
+  detectArrow(event){
+
+    if(event.keyCode == 39) {
+      this.swipeLeft();
+    } else if(event.keyCode == 37) {
+      this.swipeRight();
+    } else if(event.keyCode == 27) {
+      this.closePop();
+    }
+    
+  }
+
+  nextProduct(){
+    this.router.navigate(['/inventory/edit/147']);
+  }
+
+  afterProduct(){
+
+  }
+
+  beforeProduct(){
+
+  }
+
+  startTouch(event) {
+    if(event.buttons == 0) return;
+    
+    console.log(event);
+  }
+
+  moveTouch(event){
+
+    if((event.buttons == 0 && this.touch.touchClicked == 1)) {
+      console.log(this.touch.touchMove);
+      this.touch.touchFinish = event.x;
+      this.touch.touchClicked--;
+
+      if(this.touch.touchMove <= -150){
+
+        this.swipeLeft();
+
+      } else if (this.touch.touchMove >= 150) {
+
+        this.swipeRight();
+
+      } else {
+
+        document.getElementById('card').classList.add('time');
+        document.getElementById('card').style.transform = "translateX(0px)";
+
+        setTimeout(() => {
+          document.getElementById('card').classList.remove('time');
+        }, 400);
+
+      }
+
+
+      return;
+    }
+    else if(event.buttons == 0) return;
+    else if(event.buttons == 1 && this.touch.touchClicked == 0) {
+      this.touch.touchClicked++;
+      this.touch.touchStart = event.x;
+      return;
+    }
+
+    this.touch.touchMove = event.x - this.touch.touchStart;
+    document.getElementById('card').style.transform = "translateX(" + this.touch.touchMove +"px)";
+    
+  }
+
+  finishTouch(event){
+    if(event.buttons == 0) return;
+    console.log(event.x);
+    this.touch.touchFinish = event.x;
+  }
+
+  swipeLeft(){
+    document.getElementById('card').classList.add('time');
+        document.getElementById('card').style.transform = "translateX(-800px)";
+
+        setTimeout(() => {
+          this.router.navigate(['/inventory/edit/' + this.productAfter]);
+          document.getElementById('card').classList.remove('time');
+          document.getElementById('card').style.transform = "translateX(800px)";
+
+          setTimeout(() => {
+            document.getElementById('card').classList.add('time');
+            document.getElementById('card').style.transform = "translateX(0px)";
+
+            setTimeout(() => {
+              document.getElementById('card').classList.remove('time');
+
+            }, 400);
+
+          }, 10);
+          
+        }, 400);
+  }
+
+  swipeRight() {
+
+    document.getElementById('card').classList.add('time');
+        document.getElementById('card').style.transform = "translateX(800px)";
+
+        setTimeout(() => {
+          this.router.navigate(['/inventory/edit/' + this.productBefore]);
+          document.getElementById('card').classList.remove('time');
+          document.getElementById('card').style.transform = "translateX(-800px)";
+
+          setTimeout(() => {
+            document.getElementById('card').classList.add('time');
+            document.getElementById('card').style.transform = "translateX(0px)";
+
+            setTimeout(() => {
+              document.getElementById('card').classList.remove('time');
+
+            }, 400);
+
+          }, 10);
+          
+        }, 400);
+
+  }
 }

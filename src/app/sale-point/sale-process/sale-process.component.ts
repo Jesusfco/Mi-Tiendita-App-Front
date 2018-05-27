@@ -123,4 +123,25 @@ export class SaleProcessComponent implements OnInit {
     
   }
 
+  detectEsc(x) {
+    
+    if(x.keyCode == 27) {
+
+      if(this.form == 2) {
+        this.form = 1;
+
+        setTimeout(() => {
+    
+          document.getElementById('clientMoneyInput').focus();
+    
+        }, 20);
+
+      } else {
+        this.closePop();
+      }
+      
+    }
+    
+  }
+
 }

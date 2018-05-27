@@ -46,6 +46,10 @@ export class SalePointComponent implements OnInit {
 
                 if(this.sale.getLocalSale() != undefined){
                   this.sale.description = this.sale.getLocalSale();
+
+                  for(let i = 0; i < this.sale.description.length; i++){
+                    this.sale.description[i].modify = false;
+                  }
                   this.sale.getTotal();
                 }
 
@@ -180,6 +184,7 @@ export class SalePointComponent implements OnInit {
     this.sale.getTotal();
 
     product.modify = false;
+
   }
 
 }
