@@ -134,6 +134,7 @@ export class SalePointComponent implements OnInit {
 
   goSaleProcess(){
 
+    if(this.sale.description.length == 0) return;
     localStorage.setItem('saleStatus', '1');
     this.interval = setInterval(() => this.intervalSaleLogic(), 1000);
     this.router.navigate(['/sale-point/sale-process']);

@@ -3,6 +3,7 @@ import { Sale } from '../sale-point/sale';
 import { SaleService } from '../sale-point/sale.service';
 import { Url } from '../url';
 import { Storage } from '../storage';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-sale-component',
@@ -11,6 +12,7 @@ import { Storage } from '../storage';
 })
 export class SalesComponent implements OnInit {
   public sales: Array<Sale> = [];
+  public backSales: Array<Sale> = [];
   public sal: Sale =  new Sale();
 
   public date = {
@@ -25,6 +27,20 @@ export class SalesComponent implements OnInit {
       count: 0,
       products: [],
     },
+  };
+
+  public sort: any = {
+    id: 0,
+    total: 0,
+    created: 0,
+  };
+
+  public lenghtArrayOptions: Array<number> = [ 10, 25, 50, 100, 200 ];
+
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 25,
+    length: 0
   };
 
   public request: boolean = false;
@@ -42,7 +58,8 @@ export class SalesComponent implements OnInit {
       data => {
 
         this.request = false;
-        this.sales = data;
+        this.backSales = data;
+        this.refreshTable();
         this.analize = this.sal.getGrossProfit(data);
 
       },
@@ -63,16 +80,16 @@ export class SalesComponent implements OnInit {
     this.validateFromTo();
     this._http.getSalesParameter(this.date).then(
       data => {
-
-        this.request = false;
-        this.sales = data;
+        this.backSales = data;
         this.analize = this.sal.getGrossProfit(data);
 
       },
       error => {
-        console.log(error);
-        this.request = false;
+        localStorage.setItem('request', JSON.stringify(error));
+
       },
+    ).then(
+      () => this.request = false
     );
 
     if (this.date.from !== undefined && this.date.to === undefined){
@@ -111,6 +128,138 @@ export class SalesComponent implements OnInit {
       this.date.from = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate();
       this.date.to = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + (d.getDate() + 1);
     }
+  }
+
+  getToday(){
+    this.getDates();
+    this.search();
+  }
+
+  testPage($event){
+    
+    this.pageEvent = $event;
+    this.refreshTable();
+
+  }
+
+  refreshTable() {
+
+    this.sales = [];
+
+    for(let i = 0; i < this.pageEvent.pageSize; i++){
+
+      if(i + (this.pageEvent.pageIndex * this.pageEvent.pageSize) == this.backSales.length) { break; }
+
+      this.sales.push(this.backSales[i + (this.pageEvent.pageIndex * this.pageEvent.pageSize)]);
+
+    }
+
+  }
+
+  sortById(){
+
+    if(this.sort.id == 0) {
+      
+      this.backSales.sort((a, b) => {
+        if(a.id < b.id) {
+          return -1;
+        } else if (a.id > b.id) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.id = 1;
+
+    } else if ( this.sort.id == 1 ) {
+
+      this.backSales.sort((a, b) => {
+        if(a.id > b.id) {
+          return -1;
+        } else if (a.id < b.id) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.id = 0;
+
+    }
+    
+    this.refreshTable();
+
+  }
+
+  sortByTotal(){
+
+    if(this.sort.total == 0) {
+      
+      this.backSales.sort((a, b) => {
+        if(a.total < b.total) {
+          return -1;
+        } else if (a.total > b.total) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.total = 1;
+
+    } else if ( this.sort.total == 1 ) {
+
+      this.backSales.sort((a, b) => {
+        if(a.total > b.total) {
+          return -1;
+        } else if (a.total < b.total) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.total = 0;
+
+    }
+    
+    this.refreshTable();
+
+  }
+
+  sortByDate(){
+    if(this.sort.created == 0) {
+      
+      this.backSales.sort((a, b) => {
+        if(a.created_at < b.created_at) {
+          return -1;
+        } else if (a.created_at > b.created_at) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.created = 1;
+
+    } else if ( this.sort.created == 1 ) {
+
+      this.backSales.sort((a, b) => {
+        if(a.created_at > b.created_at) {
+          return -1;
+        } else if (a.created_at < b.created_at) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      this.sort.created = 0;
+
+    }
+    
+    this.refreshTable();
   }
 
 }
