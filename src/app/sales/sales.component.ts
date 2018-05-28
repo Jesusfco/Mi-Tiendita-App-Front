@@ -61,6 +61,7 @@ export class SalesComponent implements OnInit {
         this.backSales = data;
         this.refreshTable();
         this.analize = this.sal.getGrossProfit(data);
+        localStorage.setItem('salesComponent', JSON.stringify(data));
 
       },
       error => {
@@ -81,7 +82,7 @@ export class SalesComponent implements OnInit {
     this._http.getSalesParameter(this.date).then(
       data => {
         this.backSales = data;
-        this.analize = this.sal.getGrossProfit(data);
+        localStorage.setItem('salesComponent', JSON.stringify(data));
 
       },
       error => {
