@@ -104,16 +104,25 @@ export class InventoryComponent implements OnInit {
 
   update(data){
     
-    for(let i = 0; i < Object.keys(this.products).length; i++){
-      if(this.backProducts[i].id == data.original.id){
+    for (let i = 0; i < Object.keys(this.products).length; i++) {
+
+      if (this.backProducts[i].id == data.original.id) {
+
         this.backProducts[i] = data.edited;
-        
         break;
+
       }
+
     }
 
-    this.refreshTable();
-    localStorage.setItem('inventorySearch', JSON.stringify(this.searchProducts));
+    setTimeout(() => {
+          
+      this.refreshTable();
+      localStorage.setItem('inventorySearch', JSON.stringify(this.searchProducts));
+      
+    }, 50);
+    
+    
 
   }
 
@@ -166,8 +175,8 @@ export class InventoryComponent implements OnInit {
     
   }
 
-  asssignValuesBackProducts(){
-
+  refreshTable(){
+    
     this.products = [];
 
     if(this.pageEvent == undefined){
@@ -185,19 +194,7 @@ export class InventoryComponent implements OnInit {
       }
 
     }
-  }
 
-  refreshTable(){
-    // let x = this.search;
-    // this.search = '';
-
-
-
-    // setTimeout(() => {
-    //   this.search = x;
-    // }, 100);
-    this.asssignValuesBackProducts();
-    
   }
 
   searchWriting(){
@@ -206,7 +203,7 @@ export class InventoryComponent implements OnInit {
     }
     
     this.searchProducts = this.searchFilter();
-    this.asssignValuesBackProducts();
+    this.refreshTable();
   }
 
   searchFilter(){

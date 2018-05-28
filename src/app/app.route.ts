@@ -13,6 +13,9 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { EmploymentComponent } from './employment/employment.component';
 import { CreateEmploymentComponent } from './employment/create-employment/create-employment.component';
 import { EditEmploymentComponent } from './employment/edit-employment/edit-employment.component';
+
+import { SaleAnalysisComponent } from './sales/sale-analysis/sale-analysis.component';
+
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
@@ -28,7 +31,8 @@ export const routes: Routes = [
         ] },
     { path: 'sales', component: SalesComponent,
         children : [
-            { path: ':id', component: ShowSaleComponent },
+            { path: 'sale/:id', component: ShowSaleComponent },
+            { path: 'analysis', component: SaleAnalysisComponent },
         ] },
     { path: 'inventory', component: InventoryComponent,
         children : [

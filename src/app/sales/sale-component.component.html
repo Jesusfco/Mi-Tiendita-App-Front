@@ -29,7 +29,7 @@
 
         <tbody [ngClass]="{ 'loadingForm': request == true}">
 
-            <tr *ngFor="let sale of sales" [routerLink]="['/sales', sale.id]">
+            <tr *ngFor="let sale of sales" [routerLink]="['/sales/sale', sale.id]">
                 <td>{{ sale.id }}</td>
                 <td> ${{ sale.total }}</td>
                 <td>{{ sale.created_at | date: format }}</td>
@@ -55,7 +55,7 @@
             </button>
         </a>
 
-        <button matTooltip="Obtener Analisis" matTooltipPosition="left" mat-fab id="searchButton">
+        <button [routerLink]="['/sales/analysis']" matTooltip="Obtener Analisis" matTooltipPosition="left" mat-fab id="searchButton">
                 <mat-icon >equalizer</mat-icon>
             </button>
 

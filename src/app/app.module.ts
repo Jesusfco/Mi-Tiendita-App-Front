@@ -62,6 +62,7 @@ import { PerfilService } from './perfil/perfil.service';
 import { EmploymentService } from './employment/employment.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NotificationComponent } from './notification/notification.component';
+import { SaleAnalysisComponent } from './sales/sale-analysis/sale-analysis.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { NotificationComponent } from './notification/notification.component';
     EmploymentPipePipe,
     PageNotFoundComponent,
     NotificationComponent,
+    SaleAnalysisComponent,
   ],
   imports: [
     BrowserModule,
