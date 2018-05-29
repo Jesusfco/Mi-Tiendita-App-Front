@@ -7,6 +7,7 @@ import { NewProductComponent } from './inventory/new-product/new-product.compone
 import { EditProductComponent } from './inventory/edit-product/edit-product.component';
 import { SalePointComponent } from './sale-point/sale-point.component';
 import { SaleProcessComponent } from './sale-point/sale-process/sale-process.component';
+import { SearchProductComponent } from './sale-point/search-product/search-product.component';
 import { SalesComponent } from './sales/sales.component';
 import { ShowSaleComponent } from './sales/show-sale/show-sale.component';
 import { PerfilComponent } from './perfil/perfil.component';
@@ -15,6 +16,7 @@ import { CreateEmploymentComponent } from './employment/create-employment/create
 import { EditEmploymentComponent } from './employment/edit-employment/edit-employment.component';
 
 import { SaleAnalysisComponent } from './sales/sale-analysis/sale-analysis.component';
+import { SearchParametersComponent } from './inventory/search-parameters/search-parameters.component';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -38,11 +40,13 @@ export const routes: Routes = [
         children : [
             { path: 'create', component: NewProductComponent },
             { path: 'edit/:id', component: EditProductComponent },
+            { path: 'search-parameters', component: SearchParametersComponent }
         ]
     },
     { path: 'sale-point', component: SalePointComponent,
         children: [
-            { path: 'sale-process', component: SaleProcessComponent }
+            { path: 'sale-process', component: SaleProcessComponent },
+            { path: 'search', component: SearchProductComponent },
     ]},
     { path: '**', component:  PageNotFoundComponent },
 ];

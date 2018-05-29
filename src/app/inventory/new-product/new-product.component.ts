@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, HostListener } from '@angular/core';
 import { Product } from '../../product';
 import { InventoryService } from '../inventory.service';
 import { Storage } from '../../storage';
@@ -35,6 +35,14 @@ export class NewProductComponent implements OnInit {
 
   storage: Storage = new Storage();
 
+  @HostListener('document:keyup', ['$event']) sss($event) {
+    
+    if($event.keyCode === 27) {
+      this.closePop();
+    } 
+
+  }
+
   constructor(private _http: InventoryService, private router: Router) { }
 
   ngOnInit() {
@@ -42,13 +50,8 @@ export class NewProductComponent implements OnInit {
     setTimeout(() => {
       this.state.background = 'final';
       this.state.card = 'final';
-    }, 100);
-
-    setTimeout(() => {
-    
       document.getElementById('newProductNameInput').focus();
-
-    }, 400);
+    }, 5);
 
     this.products = this.storage.getInventory();
 
@@ -172,14 +175,6 @@ export class NewProductComponent implements OnInit {
       code: 0,
       price: 0
     };
-  }
-
-  detectEsc(x) {
-    
-    if(x.keyCode == 27) {
-      this.closePop();
-    }
-    
   }
   
 }

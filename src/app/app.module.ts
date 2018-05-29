@@ -44,6 +44,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { NewProductComponent } from './inventory/new-product/new-product.component';
 import { EditProductComponent } from './inventory/edit-product/edit-product.component';
 import { InventoryService } from './inventory/inventory.service';
+
 import { SalePointComponent } from './sale-point/sale-point.component';
 
 import { SaleService } from './sale-point/sale.service';
@@ -63,6 +64,8 @@ import { EmploymentService } from './employment/employment.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NotificationComponent } from './notification/notification.component';
 import { SaleAnalysisComponent } from './sales/sale-analysis/sale-analysis.component';
+import { SearchProductComponent } from './sale-point/search-product/search-product.component';
+import { SearchParametersComponent } from './inventory/search-parameters/search-parameters.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +89,8 @@ import { SaleAnalysisComponent } from './sales/sale-analysis/sale-analysis.compo
     PageNotFoundComponent,
     NotificationComponent,
     SaleAnalysisComponent,
+    SearchProductComponent,
+    SearchParametersComponent,
   ],
   imports: [
     BrowserModule,

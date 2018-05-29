@@ -43,8 +43,9 @@ export class InventoryComponent implements OnInit {
     code: -1,
   };
 
-  intervalUpdate: any;
-  intervalCreate: any;
+  public intervalUpdate: any;
+  public intervalCreate: any;
+  public intervalSearch: any;
 
   constructor(private _http: InventoryService) { }
 
@@ -58,6 +59,27 @@ export class InventoryComponent implements OnInit {
     }
     
     this.intervalUpdate = setInterval(() => this.updateIntervalLogic(), 1000);
+
+  }
+
+  setSearchInterval() {
+    this.intervalSearch = setInterval(() => this.updateIntervalLogic(), 1000);
+  }
+
+  searchIntervalLogic() {
+    if(localStorage.getItem('searchParameter') == undefined) { return; }
+
+    let parameter = parseInt(localStorage.getItem('searchParameter'));
+
+    if(parameter == 1) {
+
+    } else if (parameter == 2) {
+
+      
+
+    } else if( parameter == 3) {
+
+    }
 
   }
 
@@ -226,6 +248,18 @@ export class InventoryComponent implements OnInit {
       else if( product.code == undefined && product.department == undefined)
       return (product.name.includes(busqueda.toUpperCase()));
     });
+  }
+
+  searchUnderReorder() {
+    this.searchProducts = this.backProducts;
+    let busqueda = this.search;
+    if(this.search === undefined) return this.searchProducts;
+
+
+  }
+
+  searchOutStock() {
+
   }
 
   sortDepartment(){
@@ -468,5 +502,7 @@ export class InventoryComponent implements OnInit {
     this.refreshTable();
 
   }
+
+
 
 }

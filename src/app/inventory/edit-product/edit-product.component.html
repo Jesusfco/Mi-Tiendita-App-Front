@@ -1,6 +1,6 @@
 <mat-progress-bar mode="indeterminate" *ngIf="request" class="barLoader"></mat-progress-bar>
 
-<div (keyup)="detectEsc($event)" class="cardSpace" [@background]="state.background">
+<div class="cardSpace" [@background]="state.background">
 
     <button class="btnControl leftArrow" (keyup)="detectArrow($event)" matTooltip="Anterior Producto" matTooltipPosition="right">
         <mat-icon  (click)="swipeRight()" class="controls leftArrow">arrow_back</mat-icon>

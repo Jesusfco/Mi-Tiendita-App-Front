@@ -25,7 +25,7 @@ export const backgroundOpacity =
     trigger('card', [
           
       state('initial', style({
-        transform: 'translate3d(0,50%,0) scale(.7)',                
+        transform: 'translate3d(0,50%,0) scale(.8)',                
       })),
 
       state('final' ,style({
@@ -33,7 +33,7 @@ export const backgroundOpacity =
         
       })),      
 
-      transition('initial <=> final' , animate('350ms ease-out')),
+      transition('initial <=> final' , animate('300ms ease-out')),
     ]);
 
 export const cardPop = 

@@ -1,9 +1,13 @@
 <h1 class="routeTitle">Inventario {{ backProducts.length }} / {{ storage.getLimitProduct() }}</h1>
-<p><a target="_blank" href="{{ url.url }}excel/inventory{{ storage.getTokenUrl() }}">Descargar Inventario</a></p>
 
-<input [(ngModel)]="search" name="search" type="text" id="search" (keyup)="searchWriting()" placeholder="Buscar Producto"><label><mat-icon>search</mat-icon></label>
+<div class="divSearch">
+    <input [(ngModel)]="search" name="search" type="text" id="search" (keyup)="searchWriting()" placeholder="Buscar Producto">
+    <br>
+    <mat-icon *ngIf="search == ''">search</mat-icon>
+    <mat-icon *ngIf="search !== ''" (click)="search = ''">close</mat-icon>
+</div>
 
-<mat-icon>tune</mat-icon>
+
 <!-- <button class="createBtn" (click)="createPro = !createPro">Agregar Producto</button> -->
 <div class="responsive-table">
     <table>
@@ -33,7 +37,7 @@
 
         <tbody *ngIf="storage.getUserType() < 2 && products != undefined">
 
-            <tr *ngFor="let product of products" [ngClass]="{ 'advice': product.stock < product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
+            <tr *ngFor="let product of products" [ngClass]="{ 'advice': product.stock <= product.reorder && product.stock > 0, 'danger': product.stock < 1 }">
                 <td class="alignLeft">{{ product.name | lowercase }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.stock }}</td>
@@ -50,11 +54,36 @@
 
 </div>
 
-<a (click)="createObservable()" [routerLink]="['/inventory/create']" *ngIf="storage.getUserType() > 1 && validateLimitProduct()">
-    <button mat-fab id="createBtn" (click)="createPro = !createPro">
-        <mat-icon >add_shopping_cart</mat-icon>
-    </button>
-</a>
+<div class="floatOptions">
+
+    <div class="moreOptions">
+
+        <a target="_blank" href="{{ url.url }}excel/inventory{{ storage.getTokenUrl() }}">
+            <button matTooltip="Descargar Inventario" matTooltipPosition="left" mat-fab id="cancelButton">
+                    <mat-icon >archive</mat-icon>
+                </button>
+        </a>
+
+        <button [routerLink]="['/inventory/search-parameters']" matTooltip="Opciones de Filtrado" matTooltipPosition="left" mat-fab id="searchButton">
+            <mat-icon >tune</mat-icon>
+        </button>
+
+        <button (click)="createObservable()" [routerLink]="['/inventory/create']" *ngIf="storage.getUserType() > 1 && validateLimitProduct()" matTooltip="Nuevo Producto" matTooltipPosition="left" mat-fab id="sellButton">
+            <mat-icon >create</mat-icon>
+        </button>
+
+        <button *ngIf="storage.getUserType() == 1 && validateLimitProduct()" matTooltip="Nuevo Producto" matTooltipPosition="left" mat-fab id="sellButton">
+            <mat-icon >create</mat-icon>
+        </button>
+
+    </div>
+
+    <button matTooltip="Opciones de Inventario" matTooltipPosition="left" mat-fab color="pri" class="floatOptionPrincipal">
+                <mat-icon >settings</mat-icon>
+            </button>
+
+</div>
+
 
 <!-- <app-new-product *ngIf="createPro" (closeEvent)="createPro = false" (createEvent)="newProduct($event)"></app-new-product> -->
 <router-outlet></router-outlet>

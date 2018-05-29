@@ -77,6 +77,18 @@ export class EditProductComponent implements OnInit {
 
               }
 
+  @HostListener('document:keyup', ['$event']) sss($event) {
+    
+    if($event.keyCode === 27) {
+      this.closePop();
+    } else if($event.keyCode == 39 && $event.altKey) {
+      this.swipeLeft();
+    } else if($event.keyCode == 37 && $event.altKey) {
+      this.swipeRight();
+    } 
+
+  }
+
   @HostListener('document.getElementById("card"):touchmove', ['$event']) doSomething($event) {
     
     this.touch.touchMove = $event.changedTouches[0].clientX - this.touch.touchStart;
@@ -352,14 +364,6 @@ export class EditProductComponent implements OnInit {
 
   }
 
-  detectEsc(x) {
-    
-    if(x.keyCode == 27) {
-      this.closePop();
-    }
-    
-  }
-
   
   detectArrow(event){
 
@@ -367,10 +371,8 @@ export class EditProductComponent implements OnInit {
       this.swipeLeft();
     } else if(event.keyCode == 37) {
       this.swipeRight();
-    } else if(event.keyCode == 27) {
-      this.closePop();
     }
-    
+
   }
 
   startTouch(event) {

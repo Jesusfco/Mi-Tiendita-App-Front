@@ -19,7 +19,7 @@ export class SalePointComponent implements OnInit {
   public sale: Sale = new Sale();
   public descripton: SaleDescription = new SaleDescription();
   public search = {
-    name: undefined,
+    name: '',
     quantity: 1,
   };
 

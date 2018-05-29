@@ -82,6 +82,7 @@ export class SalesComponent implements OnInit {
     this._http.getSalesParameter(this.date).then(
       data => {
         this.backSales = data;
+        this.refreshTable();
         localStorage.setItem('salesComponent', JSON.stringify(data));
 
       },
@@ -121,13 +122,13 @@ export class SalesComponent implements OnInit {
 
     if(d.getMonth() <= 7){
       this.date.from = d.getFullYear() + "-0" + (d.getMonth() + 1 ) + "-" + d.getDate();
-      this.date.to = d.getFullYear() + "-0" + (d.getMonth() + 1 ) + "-" + (d.getDate() + 1);
+      this.date.to = d.getFullYear() + "-0" + (d.getMonth() + 1 ) + "-" + d.getDate();
     } else if (d.getMonth() == 8){
       this.date.from = d.getFullYear() + "-0" + (d.getMonth() + 1 ) + "-" + d.getDate();
-      this.date.to = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + (d.getDate() + 1);
+      this.date.to = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate();
     } else {
       this.date.from = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate();
-      this.date.to = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + (d.getDate() + 1);
+      this.date.to = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate();
     }
   }
 

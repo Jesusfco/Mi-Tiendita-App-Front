@@ -9,10 +9,12 @@
                 {{ product.name }}
             </mat-option>
         </mat-autocomplete>
-        <!-- <label *ngIf="search.name == undefined || search.name == ''"><mat-icon>search</mat-icon></label>
-        <label (click)="search.name = undefined" *ngIf="search.name !== undefined && search.name !== ''">
-            <mat-icon>close</mat-icon>
-            </label> -->
+
+
+        <br>
+        <mat-icon *ngIf="search.name == ''">search</mat-icon>
+
+        <mat-icon *ngIf="search.name !== ''" (click)="search.name = ''">close</mat-icon>
 
 
     </div>
@@ -71,7 +73,7 @@
             <mat-icon >cancel</mat-icon>
         </button>
 
-        <button matTooltip="Buscar Product" matTooltipPosition="left" mat-fab id="searchButton">
+        <button [routerLink]="['/sale-point/search']" matTooltip="Buscar Product" matTooltipPosition="left" mat-fab id="searchButton">
             <mat-icon >search</mat-icon>
         </button>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { cardPop, backgroundOpacity} from '../../animations';
 import { Router } from '@angular/router';
 import { Sale } from '../sale';
@@ -28,6 +28,27 @@ export class SaleProcessComponent implements OnInit {
   }];  
 
   public form: number = 1;
+
+  @HostListener('document:keyup', ['$event']) sss($event) {
+    
+    if($event.keyCode == 27) {
+
+      if(this.form == 2) {
+        this.form = 1;
+
+        setTimeout(() => {
+    
+          document.getElementById('clientMoneyInput').focus();
+    
+        }, 20);
+
+      } else {
+        this.closePop();
+      }
+      
+    }
+
+  }
 
   constructor(private router: Router,
             private _http: SaleService) { 
@@ -120,27 +141,6 @@ export class SaleProcessComponent implements OnInit {
 
     this.state[0].background = 'initial';
     this.state[0].card = 'initial';
-    
-  }
-
-  detectEsc(x) {
-    
-    if(x.keyCode == 27) {
-
-      if(this.form == 2) {
-        this.form = 1;
-
-        setTimeout(() => {
-    
-          document.getElementById('clientMoneyInput').focus();
-    
-        }, 20);
-
-      } else {
-        this.closePop();
-      }
-      
-    }
     
   }
 
