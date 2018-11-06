@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Url } from '../url';
 
 @Component({
   selector: 'app-page-not-found',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class PageNotFoundComponent implements OnInit {
 
   constructor() { }
+
+  public url: Url = new Url();
 
   ngOnInit() {
   }

@@ -66,6 +66,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { SaleAnalysisComponent } from './sales/sale-analysis/sale-analysis.component';
 import { SearchProductComponent } from './sale-point/search-product/search-product.component';
 import { SearchParametersComponent } from './inventory/search-parameters/search-parameters.component';
+import { ReceiptTypePipe } from './receipt-type.pipe';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { SearchParametersComponent } from './inventory/search-parameters/search-
     SaleAnalysisComponent,
     SearchProductComponent,
     SearchParametersComponent,
+    ReceiptTypePipe,
   ],
   imports: [
     BrowserModule,
@@ -124,5 +126,5 @@ import { SearchParametersComponent } from './inventory/search-parameters/search-
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  // var app = angular.module("demoapp", ["ngTouch"]);
+  
  }
